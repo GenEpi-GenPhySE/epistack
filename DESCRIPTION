@@ -1,0 +1,34 @@
+Package: heatMapProfile
+Title: heatMap of expression profiles
+Version: 0.1.0
+Authors@R: 
+    c(
+    person("SACI", "Safia", email = "safiasaci1995@gmail.com.fr", role = "cre"),
+    person("DEVAILLY", "Guillaume",
+    email = "guillaume.devailly@inrae.fr", role = "aut"))
+Description: Starting from a GRanges type file, this package is used to:
+    Resize the expression matrix for a better display of heatMaps.
+    Sort the expression profiles.
+    Generate 04 type of plots, in order to visualize the differences between
+    the profiles of expression in all our data samples.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    GenomicRanges,
+    BiocGenerics,
+    S4Vectors,
+    IRanges,
+    viridisLite,
+    graphics,
+    stringr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 4.0)
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression
