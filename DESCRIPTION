@@ -1,9 +1,9 @@
-Package: heatMapProfile
+Package: epistack
 Title: heatMap of expression profiles
 Version: 0.1.0
 Authors@R: 
     c(
-    person("SACI", "Safia", email = "safiasaci1995@gmail.com.fr", role = "cre"),
+    person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "cre"),
     person("DEVAILLY", "Guillaume",
     email = "guillaume.devailly@inrae.fr", role = "aut"))
 Description: Starting from a GRanges type file, this package is used to:

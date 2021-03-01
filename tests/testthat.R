@@ -1,4 +1,4 @@
 library(testthat)
-library(heatMapProfile)
+library(epistack)
 
-test_check("heatMapProfile")
+test_check("epistack")
