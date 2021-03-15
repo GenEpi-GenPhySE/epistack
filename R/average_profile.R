@@ -18,7 +18,7 @@ average_profile <- function(
     avg <- colMeans((dataF[, mycols]), na.rm = TRUE)
     plot(avg, type = "l", xlab = NA, axes = FALSE, ylim = ylim, lwd = 2)
     axis(1, at = seq(1, length(mycols), length.out = 3), labels = labels)
-    axis(2, at = c(0, 2))
+    axis(2, at = ylim)
 }
 
 
