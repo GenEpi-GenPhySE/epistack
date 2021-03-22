@@ -32,6 +32,7 @@ addMetricAndArrangeGRanges <- function(gr,
                                        order_key = "name",
                                        order_value = "exp",
                                        shuffle_tie = TRUE) {
+    names(gr) <- mcols(gr)[[gr_key]]
     common_names <- base::intersect(names(gr), myOrder[[order_key]])
     gr <- gr[common_names, ]
     myMcols <- base::merge(myOrder,
