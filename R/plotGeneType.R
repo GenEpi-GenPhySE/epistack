@@ -1,0 +1,20 @@
+
+#' plot_gene_type
+#'
+#' @param gr a gRanges object containing a "gene_type" column
+#'
+#' @return a plot
+#'
+#' @examples
+#' plot_gene_type(my_tss)
+#'
+plot_gene_type <- function(gr){
+    geneTypePalette = rainbow
+    geneType <- as.numeric(factor(gr$gene_type))
+    image(t(rev(geneType)), col = geneTypePalette(length(unique(gr$gene_type))),
+          axes = FALSE,
+          breaks = seq(0.5, length(unique(gr$gene_type)) + 0.5, by = 1))
+    box()
+    mtext(side = 3, "gene\ntype", line = 0.5,  cex = 0.8, las = 2)
+
+}
