@@ -1,15 +1,16 @@
-
 #' average_profile
 #'
 #' @param gr a gRanges input
 #' @param mycols a character
+#' @param ylim a vector of number corresponding to the limits of the values to be displayed
+#' @param labels a vector of character corresponding to the labels of the x-axis
 #'
 #' @return a plot
 #' @export
 #'
 #' @examples
-#' mycols <- paste0("window_", 1:51)
-#' average_profile(gRanges_test, mycols)
+#' mycols <- paste0("window_", 1:51 )
+#' average_profile(gRanges_test, mycols, ylim = c(0, 2))
 average_profile <- function(
     gr, mycols, ylim,
     labels = c("-2.5kb", "TSS", "+2.5kb")
