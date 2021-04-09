@@ -2,7 +2,7 @@ context("mean_color")
 
 # inputs and outputs --------
 result1 <- "#479810FF"
-result2 <- "#E82E1E00"
+result2 <- "#E72E1D00"
 
 test_that("test the RGB mean color ", {
     expect_equal(

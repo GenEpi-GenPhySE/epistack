@@ -1,26 +1,26 @@
 #' mean_color
 #'
-#' @param mycolors vector of colors
+#' @param colors vector of colors
 #'
 #' @return a color
 #'
 #' @examples
-#' mean_color(c("#000000FF", "#FFFFFFFF", "#FFFF00FF", "#FF0000FF"))
-#'
-#'plot(matrix(1:10), col = mean_color(c("#0FF000FF", "#FFF000FF")))
-#'
-mean_color <- function(mycolors) {
-    R     <- strtoi(x = substr(mycolors,2,3), base = 16)
-    G     <- strtoi(x = substr(mycolors,4,5), base = 16)
-    B     <- strtoi(x = substr(mycolors,6,7), base = 16)
-    alpha <- strtoi(x = substr(mycolors,8,9), base = 16)
+#' mean_color(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))
+#' 
+#' # works with color names
+#' mean_color(c("blue", "red"))
+#' 
+#' Mix color names and HTML codes
+#' mean_color(c("blue", "red", "#FFFF00FF"))
+#' 
+#' # works without alpha channel in inputs (but outputs an alpha channel):
+#' mean_color(c("#000000", "#FFFFFF", "#FFFF00", "#FF0000"))
 
-    return(
-        grDevices::rgb(
-            red   = round(mean(R)),
-            green = round(mean(G)),
-            blue  = round(mean(B)),
-            alpha = round(mean(alpha)),
+mean_color <- function(colors) {
+    do.call(
+        rgb,
+        c(
+            as.list(rowMeans(col2rgb(colors, alpha = TRUE))),
             maxColorValue = 255
         )
     )
