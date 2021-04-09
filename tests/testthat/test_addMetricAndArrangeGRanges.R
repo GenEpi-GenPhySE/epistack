@@ -1,72 +1,125 @@
 context("addMetricAndArrangeGRanges")
 
-
-
+# input and output definitions ---------
+set.seed(2807)
 
 gr <- GenomicRanges::GRanges(
     seqnames = S4Vectors::Rle(c("chr1", "chr2", "chr1", "chr3"), c(10, 10, 15, 15)),
-    ranges = IRanges::IRanges(101:150, end = 111:160, names = head(letters, 50)),
+    ranges = IRanges::IRanges(101:150, end = 111:160, names = paste0("r", 1:50)),
     strand = S4Vectors::Rle(BiocGenerics::strand(c("-", "+", "*", "+", "-")), c(10, 15, 5, 10, 10)),
     gene_id = base::sample(gRanges_test$gene_id, size = 50),
     score = base::sample(1:50),
     GC = base::sample(seq(1, 0, length=50)))
 
-
-
 this_order_key <- data.frame(gene_id = gr$gene_id, exp = rnorm(length(gr$GC)))
 
-result1 <- new("GRanges",
-               seqnames = new("Rle",
-                              values = structure(integer(0),
-                                                 .Label = c("chr1", "chr2", "chr3"),
-                                                 class = "factor"),
-                            lengths = integer(0),
-                            elementMetadata = NULL,
-                            metadata = list()),
-               ranges = new("IRanges",
-                            start = integer(0),
-                            width = integer(0),
-                            NAMES = character(0),
-                            elementType = "ANY",
-                            elementMetadata = NULL,
-                            metadata = list()),
-               strand = new("Rle",
-                            values = structure(integer(0),
-                                               .Label = c("+", "-", "*"),
-                                               class = "factor"),
-                            lengths = integer(0),
-                            elementMetadata = NULL,
-                            metadata = list()),
-               seqinfo = new("Seqinfo",
-                             seqnames = c("chr1", "chr2", "chr3"),
-                             seqlengths = c(NA_integer_, NA_integer_, NA_integer_),
-                             is_circular = c(NA, NA, NA),
-                             genome = c(NA_character_,NA_character_, NA_character_)),
-               elementMetadata = new("DFrame",
-                                     rownames = NULL,
-                                     nrows = 0L,
-                                     listData = list(gene_id = character(0),
-                                                     exp = numeric(0),
-                                                     score = integer(0),
-                                                     GC = numeric(0)),
-                                     elementType = "ANY",
-                                     elementMetadata = NULL,
-                                     metadata = list()),
-               elementType = "ANY",
-               metadata = list())
-
-
-
-
+result1<-new("GRanges",seqnames=new("Rle",values=structure(c(3L,
+1L,3L,2L,1L,3L,1L,3L,2L,3L,2L,1L,2L,3L,1L,3L,1L,
+2L,3L,1L,3L,1L,2L,1L,2L,1L,3L,1L),.Label=c("chr1",
+"chr2","chr3"),class="factor"),lengths=c(1L,1L,3L,1L,
+1L,1L,5L,1L,4L,2L,1L,1L,1L,3L,1L,1L,1L,1L,1L,1L,
+1L,3L,1L,4L,1L,4L,1L,3L),elementMetadata=NULL,metadata=list()),
+ranges=new("IRanges",start=c(146L,129L,148L,147L,
+145L,119L,130L,136L,127L,106L,102L,135L,104L,139L,
+111L,118L,115L,120L,144L,140L,117L,109L,112L,141L,
+142L,137L,108L,143L,110L,113L,150L,101L,138L,134L,
+121L,103L,114L,131L,107L,125L,128L,116L,132L,105L,
+124L,122L,149L,123L,133L,126L),width=c(11L,11L,
+11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,
+11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,
+11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,
+11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L,11L
+),NAMES=c("ENSSSCG00000016488","ENSSSCG00000048247",
+"ENSSSCG00000029925","ENSSSCG00000025602","ENSSSCG00000016707",
+"ENSSSCG00000032532","ENSSSCG00000050345","ENSSSCG00000043069",
+"ENSSSCG00000049485","ENSSSCG00000044254","ENSSSCG00000019958",
+"ENSSSCG00000023540","ENSSSCG00000016426","ENSSSCG00000023445",
+"ENSSSCG00000042664","ENSSSCG00000028113","ENSSSCG00000016513",
+"ENSSSCG00000049582","ENSSSCG00000016564","ENSSSCG00000027196",
+"ENSSSCG00000046464","ENSSSCG00000021525","ENSSSCG00000018108",
+"ENSSSCG00000016553","ENSSSCG00000016559","ENSSSCG00000048439",
+"ENSSSCG00000016605","ENSSSCG00000016657","ENSSSCG00000032793",
+"ENSSSCG00000048016","ENSSSCG00000043810","ENSSSCG00000040608",
+"ENSSSCG00000016545","ENSSSCG00000016502","ENSSSCG00000032112",
+"ENSSSCG00000045348","ENSSSCG00000016489","ENSSSCG00000047041",
+"ENSSSCG00000018277","ENSSSCG00000016457","ENSSSCG00000016494",
+"ENSSSCG00000016580","ENSSSCG00000035419","ENSSSCG00000043919",
+"ENSSSCG00000021354","ENSSSCG00000047942","ENSSSCG00000034662",
+"ENSSSCG00000016533","ENSSSCG00000016459","ENSSSCG00000016549"
+),elementType="ANY",elementMetadata=NULL,metadata=list()),
+strand=new("Rle",values=structure(c(2L,3L,2L,1L,
+3L,1L,3L,2L,1L,2L,1L,2L,1L,2L,1L,2L,1L,2L,1L,
+2L,1L,2L,1L,2L,1L,3L,1L,2L,1L,2L,1L,3L),.Label=c("+",
+"-","*"),class="factor"),lengths=c(1L,1L,3L,1L,
+1L,1L,1L,2L,1L,1L,5L,1L,2L,1L,1L,2L,1L,3L,1L,
+2L,3L,1L,2L,1L,1L,1L,2L,1L,2L,1L,2L,1L),elementMetadata=NULL,
+metadata=list()),seqinfo=new("Seqinfo",seqnames=c("chr1",
+"chr2","chr3"),seqlengths=c(NA_integer_,NA_integer_,
+NA_integer_),is_circular=c(NA,NA,NA),genome=c(NA_character_,
+NA_character_,NA_character_)),elementMetadata=new("DFrame",
+rownames=NULL,nrows=50L,listData=list(gene_id=c("ENSSSCG00000016488",
+"ENSSSCG00000048247","ENSSSCG00000029925","ENSSSCG00000025602",
+"ENSSSCG00000016707","ENSSSCG00000032532","ENSSSCG00000050345",
+"ENSSSCG00000043069","ENSSSCG00000049485","ENSSSCG00000044254",
+"ENSSSCG00000019958","ENSSSCG00000023540","ENSSSCG00000016426",
+"ENSSSCG00000023445","ENSSSCG00000042664","ENSSSCG00000028113",
+"ENSSSCG00000016513","ENSSSCG00000049582","ENSSSCG00000016564",
+"ENSSSCG00000027196","ENSSSCG00000046464","ENSSSCG00000021525",
+"ENSSSCG00000018108","ENSSSCG00000016553","ENSSSCG00000016559",
+"ENSSSCG00000048439","ENSSSCG00000016605","ENSSSCG00000016657",
+"ENSSSCG00000032793","ENSSSCG00000048016","ENSSSCG00000043810",
+"ENSSSCG00000040608","ENSSSCG00000016545","ENSSSCG00000016502",
+"ENSSSCG00000032112","ENSSSCG00000045348","ENSSSCG00000016489",
+"ENSSSCG00000047041","ENSSSCG00000018277","ENSSSCG00000016457",
+"ENSSSCG00000016494","ENSSSCG00000016580","ENSSSCG00000035419",
+"ENSSSCG00000043919","ENSSSCG00000021354","ENSSSCG00000047942",
+"ENSSSCG00000034662","ENSSSCG00000016533","ENSSSCG00000016459",
+"ENSSSCG00000016549"),exp=c(-1.75687945598018,-1.64400632448932,
+-1.46225623386426,-1.44504461620228,-1.05741058069846,
+-0.936347410876076,-0.889100378300106,-0.876339722197933,
+-0.837884251825161,-0.785572911211998,-0.723684465547532,
+-0.670166544273178,-0.62969501734125,-0.256555808292254,
+-0.254418141662234,-0.233555545826962,-0.186991574771705,
+-0.177825741698792,-0.120747001507551,-0.0557302820015271,
+-0.0453402630786151,0.0254700804162779,0.0367908398123509,
+0.0783250259475899,0.11370824808282,0.121241339524806,
+0.272176843726719,0.299547343587238,0.308923547935741,
+0.335085581293164,0.376286488325125,0.381324263019596,
+0.503233883941951,0.539880570343067,0.732767210739191,
+0.790127297225538,0.795636349816916,0.806256667089439,
+0.810438507519481,0.944926617451407,0.965921522504605,
+0.977483494353636,1.11943062897585,1.17012702891678,
+1.35321992534542,1.41655812379381,1.77632072099662,
+1.85352044157104,2.21629676929324,2.71477629738032),
+score=c(36L,33L,2L,31L,32L,1L,21L,34L,40L,
+11L,24L,30L,17L,8L,35L,50L,37L,10L,48L,
+28L,18L,42L,14L,49L,12L,41L,38L,15L,47L,
+39L,19L,6L,45L,4L,23L,20L,13L,29L,5L,3L,
+26L,43L,27L,44L,9L,46L,7L,16L,25L,22L),
+GC=c(0.489795918367347,0.122448979591837,0.346938775510204,
+0.0816326530612246,0.73469387755102,0.326530612244898,
+0.571428571428571,0.163265306122449,0.551020408163265,
+0.836734693877551,0.755102040816326,0.897959183673469,
+0.612244897959184,1,0.918367346938776,0.428571428571429,
+0.591836734693878,0.36734693877551,0.816326530612245,
+0.0204081632653061,0.693877551020408,0.653061224489796,
+0.795918367346939,0.26530612244898,0.448979591836735,
+0.714285714285714,0.306122448979592,0.979591836734694,
+0.142857142857143,0.857142857142857,0.224489795918367,
+0.63265306122449,0.775510204081633,0.510204081632653,
+0.285714285714286,0.244897959183674,0.469387755102041,
+0.0612244897959184,0.938775510204082,0.387755102040816,
+0.0408163265306123,0.204081632653061,0.959183673469388,
+0.877551020408163,0.673469387755102,0.183673469387755,
+0,0.408163265306122,0.102040816326531,0.530612244897959
+)),elementType="ANY",elementMetadata=NULL,
+metadata=list()),elementType="ANY",metadata=list())
 
 ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id, value = rnorm(length(gRanges_test)))
 
 result2 <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-
-
-
-
+# tests -------------
 test_that("test the sort with value value", {
     expect_equal(
         head(addMetricAndArrangeGRanges(gRanges_test,
@@ -76,12 +129,9 @@ test_that("test the sort with value value", {
         result2
     )
 })
-#> Test passed
-
-
 
 test_that("test the sort with GC", {
-    expect_equal(
+    expect_equivalent(
         addMetricAndArrangeGRanges(gr, this_order_key, gr_key = "gene_id",
                                    order_key = "gene_id", order_value = "exp" ),
         result1
