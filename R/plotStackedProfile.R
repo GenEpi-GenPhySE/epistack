@@ -32,7 +32,7 @@ plotStackedProfile <- function(
     what_pattern = "^window_",
     x_labels = c("-2.5kb", "TSS", "+2.5kb"),
     title = "",
-    min_value = NULL, max_value = NULL,
+    zlim = NULL,
     palette = function(n) viridisLite::viridis(n, direction = -1),
     target_height = 650,
     summary_func = function(x) mean(x, na.rm = TRUE),
@@ -43,18 +43,17 @@ plotStackedProfile <- function(
     mat <- as.matrix(mat[, whichCols])
 
     mat[is.na(mat)] <- 0
-    if (!is.null(min_value)) {
-        mat[mat < min_value] <- min_value
+    if (!is.null(zlim)) {
+        mat[mat < zlim[1]] <- zlim[1]
     }
-    if (!is.null(max_value)) {
-        mat[mat > max_value] <- max_value
-
+    if (!is.null(zlim)) {
+        mat[mat > zlim[2]] <- zlim[2]
     }
 
-    min_break <- if (is.null(min_value)) min(mat) else min_value
-    max_break <- if (is.null(max_value)) max(mat) else max_value
+    min_break <- if (is.null(zlim[1])) min(mat) else zlim[1]
+    max_break <- if (is.null(zlim[2])) max(mat) else zlim[2]
 
-    breaks <- seq(min_break, max_break, length.out = 100)
+    breaks <- seq(zlim[1], zlim[2], length.out = 100)
 
     smallMat <- redim_matrix(mat,
                              target_height = target_height,
