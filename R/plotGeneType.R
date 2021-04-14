@@ -1,4 +1,3 @@
-
 #' plot_gene_type
 #'
 #' @param gr a gRanges object containing a "gene_type" column
@@ -10,7 +9,7 @@
 #' @examples
 #' plot_gene_type(my_tss)
 #'
-plot_gene_type <- function(gr){
+plotGeneType <- function(gr){
     geneTypePalette = RColorBrewer::brewer.pal
     geneType <- as.numeric(factor(gr$gene_type))
     image(t(rev(geneType)), col = geneTypePalette(length(unique(gr$gene_type)), name = "RdBu"),

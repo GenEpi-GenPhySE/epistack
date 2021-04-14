@@ -20,7 +20,7 @@
 addBins <- function(gr, nbins = 5, bin = NULL){
 
     if(is.null(bin)) {
-        gr$bin = seq(1, nbins, length.out = length(gr))
+        gr$bin = as.numeric(cut(seq_along(gr), nbins))
     } else {
         gr$bin = bin
     }

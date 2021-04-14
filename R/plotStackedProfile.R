@@ -1,5 +1,3 @@
-
-
 #' plotStackedProfile
 #'
 #' @param gr a GRanges input
@@ -23,13 +21,12 @@
 #' @importFrom graphics axis
 #' @importFrom graphics mtext
 #'
-#'
-#'
 #' @examples
 #' plotStackedProfile(gRanges_test,
 #'    max_value = 1,
 #'    target_height = length(gRanges_test),
 #'    title = "DNA methylation")
+#'
 plotStackedProfile <- function(
     gr,
     what_pattern = "^window_",
@@ -71,6 +68,7 @@ plotStackedProfile <- function(
         col = palette(length(breaks) - 1),
         axes = FALSE
     )
+    box()
     graphics::axis(1, at = c(0, 0.5, 1), labels = x_labels)
     graphics::mtext(side = 3, title, line = 0.5,  cex = 0.8)
 }
