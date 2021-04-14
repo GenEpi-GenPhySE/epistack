@@ -48,11 +48,13 @@ plotEpistack <- function(
     plot.new()
     plot.new()
 
-    par(mar = high_mar)
-    plotBinning(gr, target_height = npix_height, palette = bin_palette)
-    par(mar = low_mar)
-    plot.new()
-    plot.new()
+    if (bin_present) {
+        par(mar = high_mar)
+        plotBinning(gr, target_height = npix_height, palette = bin_palette)
+        par(mar = low_mar)
+        plot.new()
+        plot.new()
+    }
 
     for (i in seq_along(patterns)) {
         par(mar = high_mar)
@@ -69,5 +71,5 @@ plotEpistack <- function(
     }
 
     par(oldpar)
-    return()
+    return(invisible())
 }
