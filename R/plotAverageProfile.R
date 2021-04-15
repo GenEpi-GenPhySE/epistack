@@ -77,7 +77,7 @@ plotAverageProfile <- function(
     }
 
     for(i in iter) {
-        dispersion(xind, myMeans[[i]], mySes[[i]], type = "l", fill = adjustcolor(myColorPalette[i], alphaForSe))
+        plotrix::dispersion(xind, myMeans[[i]], mySes[[i]], type = "l", fill = adjustcolor(myColorPalette[i], alphaForSe))
         lines(xind, myMeans[[i]], type = "l", col = myColorPalette[i], lwd = 2)
     }
 }
