@@ -1,8 +1,9 @@
 
-#' plotExpressionProfile
+#' plotMetric
 #'
 #' @param x a GRanges input
-#' @param trans_func a function which applicate log10 transformation
+#' @param trans_func a function to transform value of x.
+#' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
 #' @param title a character corresponding to the title of the plot
 #'
 #' @return a plot
@@ -10,8 +11,8 @@
 #'
 #' @examples
 #' plotExpressionProfile(gRanges_test$exp, title = "Expression")
-plotExpressionProfile <- function(
-    x, trans_func = function(x) log10(x+1), title = ""
+plotMetric <- function(
+    x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL
 ){
     plot(
         x = trans_func(x),
@@ -22,7 +23,8 @@ plotExpressionProfile <- function(
         xaxs="i", yaxs="i"
     )
     graphics::box()
-    axis(3)
+    axis(1)
     axis(2, at = c(1, length(x)))
-    mtext(side = 3, title , line = 2, cex = 0.8)
+    title(xlab = xlab)
+    mtext(side = 3, title , line = 0.5, cex = 0.8)
 }

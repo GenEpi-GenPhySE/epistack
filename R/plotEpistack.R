@@ -19,15 +19,16 @@ plotEpistack <- function(
     patterns = "^window_", tints = "gray", titles = "window",
     x_labels = c("-2.5kb", "TSS", "+2.5kb"),
     zlim = c(0, 1), ylim = NULL,
-    metric_col = "expr", metric_title = "Metric",
+    metric_col = "expr", metric_title = "Metric", metric_label = "metric",
+    metric_transfunc = function(x) x,
     bin_palette = colorRampPalette(c("magenta", "black", "green")),
     npix_height = 650, n_core = 1,
-    high_mar = c(1.5, 1, 4, 1.5), low_mar = c(1.5, 1, 1, 1.5)
+    high_mar = c(2.5, 1, 4, 1.5), low_mar = c(2.5, 1, 1, 1.5)
 ) {
 
     oldpar <- par(
-        mgp = c(2, 0.6, 0),
-        mar = high_mar + c(0, 1, 0, 0)
+        mgp = c(1.5, 0.5, 0),
+        mar = high_mar + c(0, 4, 0, 0)
     )
 
     n_pattern <- length(patterns)
@@ -36,17 +37,29 @@ plotEpistack <- function(
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3), nrow  = 3)
     layout_heights <- c(1, 0.12, 0.25)
     layout_widths <- if (bin_present) {
-        c(0.3, 0.12, rep(0.35, n_pattern))
+        c(0.3, 0.08, rep(0.35, n_pattern))
     } else {
         c(0.3, rep(0.35, n_pattern))
     }
 
     layout(layout_mat, heights = layout_heights, widths = layout_widths)
 
-    plotExpressionProfile(mcols(gr)[[metric_col]], title = metric_title)
+    plotMetric(
+        mcols(gr)[[metric_col]],
+        title = metric_title,
+        trans_func = metric_transfunc,
+        xlab = metric_label
+    )
     par(mar = low_mar)
     plot.new()
-    plot.new()
+    par(mar = low_mar + c(0, 4, 0, 0))
+    plotBoxMetric(
+        gr, trans_func = metric_transfunc,
+        palette = bin_palette,
+        metric = metric_col,
+        title = metric_title,
+        ylab = metric_label
+    )
 
     if (bin_present) {
         par(mar = high_mar)
