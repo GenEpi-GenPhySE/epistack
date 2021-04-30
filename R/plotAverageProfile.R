@@ -46,7 +46,7 @@ plotAverageProfile <- function(
     }
     myMeans <- lapply(myMats, function(x) colMeans(x, na.rm = TRUE))
     mySds <- lapply(myMats, function(x) apply(x, 2, function(y) sd(y, na.rm = TRUE)))
-    mySes <- lapply(seq_along(myMeans), function(i) ifelse(myMeans[[i]] == 0, 0, mySds[[i]]/sqrt(length(myMeans[[i]]))))
+    mySes <- lapply(seq_along(myMeans), function(i) ifelse(myMeans[[i]] == 0, 0, mySds[[i]]/sqrt(nrow(myMats[[i]]))))
 
     ymax <- max(
         sapply(
