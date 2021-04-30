@@ -69,18 +69,25 @@ plotEpistack <- function(
         plot.new()
     }
 
+    if(!is.list(zlim)) {
+        zlim <- lapply(seq_along(patterns), function(x) zlim)
+    }
+    if(!is.list(ylim)) {
+        ylim <- lapply(seq_along(patterns), function(x) ylim)
+    }
+
     for (i in seq_along(patterns)) {
         par(mar = high_mar)
         plotStackedProfile(
             gr, what_pattern = patterns[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
-            zlim = zlim, target_height = npix_height, n_core = n_core,
+            zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
         )
         par(mar = low_mar)
-        plotStackProfileLegend(zlim = zlim, palette = colorRampPalette(c("white", tints[i], "black")))
+        plotStackProfileLegend(zlim = zlim[[i]], palette = colorRampPalette(c("white", tints[i], "black")))
         par(mar = low_mar)
-        plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim, colorPalette = bin_palette)
+        plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim[[i]], colorPalette = bin_palette)
     }
 
     par(oldpar)
