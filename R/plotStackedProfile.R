@@ -68,7 +68,10 @@ plotStackedProfile <- function(
         axes = FALSE
     )
     box()
-    graphics::axis(1, at = c(0, 0.5, 1), labels = x_labels)
+    graphics::axis(1, at = 0, labels = x_labels[1], hadj = 0)
+    graphics::axis(1, at = 0.5, labels = x_labels[2], hadj = 0.5)
+    graphics::axis(1, at = 1, labels = x_labels[3], hadj = 1)
+    
     graphics::mtext(side = 3, title, line = 0.5,  cex = 0.8)
 }
 
