@@ -29,7 +29,9 @@ Depends:
     R (>= 4.0)
 Suggests: 
     testthat (>= 3.0.0),
-    knitr
+    BiocStyle
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression
