@@ -25,4 +25,8 @@ You can install the current version of epistack from `R` using :
 remotes::install_github("GenEpi-GenPhySE/epistack")
 ```
 
+## Documentation
+
+A (draft) version of `epistack` vignette can be read [here](https://htmlpreview.github.io/?https://github.com/GenEpi-GenPhySE/epistack/blob/master/inst/doc/using_epistack.html).
+
 
