@@ -87,7 +87,7 @@ plotEpistack <- function(
         par(mar = low_mar)
         plotStackProfileLegend(zlim = zlim[[i]], palette = colorRampPalette(c("white", tints[i], "black")))
         par(mar = low_mar)
-        plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim[[i]], colorPalette = bin_palette)
+        plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim[[i]], colorPalette = bin_palette, xlabels = x_labels)
     }
 
     par(oldpar)
