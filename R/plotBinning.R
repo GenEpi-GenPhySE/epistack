@@ -17,7 +17,6 @@ plotBinning <- function(
     target_height = 650,
     palette = colorRampPalette(c("magenta", "black", "green"))
 ) {
-
     bins <- as.numeric(factor(gr$bin))
     if (length(bins) > target_height) {
         bins_red <- redim_matrix(matrix(bins), target_height = target_height, target_width = 1)

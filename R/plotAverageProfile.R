@@ -34,13 +34,12 @@ plotAverageProfile <- function(
     reversedZOrder = FALSE,
     ylim = NULL
 ) {
-
     mat <- S4Vectors::mcols(gr)
     whichCols <- grepl(what_pattern, colnames(mat))
     mat <- as.matrix(mat[, whichCols])
 
     if(!is.null(gr$bin)) {
-        myMats <- lapply(unique(gr$bin), function(x) mat[gr$bin == x, ])
+        myMats <- lapply(levels(factor(gr$bin)), function(x) mat[gr$bin == x, ])
     } else {
         myMats <- list(mat)
     }
@@ -70,9 +69,9 @@ plotAverageProfile <- function(
     plot(NA, xlim = range(xind), ylim = ylim, axes = FALSE, xlab = NA, ylab = NA)
     axis(1, at = xind[1], labels = xlabels[1], hadj = 0)
     axis(1, at =  xind[(length(xind)+1)/2], labels = xlabels[2], hadj = 0.5)
-    axis(1, at = xind[length(xind)], labels = xlabels[3], hadj = 1)           
+    axis(1, at = xind[length(xind)], labels = xlabels[3], hadj = 1)
     axis(1, at = c(xind[1], xind[(length(xind)+1)/2], xind[length(xind)]), labels = NA)
- 
+
     axis(2, at = ylim)
 
     iter <- rev(seq_along(myMats))
