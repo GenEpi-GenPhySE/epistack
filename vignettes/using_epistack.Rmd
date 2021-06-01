@@ -4,7 +4,7 @@ author: "Guillaume Devailly"
 package: epistack
 output: BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{using_epistack}
+  %\VignetteIndexEntry{Using epistack}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -185,7 +185,7 @@ If a `bin` column is present in the epistack GRanges object, than it will
 be used to annotate the figure and to generate one average profile per bin
 in the lower panels. Here we use the `peak_type` as our bin column.
 
-```{r}
+```{r peak_plot_bin, fig.wide = TRUE}
 
 merged_peaks$bin <- merged_peaks$peak_type
 

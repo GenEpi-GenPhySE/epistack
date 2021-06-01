@@ -9,8 +9,7 @@ plotStackedProfile(
   what_pattern = "^window_",
   x_labels = c("-2.5kb", "TSS", "+2.5kb"),
   title = "",
-  min_value = NULL,
-  max_value = NULL,
+  zlim = NULL,
   palette = function(n) viridisLite::viridis(n, direction = -1),
   target_height = 650,
   summary_func = function(x) mean(x, na.rm = TRUE),
@@ -26,10 +25,6 @@ plotStackedProfile(
 
 \item{title}{a character corresponding to the title of the heatmap}
 
-\item{min_value}{a number}
-
-\item{max_value}{a number}
-
 \item{palette}{function to determine the palette of heatmap color}
 
 \item{target_height}{a number}
@@ -38,6 +33,10 @@ plotStackedProfile(
 the mean function to the gRanges input}
 
 \item{n_core}{a number : parallel processing}
+
+\item{min_value}{a number}
+
+\item{max_value}{a number}
 }
 \value{
 an heatmap
@@ -50,4 +49,5 @@ plotStackedProfile(gRanges_test,
    max_value = 1,
    target_height = length(gRanges_test),
    title = "DNA methylation")
+
 }

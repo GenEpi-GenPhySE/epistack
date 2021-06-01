@@ -8,7 +8,7 @@
 #' @importFrom grDevices colorRampPalette
 #' @importFrom graphics box
 #'
-#' @examples
+#' @export
 plotStackProfileLegend <- function(
     zlim,
     palette = colorRampPalette(c("white", "grey", "black"))
