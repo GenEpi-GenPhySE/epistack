@@ -156,7 +156,12 @@ xlabs <- c("-5kb", "peak center", "+5kb")
 We then add each matrix to the `merged_peaks` object, and it should be ready for plotting.
 
 ```{r ready_to_plot}
-mcols(merged_peaks) <- cbind(mcols(merged_peaks), coverage_matrices[[1]], coverage_matrices[[2]], coverage_matrices[[3]])
+mcols(merged_peaks) <- cbind(
+    mcols(merged_peaks), 
+    coverage_matrices[[1]], 
+    coverage_matrices[[2]],
+    coverage_matrices[[3]]
+)
 ```
 
 ## Plotting
@@ -172,12 +177,13 @@ library(epistack)
 plotEpistack(
     merged_peaks,
     patterns = c("^Rep1_", "^Rep2_", "^Input_"),
-    tints = c("blue", "red", "grey"), 
+    tints = c("dodgerblue", "firebrick1", "grey"), 
     titles = c("Rep1", "Rep2" , "Input"),
     x_labels = xlabs,
-    zlim = c(0, 2), ylim = c(0, 3), 
+    zlim = c(0, 4), ylim = c(0, 4), 
     metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
-    metric_transfunc = function(x) log10(x)
+    metric_transfunc = function(x) log10(x),
+    npix_height = 300
 )
 ```
 
@@ -192,13 +198,13 @@ merged_peaks$bin <- merged_peaks$peak_type
 plotEpistack(
     merged_peaks,
     patterns = c("^Rep1_", "^Rep2_", "^Input_"),
-    tints = c("blue", "red", "grey"), 
+    tints = c("dodgerblue", "firebrick1", "grey"), 
     titles = c("Rep1", "Rep2" , "Input"),
     x_labels = xlabs,
-    zlim = c(0, 2), ylim = c(0, 3), 
+    zlim = c(0, 4), ylim = c(0, 4), 
     metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
     metric_transfunc = function(x) log10(x),
-    bin_palette = colorRampPalette(c("black", "blue", "red"))
+    bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1"))
 )
 
 ```

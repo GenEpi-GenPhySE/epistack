@@ -5,10 +5,13 @@
 #' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
 #' @param colorPalette a function of parameter `n` that returns a palette of `n` colors.
 #' @return a boxplot
+#'
+#' @importFrom stats setNames
 #' @export
 #'
 #' @examples
 #' boxplot_profileExp(gRanges_test$exp)
+#'
 plotBoxMetric <- function(
     gr,
     metric = "expr", title = "Metric",
@@ -18,10 +21,14 @@ plotBoxMetric <- function(
 ){
     if (!is.null(gr$bin)) {
         boxplot(
-            lapply(unique(gr$bin), function(i) trans_func(mcols(gr)[gr$bin == i, metric])),
+            lapply(
+                stats::setNames(levels(factor(gr$bin)), levels(factor(gr$bin))),
+                function(i) trans_func(mcols(gr)[gr$bin == i, metric])
+            ),
             ylab = ylab, pch = 19, ylim = ylim,
             col = palette(length(unique(gr$bin))), axes = FALSE
         )
+        axis(1, at = seq_along(levels(factor(gr$bin))), labels = levels(factor(gr$bin)))
     } else {
         boxplot(
             trans_func(mcols(gr)[[metric]]),
@@ -29,7 +36,6 @@ plotBoxMetric <- function(
             col = palette(1), axes = FALSE
         )
     }
-    axis(1)
     axis(2, at = ylim)
     mtext(side = 3, title, line = 0.5,  cex = 0.8)
 }
