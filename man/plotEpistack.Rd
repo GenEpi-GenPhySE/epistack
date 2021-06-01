@@ -19,8 +19,8 @@ plotEpistack(
   bin_palette = colorRampPalette(c("magenta", "black", "green")),
   npix_height = 650,
   n_core = 1,
-  high_mar = c(2.5, 1, 4, 1.5),
-  low_mar = c(2.5, 1, 1, 1.5)
+  high_mar = c(2.5, 0.6, 4, 0.6),
+  low_mar = c(2.5, 0.6, 0.3, 0.6)
 )
 }
 \arguments{

@@ -30,4 +30,5 @@ plotBoxMetric
 }
 \examples{
 boxplot_profileExp(gRanges_test$exp)
+
 }
