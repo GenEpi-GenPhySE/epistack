@@ -9,6 +9,8 @@
 #'
 #' @importFrom grDevices rainbow
 #'
+#' @export
+#'
 #' @examples
 #' # TODO
 #'

@@ -7,8 +7,6 @@
 #'
 #' @return a gRanges with a new "bin" column
 #'
-#' @import rtracklayer
-#'
 #' @examples
 #' data <- transform(data, log2fc_line = as.numeric(log2fc_line))
 #' mat <- data[data$adjpval_line <= 0.01, c("gene", "log2fc_line", "gene_type")]

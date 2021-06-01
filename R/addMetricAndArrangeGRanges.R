@@ -14,8 +14,7 @@
 #' @return a GRanges sorted in ascending order
 #' @export
 #'
-#' @import GenomicRanges
-#' @import BiocGenerics
+#' @importFrom S4Vectors mcols
 #' @importFrom IRanges IRanges
 #'
 #' @examples
