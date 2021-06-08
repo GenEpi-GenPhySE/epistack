@@ -209,3 +209,55 @@ plotEpistack(
 
 ```
 
+# Example 2: ChIP-seq coverage at gene promoters sorted according to
+expression levels
+
+# Obtaining the TSS coordinates
+
+We now want to plot the ChIP-seq signals at gene promoters, or more
+precisely around gene Transcription Start Sites (TSS).
+TSS coordinate can be obtained from various sources. Here we will access
+the [Ensembl](https://www.ensembl.org/index.html) annotations using 
+`r Biocpkg("biomaRt")`,
+, but one could
+also download a `.gtf` file and parse it using `r Biocpkg("rtracklayer")`'s
+`import()`, or use `r Biocpkg("AnnotationHub")` and 
+`r Biocpkg("ensembldb")`. It is however important to work with the same genome
+version has the one used to align the ChIP-seq reads (here the mm9/NCBIm37
+genome).
+
+```{r accessing_ensembl}
+library(biomaRt)
+
+mart <- useMart(
+    biomart = "ENSEMBL_MART_ENSEMBL", 
+    dataset = "mmusculus_gene_ensembl", 
+    host = "may2012.archive.ensembl.org"
+)
+ds <- useDataset('mmusculus_gene_ensembl', mart = mart)
+chr6_genes <- getBM(
+    attributes = c(
+        'ensembl_gene_id','external_gene_id',
+        'chromosome_name','start_position',
+        'end_position','strand'), 
+    filters = 'chromosome_name', values = 6, # only chr6 in this example
+    mart = ds
+)
+
+chr6_genes <- with(chr6_genes, GRanges(
+    seqnames = paste0("chr", chromosome_name),
+    IRanges(start_position, end_position),
+    strand = strand,
+    gene_id = ensembl_gene_id,
+    gene_symbol = external_gene_id
+))
+
+chr6_genes
+```
+
+
+
+
+As for the previous example, we can now use this 
+
+## expression data --------------
