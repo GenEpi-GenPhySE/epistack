@@ -19,13 +19,19 @@ plotMetric(
 Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) log10(x+1)}).}
 
 \item{title}{a character corresponding to the title of the plot}
+
+\item{ylim}{limit of the y axis; format: ylim = c (min, max)}
+
+\item{xlab}{x axix title}
 }
 \value{
-a plot
+a png
 }
 \description{
 plotMetric
 }
 \examples{
-plotExpressionProfile(gRanges_test$exp, title = "Expression")
+plotMetric(gRanges_test$exp)
+
+
 }

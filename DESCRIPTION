@@ -31,7 +31,10 @@ Suggests:
     testthat (>= 3.0.0),
     BiocStyle,
     knitr,
-    rmarkdown
+    rmarkdown,
+    EnrichedHeatmap,
+    biomaRt,
+    rtracklayer
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression

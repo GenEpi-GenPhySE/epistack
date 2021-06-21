@@ -5,12 +5,16 @@
 #' @param trans_func a function to transform value of x.
 #' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
 #' @param title a character corresponding to the title of the plot
+#' @param ylim limit of the y axis; format: ylim = c (min, max)
+#' @param xlab x axix title
 #'
-#' @return a plot
+#' @return a png
 #' @export
 #'
 #' @examples
-#' plotExpressionProfile(gRanges_test$exp, title = "Expression")
+#' plotMetric(gRanges_test$exp)
+#'
+#'
 plotMetric <- function(
     x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL
 ){
@@ -28,3 +32,7 @@ plotMetric <- function(
     title(xlab = xlab)
     mtext(side = 3, title , line = 0.5, cex = 0.8)
 }
+
+
+#' @examples
+#' plotExpressionProfile(gRanges_test$exp, title = "Expression")

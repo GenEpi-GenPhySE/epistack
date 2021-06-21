@@ -32,4 +32,7 @@ plotAverageProfile
 \examples{
 mycols <- paste0("window_", 1:51 )
 plotAverageProfile(gRanges_test, mycols, ylim = c(0, 2))
+
+
+
 }

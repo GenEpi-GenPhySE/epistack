@@ -1,19 +1,30 @@
+
 #' plotEpistack
 #'
-#' @param gr a gRanges input
-#' @param patterns a character vector of patterns. Used to subset the `gr` for each individual plots when
-#' multiple tracks are presents (i.e. a ChIP-seq and its Input control).
-#' @param tints a colour vector of length `patterns`, to tint each epistack.
+#' @param gr a granges input
+#' @param patterns
+#' @param tints color
+#' @param titles
+#' @param x_labels x axis labels
+#' @param zlim the minimum and maximum z values for which colors should be plotted
+#' @param ylim limit of the y axis; format: ylim = c (min, max)
+#' @param metric_col a character corresponding to epigenetic profile score
+#' @param metric_title name of the score column
+#' @param metric_label label of the score column
+#' @param metric_transfunc a function to transform value of x
+#' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
+#' @param bin_palette a palette of color
+#' @param npix_height
+#' @param n_core a number : parallel processing
+#' @param high_mar a vector of numerical values corresponding to the margins of the top figures
+#' @param low_mar a vector of numerical values corresponding to the margins of the bottom figures
 #'
 #' @return a png
-#'
 #' @export
 #'
 #' @examples
-#' bw <- "G11+_fed_R6.bigWig"
-#' mysample <- list_file$id_bed[which(list_file$id_bw == bw)]
-#' global_plot(gRanges_test)
-
+#' plotEpistack(gRanges_test, metric_col = "exp", metric_transfunc = function(x) log10(x+1))
+#'
 plotEpistack <- function(
     gr,
     patterns = "^window_", tints = "gray", titles = "window",
@@ -93,3 +104,7 @@ plotEpistack <- function(
     par(oldpar)
     return(invisible())
 }
+
+
+
+

@@ -25,6 +25,19 @@ a plot
 plotBinning
 }
 \examples{
-# TODO
+gr <- gRanges_test
+gr <- addBins(gr, nbins = 3)
+plot_bin <- plotBinning(gr)
+
+
+gr2 <- data.frame(c(-20:20))
+colnames(gr2) <- "val"
+gr2$bin[gr2$val < -10] <- 1
+gr2$bin[gr2$val >= -10 & gr2$val <= 0 ] <- 2
+gr2$bin[gr2$val > 0 & gr2$val <= 10 ] <- 3
+gr2$bin[gr2$val > 10] <- 4
+plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))
+
+
 
 }

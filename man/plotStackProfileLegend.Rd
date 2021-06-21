@@ -20,3 +20,8 @@ a graphical horizontal legend
 \description{
 plotStackProfileLegend
 }
+\examples{
+plotStackProfileLegend(zlim = c(0, 3), palette = colorRampPalette(c("white", "grey", "black")))
+
+
+}

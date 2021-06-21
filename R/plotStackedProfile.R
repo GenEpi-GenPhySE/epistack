@@ -4,15 +4,14 @@
 #' @param what_pattern a character
 #' @param x_labels a character vectors with column labels to use
 #' @param title a character corresponding to the title of the heatmap
-#' @param min_value a number
-#' @param max_value a number
+#' @param zlim = the minimum and maximum z values for which colors should be plotted
 #' @param palette function to determine the palette of heatmap color
 #' @param target_height a number
 #' @param summary_func function whitch applicate
 #'    the mean function to the gRanges input
 #' @param n_core a number : parallel processing
 #'
-#' @return an heatmap
+#' @return a png
 #' @export
 #'
 #' @importFrom S4Vectors mcols
@@ -23,9 +22,12 @@
 #'
 #' @examples
 #' plotStackedProfile(gRanges_test,
-#'    max_value = 1,
-#'    target_height = length(gRanges_test),
-#'    title = "DNA methylation")
+#'                    target_height = 650,
+#'                    zlim = c(0, 1),
+#'                    palette = colorRampPalette(c("magenta", "black", "green")),
+#'                    title = "DNA methylation")
+#'
+#'
 #'
 plotStackedProfile <- function(
     gr,
@@ -71,7 +73,9 @@ plotStackedProfile <- function(
     graphics::axis(1, at = 0, labels = x_labels[1], hadj = 0)
     graphics::axis(1, at = 0.5, labels = x_labels[2], hadj = 0.5)
     graphics::axis(1, at = 1, labels = x_labels[3], hadj = 1)
-    
+
     graphics::mtext(side = 3, title, line = 0.5,  cex = 0.8)
 }
+
+
 

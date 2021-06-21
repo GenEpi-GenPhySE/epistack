@@ -24,12 +24,32 @@ plotEpistack(
 )
 }
 \arguments{
-\item{gr}{a gRanges input}
+\item{gr}{a granges input}
 
-\item{patterns}{a character vector of patterns. Used to subset the \code{gr} for each individual plots when
-multiple tracks are presents (i.e. a ChIP-seq and its Input control).}
+\item{tints}{color}
 
-\item{tints}{a colour vector of length \code{patterns}, to tint each epistack.}
+\item{x_labels}{x axis labels}
+
+\item{zlim}{the minimum and maximum z values for which colors should be plotted}
+
+\item{ylim}{limit of the y axis; format: ylim = c (min, max)}
+
+\item{metric_col}{a character corresponding to epigenetic profile score}
+
+\item{metric_title}{name of the score column}
+
+\item{metric_label}{label of the score column}
+
+\item{metric_transfunc}{a function to transform value of x
+Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) log10(x+1)}).}
+
+\item{bin_palette}{a palette of color}
+
+\item{n_core}{a number : parallel processing}
+
+\item{high_mar}{a vector of numerical values corresponding to the margins of the top figures}
+
+\item{low_mar}{a vector of numerical values corresponding to the margins of the bottom figures}
 }
 \value{
 a png
@@ -38,7 +58,6 @@ a png
 plotEpistack
 }
 \examples{
-bw <- "G11+_fed_R6.bigWig"
-mysample <- list_file$id_bed[which(list_file$id_bw == bw)]
-global_plot(gRanges_test)
+plotEpistack(gRanges_test, metric_col = "exp", metric_transfunc = function(x) log10(x+1))
+
 }

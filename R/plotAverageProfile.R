@@ -13,25 +13,16 @@
 #' @examples
 #' mycols <- paste0("window_", 1:51 )
 #' plotAverageProfile(gRanges_test, mycols, ylim = c(0, 2))
-
-# plotAverageProfile <- function(
-#     gr, mycols, ylim,
-#     labels = c("-2.5kb", "TSS", "+2.5kb")
-# ){
-#     dataF <- as.data.frame(gr)
-#     avg <- colMeans((dataF[, mycols]), na.rm = TRUE)
-#     plot(avg, type = "l", xlab = NA, axes = FALSE, ylim = ylim, lwd = 2)
-#     axis(1, at = seq(1, length(mycols), length.out = 3), labels = labels)
-#     axis(2, at = ylim)
-# }
-
+#'
+#'
+#'
 plotAverageProfile <- function(
     gr,
     what_pattern = "^window_",
     xlabels = c("-2.5kb", "TSS", "+2.5kb"),
     colorPalette = colorRampPalette(c("magenta", "black", "green")),
-    alphaForSe = 0.25,
-    reversedZOrder = FALSE,
+    alphaForSe = 0.25, # transparency value for standard error of the mean bend
+    reversedZOrder = FALSE, # should the z-order of the curves be reversed
     ylim = NULL
 ) {
     mat <- S4Vectors::mcols(gr)
@@ -84,3 +75,4 @@ plotAverageProfile <- function(
         lines(xind, myMeans[[i]], type = "l", col = myColorPalette[i], lwd = 2)
     }
 }
+

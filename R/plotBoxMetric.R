@@ -1,16 +1,28 @@
+
 #' plotBoxMetric
 #'
 #' @param gr a GRanges input
-#' @param trans_func a function to transform value of x.
+#' @param metric name of the column containing epigenetic profile score
+#' @param title a character corresponding to metric title
+#' @param trans_func a function to transform value of x
 #' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
-#' @param colorPalette a function of parameter `n` that returns a palette of `n` colors.
-#' @return a boxplot
+#' @param ylim limit of the y axis; format: ylim = c (min, max)
+#' @param ylab y axis title
+#' @param palette a function of parameter `n` that returns a palette of `n` colors.
 #'
 #' @importFrom stats setNames
+#'
+#' @return a boxplot
 #' @export
 #'
 #' @examples
-#' boxplot_profileExp(gRanges_test$exp)
+#' plotBoxMetric(
+#'        gRanges_test,
+#'        trans_func = function(x) x,
+#'        metric = "exp",
+#'        title = "Metric"
+#'   )
+#'
 #'
 plotBoxMetric <- function(
     gr,
@@ -39,3 +51,7 @@ plotBoxMetric <- function(
     axis(2, at = ylim)
     mtext(side = 3, title, line = 0.5,  cex = 0.8)
 }
+
+
+
+

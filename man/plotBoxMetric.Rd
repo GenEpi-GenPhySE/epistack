@@ -17,10 +17,18 @@ plotBoxMetric(
 \arguments{
 \item{gr}{a GRanges input}
 
-\item{trans_func}{a function to transform value of x.
+\item{metric}{name of the column containing epigenetic profile score}
+
+\item{title}{a character corresponding to metric title}
+
+\item{trans_func}{a function to transform value of x
 Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) log10(x+1)}).}
 
-\item{colorPalette}{a function of parameter \code{n} that returns a palette of \code{n} colors.}
+\item{ylim}{limit of the y axis; format: ylim = c (min, max)}
+
+\item{ylab}{y axis title}
+
+\item{palette}{a function of parameter \code{n} that returns a palette of \code{n} colors.}
 }
 \value{
 a boxplot
@@ -29,6 +37,12 @@ a boxplot
 plotBoxMetric
 }
 \examples{
-boxplot_profileExp(gRanges_test$exp)
+plotBoxMetric(
+       gRanges_test,
+       trans_func = function(x) x,
+       metric = "exp",
+       title = "Metric"
+  )
+
 
 }

@@ -20,9 +20,9 @@
 
 mean_color <- function(colors) {
     do.call(
-        rgb,
+        grDevices::rgb,
         c(
-            as.list(rowMeans(col2rgb(colors, alpha = TRUE))),
+            as.list(rowMeans(grDevices::col2rgb(colors, alpha = TRUE))),
             maxColorValue = 255
         )
     )

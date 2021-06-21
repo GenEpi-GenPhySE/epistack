@@ -25,6 +25,8 @@ plotStackedProfile(
 
 \item{title}{a character corresponding to the title of the heatmap}
 
+\item{zlim}{= the minimum and maximum z values for which colors should be plotted}
+
 \item{palette}{function to determine the palette of heatmap color}
 
 \item{target_height}{a number}
@@ -33,21 +35,20 @@ plotStackedProfile(
 the mean function to the gRanges input}
 
 \item{n_core}{a number : parallel processing}
-
-\item{min_value}{a number}
-
-\item{max_value}{a number}
 }
 \value{
-an heatmap
+a png
 }
 \description{
 plotStackedProfile
 }
 \examples{
 plotStackedProfile(gRanges_test,
-   max_value = 1,
-   target_height = length(gRanges_test),
-   title = "DNA methylation")
+                   target_height = 650,
+                   zlim = c(0, 1),
+                   palette = colorRampPalette(c("magenta", "black", "green")),
+                   title = "DNA methylation")
+
+
 
 }
