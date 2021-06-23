@@ -1,6 +1,6 @@
 Package: epistack
 Title: heatMap of expression profiles
-Version: 0.999
+Version: 0.999888
 Authors@R: 
     c(
     person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "cre"),
