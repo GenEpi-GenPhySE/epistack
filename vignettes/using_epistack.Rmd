@@ -12,7 +12,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  cache = FALSE
 )
 ```
 
@@ -171,7 +172,7 @@ complex representation of the ChIP-seq signals around
 the genomic feature of interests (here ChIP-seq peaks).
 It has quite an important number of parameters.
 
-```{r peak_plot, fig.wide = TRUE}
+```{r peak_plot}
 library(epistack)
 
 plotEpistack(
@@ -191,7 +192,7 @@ If a `bin` column is present in the epistack GRanges object, than it will
 be used to annotate the figure and to generate one average profile per bin
 in the lower panels. Here we use the `peak_type` as our bin column.
 
-```{r peak_plot_bin, fig.wide = TRUE}
+```{r peak_plot_bin}
 
 merged_peaks$bin <- merged_peaks$peak_type
 
@@ -204,60 +205,133 @@ plotEpistack(
     zlim = c(0, 4), ylim = c(0, 4), 
     metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
     metric_transfunc = function(x) log10(x),
-    bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1"))
+    bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1")),
+    npix_height = 300
 )
 
 ```
 
-# Example 2: ChIP-seq coverage at gene promoters sorted according to
-expression levels
+It might be also interesting to sort on the bins first, and then on peak score:
+```{r peak_plot_bin2}
+merged_peaks <- merged_peaks[order(
+  merged_peaks$bin, merged_peaks$mean_scores,
+  decreasing = c(TRUE, FALSE), method = "radix"
+), ]
 
-# Obtaining the TSS coordinates
+plotEpistack(
+    merged_peaks,
+    patterns = c("^Rep1_", "^Rep2_", "^Input_"),
+    tints = c("dodgerblue", "firebrick1", "grey"), 
+    titles = c("Rep1", "Rep2" , "Input"),
+    x_labels = xlabs,
+    zlim = c(0, 4), ylim = c(0, 4), 
+    metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
+    metric_transfunc = function(x) log10(x),
+    bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1")),
+    npix_height = 300
+)
 
-We now want to plot the ChIP-seq signals at gene promoters, or more
+```
+
+# Example 2: DNA methylation levels and ChIP-seq coverage at gene promoters sorted according to expression levels
+
+## Obtaining the TSS coordinates
+
+We now want to plot the epigenetic signals at gene promoters, or more
 precisely around gene Transcription Start Sites (TSS).
-TSS coordinate can be obtained from various sources. Here we will access
+TSS coordinate can be obtained from various sources. One can access
 the [Ensembl](https://www.ensembl.org/index.html) annotations using 
-`r Biocpkg("biomaRt")`,
-, but one could
-also download a `.gtf` file and parse it using `r Biocpkg("rtracklayer")`'s
-`import()`, or use `r Biocpkg("AnnotationHub")` and 
+`r Biocpkg("biomaRt")`, download a `.gtf` file and parse it using `r Biocpkg("rtracklayer")`'s `import()`, or use `r Biocpkg("AnnotationHub")` and 
 `r Biocpkg("ensembldb")`. It is however important to work with the same genome
-version has the one used to align the ChIP-seq reads (here the mm9/NCBIm37
-genome).
+version has the one used to align the ChIP-seq reads.
 
-```{r accessing_ensembl}
-library(biomaRt)
+For simplicity, we will use `r Biocpkg("EnrichedHeatmap")` example data.
 
-mart <- useMart(
-    biomart = "ENSEMBL_MART_ENSEMBL", 
-    dataset = "mmusculus_gene_ensembl", 
-    host = "may2012.archive.ensembl.org"
-)
-ds <- useDataset('mmusculus_gene_ensembl', mart = mart)
-chr6_genes <- getBM(
-    attributes = c(
-        'ensembl_gene_id','external_gene_id',
-        'chromosome_name','start_position',
-        'end_position','strand'), 
-    filters = 'chromosome_name', values = 6, # only chr6 in this example
-    mart = ds
+```{r example2_tss}
+load(
+    system.file("extdata", "chr21_test_data.RData",
+                package = "EnrichedHeatmap"),
+    verbose = TRUE
 )
 
-chr6_genes <- with(chr6_genes, GRanges(
-    seqnames = paste0("chr", chromosome_name),
-    IRanges(start_position, end_position),
-    strand = strand,
-    gene_id = ensembl_gene_id,
-    gene_symbol = external_gene_id
-))
+tss <- promoters(genes, upstream = 0, downstream = 1)
+tss$gene_id <- names(tss)
 
-chr6_genes
+tss
 ```
 
+## Adding expression data to the TSS coordinates
 
+Epistack can work with any units and any scores, not limited to
+expression data. Here we will use gene expression data from an RNA-seq 
+experiment, in RPKM units, as it is the data format available in 
+`r Biocpkg("EnrichedHeatmap")` example dataset.
+To join the expression data to the TSS coordinates, we will use an 
+`r Biocpkg("epistack")` utility function `addMetricAndArrangeGRanges()`:
 
+```{r expression_data}
+expr <- data.frame(
+    gene_id = names(rpkm),
+    expr = rpkm
+)
 
-As for the previous example, we can now use this 
+epidata <- addMetricAndArrangeGRanges(
+    tss, expr,
+    gr_key = "gene_id",
+    order_key = "gene_id", order_value = "expr"
+)
 
-## expression data --------------
+epidata
+```
+
+We creat 5 bins of genes of equal sizes depending on the expression levels,
+with `r Biocpkg("epistack")` utility function `addBins()`:
+
+```{r adding_bins}
+epidata <- epistack:::addBins(epidata, nbins = 5)
+epidata
+```
+
+## Extracting the epigenetic signals
+
+As previously described, we will use `r Biocpkg("EnrichedHeatmap")`'s 
+`normalizeToMatrix()` function to extract the signals, rename the signal
+colmun names, and add them to the epidata GRanges object:
+
+```{r signal_extraction}
+methstack <- normalizeToMatrix(
+    meth, tss, value_column = "meth",
+    extend = 5000, w = 250, mean_mode = "absolute"
+)
+colnames(methstack) <- paste("meth" , seq_len(ncol(methstack)), sep = "_")
+
+h3k4me3stack <- normalizeToMatrix(
+    H3K4me3, tss, value_column = "coverage",
+    extend = 5000, w = 250, mean_mode = "coverage"
+)
+colnames(h3k4me3stack) <- paste("H3K4me3", seq_len(ncol(h3k4me3stack)), sep = "_")
+
+mcols(epidata) <- cbind(
+    mcols(epidata), methstack, h3k4me3stack
+)
+```
+
+## Epistack plotting
+
+The `epidata` GRanges object is now ready to plot:
+
+```{r example2_plotting}
+plotEpistack(
+    epidata,
+    patterns = c("^meth_", "^H3K4me3"),
+    tints = c("tomato", "springgreen"),
+    titles = c("DNA methylation", "H3K4me3"),
+    zlim = list(c(0, 1), c(0, 25)), ylim = list(c(0, 1), c(0, 50)),
+    x_labels = c("-5kb", "TSS", "+5kb"),
+    metric_col = "expr", metric_title = "Gene expression",
+    metric_label = "log10(RPKM + 1)",
+    metric_transfunc = function(x) log10(x + 1),
+    npix_height = 300
+)
+```
+
