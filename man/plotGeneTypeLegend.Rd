@@ -4,10 +4,12 @@
 \alias{plotGeneTypeLegend}
 \title{plotGeneTypeLegend}
 \usage{
-plotGeneTypeLegend(gr)
+plotGeneTypeLegend(gr, palette = RColorBrewer::brewer.pal)
 }
 \arguments{
 \item{gr}{a gRanges object}
+
+\item{palette}{a function taking a number has a first argument, and returning a vector of colors.}
 }
 \value{
 a legend for plot of gene_type

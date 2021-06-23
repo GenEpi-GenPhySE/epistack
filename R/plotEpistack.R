@@ -113,7 +113,7 @@ plotEpistack <- function(
     }
 
     graphics::par(oldpar)
-    layout(1)
+    graphics::layout(1)
     return(invisible())
 }
 

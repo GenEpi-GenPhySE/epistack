@@ -4,10 +4,12 @@
 \alias{plotGeneType}
 \title{plotGeneType}
 \usage{
-plotGeneType(gr)
+plotGeneType(gr, palette = RColorBrewer::brewer.pal)
 }
 \arguments{
 \item{gr}{a gRanges object containing a "gene_type" column}
+
+\item{palette}{a function taking a number has a first argument, and returning a vector of colors.}
 }
 \value{
 a plot
