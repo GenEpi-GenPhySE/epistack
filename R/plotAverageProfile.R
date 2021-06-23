@@ -1,28 +1,28 @@
+
 #' plotAverageProfile
 #'
 #' @param gr a gRanges input
-#' @param mycols a character
-#' @param ylim a vector of number corresponding to the limits of the values to be displayed
-#' @param labels a vector of character corresponding to the labels of the x-axis
+#' @param what_pattern a character vector of column prefixes
+#'  (can be regular expressions)
+#' @param xlabels x axis labels
+#' @param colorPalette color palette,
+#'  by default: colorRampPalette(c("magenta", "black", "green"))
+#' @param alphaForSe transparency value for standard error of the mean bend
+#' @param reversedZOrder should the z-order of the curves be reversed
+#' @param ylim a vector of number corresponding
+#'  to the limits of the values to be displayed
 #'
-#' @return a plot
+#' @return a png
 #' @export
 #'
-#' @importFrom plotrix dispersion
-#'
 #' @examples
-#' mycols <- paste0("window_", 1:51 )
-#' plotAverageProfile(gRanges_test, mycols, ylim = c(0, 2))
-#'
-#'
-#'
 plotAverageProfile <- function(
     gr,
     what_pattern = "^window_",
     xlabels = c("-2.5kb", "TSS", "+2.5kb"),
     colorPalette = colorRampPalette(c("magenta", "black", "green")),
-    alphaForSe = 0.25, # transparency value for standard error of the mean bend
-    reversedZOrder = FALSE, # should the z-order of the curves be reversed
+    alphaForSe = 0.25,
+    reversedZOrder = FALSE,
     ylim = NULL
 ) {
     mat <- S4Vectors::mcols(gr)
@@ -35,11 +35,15 @@ plotAverageProfile <- function(
         myMats <- list(mat)
     }
     myMeans <- lapply(myMats, function(x) colMeans(x, na.rm = TRUE))
-    mySds <- lapply(myMats, function(x) apply(x, 2, function(y) sd(y, na.rm = TRUE)))
-    mySes <- lapply(seq_along(myMeans), function(i) ifelse(myMeans[[i]] == 0, 0, mySds[[i]]/sqrt(nrow(myMats[[i]]))))
+    mySds <- lapply(myMats,
+                    function(x) apply(x, 2,
+                                      function(y) stats::sd(y, na.rm = TRUE)))
+    mySes <- lapply(seq_along(myMeans),
+                    function(i) ifelse(myMeans[[i]] == 0, 0,
+                                       mySds[[i]]/sqrt(nrow(myMats[[i]]))))
 
     ymax <- max(
-        sapply(
+        vapply(
             seq_along(myMeans), function(i) {
                 max(myMeans[[i]] + mySes[[i]])
             }
@@ -71,8 +75,18 @@ plotAverageProfile <- function(
     }
 
     for(i in iter) {
-        plotrix::dispersion(xind, myMeans[[i]], mySes[[i]], type = "l", fill = adjustcolor(myColorPalette[i], alphaForSe))
-        lines(xind, myMeans[[i]], type = "l", col = myColorPalette[i], lwd = 2)
+        plotrix::dispersion(xind,
+                            myMeans[[i]],
+                            mySes[[i]],
+                            type = "l",
+                            fill = grDevices::adjustcolor(myColorPalette[i],
+                                                          alphaForSe))
+        graphics::lines(xind,
+                        myMeans[[i]],
+                        type = "l",
+                        col = myColorPalette[i], lwd = 2)
     }
 }
+
+
 

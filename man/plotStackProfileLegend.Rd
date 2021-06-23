@@ -12,7 +12,8 @@ plotStackProfileLegend(
 \arguments{
 \item{zlim}{the limits of the values to be displayed}
 
-\item{palette}{color palette, by default: colorRampPalette(c ("white", "gray", "black"))}
+\item{palette}{color palette,
+by default: colorRampPalette(c ("white", "gray", "black"))}
 }
 \value{
 a graphical horizontal legend

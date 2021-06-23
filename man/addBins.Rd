@@ -20,10 +20,14 @@ a gRanges with a new "bin" column
 addBins
 }
 \examples{
-data <- transform(data, log2fc_line = as.numeric(log2fc_line))
-mat <- data[data$adjpval_line <= 0.01, c("gene", "log2fc_line", "gene_type")]
-TSS <- promoters(TSS, upstream = 0, downstream = 1)
-my_tss <- addMetricAndArrangeGRanges(TSS, mat, order_key = "gene", order_value = "log2fc_line")
-my_tss <- addBins(my_tss)
-my_tss
+addBins(gRanges_test)
+
+# 3 bins instead of 5
+addBins(gRanges_test, nbins = 3)
+
+# assign bins using a vector
+addBins(gRanges_test, bin = rep(c("a", "b", "c"),
+ length.out = length(gRanges_test)))
+
+
 }

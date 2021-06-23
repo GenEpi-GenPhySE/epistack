@@ -17,22 +17,24 @@ plotAverageProfile(
 \arguments{
 \item{gr}{a gRanges input}
 
-\item{ylim}{a vector of number corresponding to the limits of the values to be displayed}
+\item{what_pattern}{a character vector of column prefixes
+(can be regular expressions)}
 
-\item{mycols}{a character}
+\item{xlabels}{x axis labels}
 
-\item{labels}{a vector of character corresponding to the labels of the x-axis}
+\item{colorPalette}{color palette,
+by default: colorRampPalette(c("magenta", "black", "green"))}
+
+\item{alphaForSe}{transparency value for standard error of the mean bend}
+
+\item{reversedZOrder}{should the z-order of the curves be reversed}
+
+\item{ylim}{a vector of number corresponding
+to the limits of the values to be displayed}
 }
 \value{
-a plot
+a png
 }
 \description{
 plotAverageProfile
-}
-\examples{
-mycols <- paste0("window_", 1:51 )
-plotAverageProfile(gRanges_test, mycols, ylim = c(0, 2))
-
-
-
 }

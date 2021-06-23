@@ -1,9 +1,10 @@
 #' plotStackProfileLegend
 #'
 #' @param zlim the limits of the values to be displayed
-#' @param palette color palette, by default: colorRampPalette(c ("white", "gray", "black"))
+#' @param palette color palette,
+#'  by default: colorRampPalette(c ("white", "gray", "black"))
 #'
-#' @return a graphical horizontal legend
+#' @return a png
 #'
 #' @importFrom grDevices colorRampPalette
 #' @importFrom graphics box
@@ -11,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' plotStackProfileLegend(zlim = c(0, 3), palette = colorRampPalette(c("white", "grey", "black")))
+#' plotStackProfileLegend(zlim = c(0, 2), palette = colorRampPalette(c("white", "grey", "black")))
 #'
 #'
 plotStackProfileLegend <- function(

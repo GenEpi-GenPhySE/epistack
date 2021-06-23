@@ -8,7 +8,8 @@
 #' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
 #' @param ylim limit of the y axis; format: ylim = c (min, max)
 #' @param ylab y axis title
-#' @param palette a function of parameter `n` that returns a palette of `n` colors.
+#' @param palette a function of parameter `n`
+#'  that returns a palette of `n` colors.
 #'
 #' @importFrom stats setNames
 #'
@@ -32,7 +33,7 @@ plotBoxMetric <- function(
     palette = colorRampPalette(c("magenta", "black", "green"))
 ){
     if (!is.null(gr$bin)) {
-        boxplot(
+        graphics::boxplot(
             lapply(
                 stats::setNames(levels(factor(gr$bin)), levels(factor(gr$bin))),
                 function(i) trans_func(mcols(gr)[gr$bin == i, metric])
@@ -40,9 +41,10 @@ plotBoxMetric <- function(
             ylab = ylab, pch = 19, ylim = ylim,
             col = palette(length(unique(gr$bin))), axes = FALSE
         )
-        axis(1, at = seq_along(levels(factor(gr$bin))), labels = levels(factor(gr$bin)))
+        axis(1, at = seq_along(levels(factor(gr$bin))),
+             labels = levels(factor(gr$bin)))
     } else {
-        boxplot(
+        graphics::boxplot(
             trans_func(mcols(gr)[[metric]]),
             ylab = ylab, pch = 19, ylim = ylim,
             col = palette(1), axes = FALSE

@@ -21,7 +21,7 @@ mean_color(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))
 # works with color names
 mean_color(c("blue", "red"))
 
-Mix color names and HTML codes
+# Mix color names and HTML codes
 mean_color(c("blue", "red", "#FFFF00FF"))
 
 # works without alpha channel in inputs (but outputs an alpha channel):

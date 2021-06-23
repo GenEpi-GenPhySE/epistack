@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotGeneType.R
 \name{plotGeneType}
 \alias{plotGeneType}
-\title{plot_gene_type}
+\title{plotGeneType}
 \usage{
 plotGeneType(gr)
 }
@@ -13,9 +13,9 @@ plotGeneType(gr)
 a plot
 }
 \description{
-plot_gene_type
+plotGeneType
 }
 \examples{
-plot_gene_type(my_tss)
+#plotGeneType(my_tss)
 
 }

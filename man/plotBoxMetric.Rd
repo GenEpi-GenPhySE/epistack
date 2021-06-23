@@ -28,7 +28,8 @@ Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) l
 
 \item{ylab}{y axis title}
 
-\item{palette}{a function of parameter \code{n} that returns a palette of \code{n} colors.}
+\item{palette}{a function of parameter \code{n}
+that returns a palette of \code{n} colors.}
 }
 \value{
 a boxplot

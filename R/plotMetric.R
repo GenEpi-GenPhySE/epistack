@@ -1,4 +1,3 @@
-
 #' plotMetric
 #'
 #' @param x a GRanges input
@@ -32,7 +31,3 @@ plotMetric <- function(
     title(xlab = xlab)
     mtext(side = 3, title , line = 0.5, cex = 0.8)
 }
-
-
-#' @examples
-#' plotExpressionProfile(gRanges_test$exp, title = "Expression")

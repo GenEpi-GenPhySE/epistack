@@ -2,11 +2,13 @@
 #' plotEpistack
 #'
 #' @param gr a granges input
-#' @param patterns
+#' @param patterns a character vector of column prefixes
+#' (can be regular expressions)
 #' @param tints color
-#' @param titles
+#' @param titles a titles of each epistack
 #' @param x_labels x axis labels
-#' @param zlim the minimum and maximum z values for which colors should be plotted
+#' @param zlim the minimum and maximum z values for
+#'  which colors should be plotted
 #' @param ylim limit of the y axis; format: ylim = c (min, max)
 #' @param metric_col a character corresponding to epigenetic profile score
 #' @param metric_title name of the score column
@@ -14,16 +16,24 @@
 #' @param metric_transfunc a function to transform value of x
 #' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
 #' @param bin_palette a palette of color
-#' @param npix_height
+#' @param npix_height height of the stack in pixels.
+#'  The matrix height is reduced to this number of rows before plotting.
+#'  Useful to limit overplotting artefacts.
 #' @param n_core a number : parallel processing
-#' @param high_mar a vector of numerical values corresponding to the margins of the top figures
-#' @param low_mar a vector of numerical values corresponding to the margins of the bottom figures
+#' @param high_mar a vector of numerical values
+#'  corresponding to the margins of the top figures
+#' @param low_mar a vector of numerical values
+#'  corresponding to the margins of the bottom figures
 #'
 #' @return a png
 #' @export
 #'
+#'
 #' @examples
-#' plotEpistack(gRanges_test, metric_col = "exp", metric_transfunc = function(x) log10(x+1))
+#' plotEpistack(gRanges_test,
+#' metric_col = "exp",
+#' ylim = c(0, 1),
+#' metric_transfunc = function(x) log10(x+1))
 #'
 plotEpistack <- function(
     gr,
@@ -37,7 +47,7 @@ plotEpistack <- function(
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6)
 ) {
 
-    oldpar <- par(
+    oldpar <- graphics::par(
         mgp = c(1.5, 0.5, 0),
         mar = high_mar + c(0, 4, 0, 0)
     )
@@ -45,7 +55,8 @@ plotEpistack <- function(
     n_pattern <- length(patterns)
     bin_present <- !is.null(gr$bin)
 
-    layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3), nrow  = 3)
+    layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3),
+                         nrow  = 3)
     layout_heights <- c(1, 0.12, 0.25)
     layout_widths <- if (bin_present) {
         c(0.3, 0.08, rep(0.35, n_pattern))
@@ -53,7 +64,7 @@ plotEpistack <- function(
         c(0.3, rep(0.35, n_pattern))
     }
 
-    layout(layout_mat, heights = layout_heights, widths = layout_widths)
+    graphics::layout(layout_mat, heights = layout_heights, widths = layout_widths)
 
     plotMetric(
         mcols(gr)[[metric_col]],
@@ -61,9 +72,9 @@ plotEpistack <- function(
         trans_func = metric_transfunc,
         xlab = metric_label
     )
-    par(mar = low_mar)
-    plot.new()
-    par(mar = low_mar + c(0, 4, 0, 0))
+    graphics::par(mar = low_mar)
+    graphics::plot.new()
+    graphics::par(mar = low_mar + c(0, 4, 0, 0))
     plotBoxMetric(
         gr, trans_func = metric_transfunc,
         palette = bin_palette,
@@ -73,11 +84,11 @@ plotEpistack <- function(
     )
 
     if (bin_present) {
-        par(mar = high_mar)
+        graphics::par(mar = high_mar)
         plotBinning(gr, target_height = npix_height, palette = bin_palette)
-        par(mar = low_mar)
-        plot.new()
-        plot.new()
+        graphics::par(mar = low_mar)
+        graphics::plot.new()
+        graphics::plot.new()
     }
 
     if(!is.list(zlim)) {
@@ -88,20 +99,20 @@ plotEpistack <- function(
     }
 
     for (i in seq_along(patterns)) {
-        par(mar = high_mar)
+        graphics::par(mar = high_mar)
         plotStackedProfile(
             gr, what_pattern = patterns[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
         )
-        par(mar = low_mar)
+        graphics::par(mar = low_mar)
         plotStackProfileLegend(zlim = zlim[[i]], palette = colorRampPalette(c("white", tints[i], "black")))
-        par(mar = low_mar)
+        graphics::par(mar = low_mar)
         plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim[[i]], colorPalette = bin_palette, xlabels = x_labels)
     }
 
-    par(oldpar)
+    graphics::par(oldpar)
     return(invisible())
 }
 

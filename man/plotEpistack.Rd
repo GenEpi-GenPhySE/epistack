@@ -26,11 +26,17 @@ plotEpistack(
 \arguments{
 \item{gr}{a granges input}
 
+\item{patterns}{a character vector of column prefixes
+(can be regular expressions)}
+
 \item{tints}{color}
+
+\item{titles}{a titles of each epistack}
 
 \item{x_labels}{x axis labels}
 
-\item{zlim}{the minimum and maximum z values for which colors should be plotted}
+\item{zlim}{the minimum and maximum z values for
+which colors should be plotted}
 
 \item{ylim}{limit of the y axis; format: ylim = c (min, max)}
 
@@ -45,11 +51,17 @@ Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) l
 
 \item{bin_palette}{a palette of color}
 
+\item{npix_height}{height of the stack in pixels.
+The matrix height is reduced to this number of rows before plotting.
+Useful to limit overplotting artefacts.}
+
 \item{n_core}{a number : parallel processing}
 
-\item{high_mar}{a vector of numerical values corresponding to the margins of the top figures}
+\item{high_mar}{a vector of numerical values
+corresponding to the margins of the top figures}
 
-\item{low_mar}{a vector of numerical values corresponding to the margins of the bottom figures}
+\item{low_mar}{a vector of numerical values
+corresponding to the margins of the bottom figures}
 }
 \value{
 a png
@@ -58,6 +70,9 @@ a png
 plotEpistack
 }
 \examples{
-plotEpistack(gRanges_test, metric_col = "exp", metric_transfunc = function(x) log10(x+1))
+plotEpistack(gRanges_test,
+metric_col = "exp",
+ylim = c(0, 1),
+metric_transfunc = function(x) log10(x+1))
 
 }

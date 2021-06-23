@@ -21,8 +21,9 @@ Imports:
     IRanges,
     viridisLite,
     graphics,
-    stringr,
-    plotrix
+    plotrix,
+    grDevices,
+    stats
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
