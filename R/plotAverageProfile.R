@@ -46,7 +46,7 @@ plotAverageProfile <- function(
         vapply(
             seq_along(myMeans), function(i) {
                 max(myMeans[[i]] + mySes[[i]])
-            }
+            }, 0.0
         )
     )
     xind <- seq_len(ncol(mat))
