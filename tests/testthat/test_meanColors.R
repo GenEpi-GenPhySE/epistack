@@ -1,5 +1,3 @@
-context("mean_color")
-
 # inputs and outputs --------
 result1 <- "#479810FF"
 result2 <- "#E72E1D00"

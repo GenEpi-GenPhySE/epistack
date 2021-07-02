@@ -1,9 +1,5 @@
-context("plotStackedProfile")
+test1 <- function() plotStackedProfile(gRanges_test, zlim = c(0, 1))
 
-
-
-# 
-# plot_test <- plotStackedProfile(gRanges_test,
-#                    max_value = 1,
-#                    target_height = length(gRanges_test),
-#                    title = "DNA methylation")
+test_that("default parameters", {
+    vdiffr::expect_doppelganger("Stack profile default", test1)
+})

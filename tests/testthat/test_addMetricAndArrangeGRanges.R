@@ -1,5 +1,3 @@
-context("addMetricAndArrangeGRanges")
-
 # input and output definitions ---------
 set.seed(2807)
 
@@ -131,7 +129,7 @@ test_that("test the sort with value value", {
 })
 
 test_that("test the sort with GC", {
-    expect_equivalent(
+    expect_equal(
         addMetricAndArrangeGRanges(gr, this_order_key, gr_key = "gene_id",
                                    order_key = "gene_id", order_value = "exp" ),
         result1

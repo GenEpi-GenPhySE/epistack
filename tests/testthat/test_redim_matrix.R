@@ -1,11 +1,8 @@
-context("redim matrix")
 library(GenomicRanges)
-
 
 mat1 <- S4Vectors::mcols(gRanges_test)
 whichCols <- grepl("^window_", colnames(mat1))
 mat1 <- as.matrix(mat1[, whichCols])
-
 
 result1 <- structure(c(0.659443440741914, 0.735401096113162, 0.721548534230499,
     0.702841165725677, 0.72759675364583, 0.664791869258035, 0.743794034911271,
