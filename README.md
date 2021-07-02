@@ -2,6 +2,7 @@
 # epistack
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/GenEpi-GenPhySE/epistack/branch/master/graph/badge.svg)](https://codecov.io/gh/GenEpi-GenPhySE/epistack?branch=master)
 <!-- badges: end -->
 
 The `epistack` package main objective is the visualizations of stacks 
