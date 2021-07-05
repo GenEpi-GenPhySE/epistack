@@ -17,6 +17,7 @@
 #' @export
 #'
 #' @examples
+#' data("gRanges_test")
 #' plotBoxMetric(
 #'        gRanges_test,
 #'        trans_func = function(x) x,

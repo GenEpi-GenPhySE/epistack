@@ -1,11 +1,11 @@
 Package: epistack
 Title: heatMap of expression profiles
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: 
     c(
-    person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "cre"),
+    person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "aut"),
     person("DEVAILLY", "Guillaume",
-    email = "guillaume.devailly@inrae.fr", role = "aut"))
+        email = "gdevailly@hotmail.com", role = "cre"))
 Description: Starting from a GRanges type file, this package is used to:
     Resize the expression matrix for a better display of heatMaps.
     Sort the expression profiles.
@@ -13,7 +13,7 @@ Description: Starting from a GRanges type file, this package is used to:
     the profiles of expression in all our data samples.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Imports: 
     GenomicRanges,
     BiocGenerics,
@@ -36,7 +36,8 @@ Suggests:
     EnrichedHeatmap,
     biomaRt,
     rtracklayer,
-    covr
+    covr,
+    vdiffr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression

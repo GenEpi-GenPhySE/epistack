@@ -21,13 +21,12 @@
 #' @importFrom graphics mtext
 #'
 #' @examples
+#' data("gRanges_test")
 #' plotStackedProfile(gRanges_test,
 #'                    target_height = 650,
 #'                    zlim = c(0, 1),
 #'                    palette = colorRampPalette(c("magenta", "black", "green")),
 #'                    title = "DNA methylation")
-#'
-#'
 #'
 plotStackedProfile <- function(
     gr,

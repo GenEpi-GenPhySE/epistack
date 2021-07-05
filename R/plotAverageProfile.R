@@ -1,4 +1,3 @@
-
 #' plotAverageProfile
 #'
 #' @param gr a gRanges input
@@ -16,6 +15,9 @@
 #' @export
 #'
 #' @examples
+#' data("gRanges_test")
+#' plotAverageProfile(gRanges_test)
+#'
 plotAverageProfile <- function(
     gr,
     what_pattern = "^window_",

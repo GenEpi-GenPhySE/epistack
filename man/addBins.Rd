@@ -20,6 +20,7 @@ a gRanges with a new "bin" column
 addBins
 }
 \examples{
+data("gRanges_test")
 addBins(gRanges_test)
 
 # 3 bins instead of 5
@@ -28,6 +29,5 @@ addBins(gRanges_test, nbins = 3)
 # assign bins using a vector
 addBins(gRanges_test, bin = rep(c("a", "b", "c"),
  length.out = length(gRanges_test)))
-
 
 }

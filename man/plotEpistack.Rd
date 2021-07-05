@@ -70,9 +70,10 @@ a png
 plotEpistack
 }
 \examples{
+data("gRanges_test")
 plotEpistack(gRanges_test,
-metric_col = "exp",
-ylim = c(0, 1),
-metric_transfunc = function(x) log10(x+1))
+    metric_col = "exp",
+    ylim = c(0, 1),
+    metric_transfunc = function(x) log10(x+1))
 
 }

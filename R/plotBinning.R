@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#' data("gRanges_test")
 #' gr <- gRanges_test
 #' gr <- addBins(gr, nbins = 3)
 #' plot_bin <- plotBinning(gr)
@@ -19,8 +20,6 @@
 #'
 #' gr2 <- data.frame(bin = rep(c(1,2,3,4), each = 5))
 #' plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))
-#'
-#'
 #'
 plotBinning <- function(
     gr,

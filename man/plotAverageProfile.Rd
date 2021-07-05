@@ -38,3 +38,8 @@ a png
 \description{
 plotAverageProfile
 }
+\examples{
+data("gRanges_test")
+plotAverageProfile(gRanges_test)
+
+}

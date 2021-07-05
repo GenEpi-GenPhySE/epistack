@@ -16,6 +16,7 @@
 #' @importFrom S4Vectors mcols
 #'
 #' @examples
+#' data("gRanges_test")
 #' mat <- S4Vectors::mcols(gRanges_test)
 #' whichCols <- grepl("^window_", colnames(mat))
 #' mat <- as.matrix(mat[, whichCols])

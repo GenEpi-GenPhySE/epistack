@@ -1,5 +1,7 @@
 library(GenomicRanges)
 
+data("gRanges_test")
+
 mat1 <- S4Vectors::mcols(gRanges_test)
 whichCols <- grepl("^window_", colnames(mat1))
 mat1 <- as.matrix(mat1[, whichCols])

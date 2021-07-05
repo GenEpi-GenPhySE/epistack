@@ -14,7 +14,6 @@
 #' @examples
 #' plotStackProfileLegend(zlim = c(0, 2), palette = colorRampPalette(c("white", "grey", "black")))
 #'
-#'
 plotStackProfileLegend <- function(
     zlim,
     palette = colorRampPalette(c("white", "grey", "black"))

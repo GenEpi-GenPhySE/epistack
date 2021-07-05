@@ -24,5 +24,4 @@ plotStackProfileLegend
 \examples{
 plotStackProfileLegend(zlim = c(0, 2), palette = colorRampPalette(c("white", "grey", "black")))
 
-
 }

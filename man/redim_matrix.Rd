@@ -34,6 +34,7 @@ this function resizes the input matrix by applying the rounded average
 on the columns
 }
 \examples{
+data("gRanges_test")
 mat <- S4Vectors::mcols(gRanges_test)
 whichCols <- grepl("^window_", colnames(mat))
 mat <- as.matrix(mat[, whichCols])

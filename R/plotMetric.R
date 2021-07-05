@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' data("gRanges_test")
 #' plotMetric(gRanges_test$exp)
 #'
 #'

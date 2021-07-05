@@ -1,4 +1,6 @@
 # input and output definitions ---------
+data("gRanges_test")
+
 set.seed(2807)
 
 gr <- GenomicRanges::GRanges(

@@ -36,6 +36,7 @@ a GRanges sorted in ascending order
 addMetricAndArrangeGRanges
 }
 \examples{
+data("gRanges_test")
 ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id,
    value = rnorm(length(gRanges_test)))
 addMetricAndArrangeGRanges(gRanges_test,

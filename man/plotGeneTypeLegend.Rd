@@ -4,7 +4,7 @@
 \alias{plotGeneTypeLegend}
 \title{plotGeneTypeLegend}
 \usage{
-plotGeneTypeLegend(gr, palette = RColorBrewer::brewer.pal)
+plotGeneTypeLegend(gr, palette = grDevices::rainbow)
 }
 \arguments{
 \item{gr}{a gRanges object}
@@ -18,5 +18,11 @@ a legend for plot of gene_type
 plotGeneTypeLegend
 }
 \examples{
-#plotGeneTypeLegend(gRanges_test)
+library(GenomicRanges)
+gr <- GRanges(
+    rep("chr1", 10),
+    IRanges(seq(1, 901, by = 100), seq(100, 1000, by = 100)),
+    gene_type = c(rep("protein_coding", 5), rep("linc_RNA", 5))
+)
+plotGeneTypeLegend(gr)
 }

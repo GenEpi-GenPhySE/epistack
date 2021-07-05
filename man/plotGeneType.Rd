@@ -4,7 +4,7 @@
 \alias{plotGeneType}
 \title{plotGeneType}
 \usage{
-plotGeneType(gr, palette = RColorBrewer::brewer.pal)
+plotGeneType(gr, palette = grDevices::rainbow)
 }
 \arguments{
 \item{gr}{a gRanges object containing a "gene_type" column}
@@ -18,6 +18,11 @@ a plot
 plotGeneType
 }
 \examples{
-#plotGeneType(my_tss)
-
+library(GenomicRanges)
+gr <- GRanges(
+    rep("chr1", 10),
+    IRanges(seq(1, 901, by = 100), seq(100, 1000, by = 100)),
+    gene_type = c(rep("protein_coding", 5), rep("linc_RNA", 5))
+)
+plotGeneType(gr)
 }

@@ -1,3 +1,4 @@
+data("gRanges_test")
 test1 <- function() plotStackedProfile(gRanges_test, zlim = c(0, 1))
 
 test_that("default parameters", {
