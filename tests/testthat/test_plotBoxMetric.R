@@ -5,5 +5,5 @@ test1 <- function() plotBoxMetric(
 )
 
 test_that("default parameters", {
-    vdiffr::expect_doppelganger("Stack profile default", test1)
+    vdiffr::expect_doppelganger("plotBoxMetric default", test1)
 })

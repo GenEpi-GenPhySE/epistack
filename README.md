@@ -6,6 +6,8 @@
 [![R-CMD-check](https://github.com/GenEpi-GenPhySE/epistack/workflows/R-CMD-check/badge.svg)](https://github.com/GenEpi-GenPhySE/epistack/actions)
 <!-- badges: end -->
 
+![Example of an epistack output](inst/extdata/example_vizbi_bos_epistack2.png)
+
 The `epistack` package main objective is the visualizations of stacks 
 of genomic tracks (such as, but not restricted to, ChIP-seq or
 DNA methyation data)
@@ -29,6 +31,6 @@ remotes::install_github("GenEpi-GenPhySE/epistack")
 
 ## Documentation
 
-A (draft) version of `epistack` vignette can be read [here](https://htmlpreview.github.io/?https://github.com/GenEpi-GenPhySE/epistack/blob/master/inst/doc/using_epistack.html).
+A (draft) version of `epistack` vignette can be read [here](https://gdevailly.github.io/using_epistack.html).
 
 
