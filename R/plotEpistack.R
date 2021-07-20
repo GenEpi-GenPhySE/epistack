@@ -58,7 +58,7 @@ plotEpistack <- function(
 
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3),
                          nrow  = 3)
-    layout_heights <- c(1, 0.12, 0.25)
+    layout_heights <- c(1, 0.14, 0.25)
     layout_widths <- if (bin_present) {
         c(0.3, 0.08, rep(0.35, n_pattern))
     } else {

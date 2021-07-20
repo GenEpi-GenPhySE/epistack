@@ -19,7 +19,7 @@ plotMetric <- function(
     x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL
 ){
     plot(
-        x = trans_func(x),
+        x = rev(trans_func(x)),
         y = seq_along(x),
         type = "l", lwd = 3,
         axes = FALSE, xlab = NA, ylab = NA,
