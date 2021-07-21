@@ -99,7 +99,7 @@ peak_type <- ifelse(
 
 mcols(merged_peaks) <- DataFrame(scores_rep1, scores_rep2, peak_type)
 merged_peaks$mean_scores <- apply((mcols(merged_peaks)[, c("scores_rep1", "scores_rep2")]), 1, mean)
-merged_peaks <- merged_peaks[order(merged_peaks$mean_scores, decreasing = FALSE), ]
+merged_peaks <- merged_peaks[order(merged_peaks$mean_scores, decreasing = TRUE), ]
 rm(scores_rep1, scores_rep2, peak_type)
 
 merged_peaks
@@ -215,7 +215,7 @@ It might be also interesting to sort on the bins first, and then on peak score:
 ```{r peak_plot_bin2}
 merged_peaks <- merged_peaks[order(
   merged_peaks$bin, merged_peaks$mean_scores,
-  decreasing = c(TRUE, FALSE), method = "radix"
+  decreasing = c(FALSE, TRUE), method = "radix"
 ), ]
 
 plotEpistack(
@@ -284,7 +284,7 @@ epidata <- addMetricAndArrangeGRanges(
 epidata
 ```
 
-We creat 5 bins of genes of equal sizes depending on the expression levels,
+We create 5 bins of genes of equal sizes depending on the expression levels,
 with `r Biocpkg("epistack")` utility function `addBins()`:
 
 ```{r adding_bins}
