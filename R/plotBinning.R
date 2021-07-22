@@ -28,12 +28,16 @@ plotBinning <- function(
 ) {
     bins <- as.numeric(factor(gr$bin))
     if (length(bins) > target_height) {
-        bins_red <- redim_matrix(matrix(bins), target_height = target_height, target_width = 1)
+        bins_red <- redim_matrix(
+            matrix(bins),
+            target_height = target_height, target_width = 1
+        )
     } else {
         bins_red <- matrix(bins)
     }
 
-    image(t(bins_red), col = palette(length(unique(bins))),
+    image(t(bins_red)[, seq(from = nrow(bins_red), to = 1, by = -1), drop = FALSE],
+          col = palette(length(unique(bins))),
           axes = FALSE,
           breaks = seq(0.5, length(unique(bins)) + 0.5, by = 1))
     graphics::box()

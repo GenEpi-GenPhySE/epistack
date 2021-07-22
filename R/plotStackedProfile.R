@@ -63,7 +63,7 @@ plotStackedProfile <- function(
                              n_core = n_core)
 
     BiocGenerics::image(
-        t(smallMat),
+        t(smallMat)[, seq(from = nrow(smallMat), to = 1, by = -1), drop = FALSE],
         breaks = breaks,
         col = palette(length(breaks) - 1),
         axes = FALSE

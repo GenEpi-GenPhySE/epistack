@@ -45,6 +45,6 @@ addMetricAndArrangeGRanges <- function(gr,
     if (shuffle_tie && length(gr) > 1) {
         gr <- gr[sample(seq_len(length(gr))), ]
     }
-    gr <- gr[order(S4Vectors::mcols(gr)[[order_value]], decreasing = FALSE)]
+    gr <- gr[order(S4Vectors::mcols(gr)[[order_value]], decreasing = TRUE)]
     gr
 }
