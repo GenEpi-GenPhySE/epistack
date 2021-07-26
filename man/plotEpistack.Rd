@@ -8,7 +8,8 @@ plotEpistack(
   gr,
   patterns = "^window_",
   tints = "gray",
-  titles = "window",
+  titles = "",
+  legends = "",
   x_labels = c("-2.5kb", "TSS", "+2.5kb"),
   zlim = c(0, 1),
   ylim = NULL,
@@ -32,6 +33,8 @@ plotEpistack(
 \item{tints}{color}
 
 \item{titles}{a titles of each epistack}
+
+\item{legends}{a character vector of legends for the epistacks}
 
 \item{x_labels}{x axis labels}
 

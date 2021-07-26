@@ -6,6 +6,7 @@
 #' (can be regular expressions)
 #' @param tints color
 #' @param titles a titles of each epistack
+#' @param legends a character vector of legends for the epistacks
 #' @param x_labels x axis labels
 #' @param zlim the minimum and maximum z values for
 #'  which colors should be plotted
@@ -38,7 +39,8 @@
 #'
 plotEpistack <- function(
     gr,
-    patterns = "^window_", tints = "gray", titles = "window",
+    patterns = "^window_", tints = "gray",
+    titles = "", legends = "",
     x_labels = c("-2.5kb", "TSS", "+2.5kb"),
     zlim = c(0, 1), ylim = NULL,
     metric_col = "expr", metric_title = "Metric", metric_label = "metric",
@@ -98,6 +100,15 @@ plotEpistack <- function(
     if(!is.list(ylim)) {
         ylim <- lapply(seq_along(patterns), function(x) ylim)
     }
+    if(length(titles) == 1 && length(patterns) > 1) {
+        titles = rep(titles, length(patterns))
+    }
+    if(length(tints) == 1 && length(patterns) > 1) {
+        tints = rep(tints, length(patterns))
+    }
+    if(length(legends) == 1 && length(patterns) > 1) {
+        legends = rep(legends, length(patterns))
+    }
 
     for (i in seq_along(patterns)) {
         graphics::par(mar = high_mar)
@@ -108,9 +119,19 @@ plotEpistack <- function(
             x_labels = x_labels, title = titles[i]
         )
         graphics::par(mar = low_mar)
-        plotStackProfileLegend(zlim = zlim[[i]], palette = colorRampPalette(c("white", tints[i], "black")))
+        plotStackProfileLegend(
+            zlim = zlim[[i]],
+            palette = colorRampPalette(c("white", tints[i], "black")),
+            title = legends[i]
+        )
         graphics::par(mar = low_mar)
-        plotAverageProfile(gr, what_pattern = patterns[i], ylim = ylim[[i]], colorPalette = bin_palette, xlabels = x_labels)
+        plotAverageProfile(
+            gr,
+            what_pattern = patterns[i],
+            ylim = ylim[[i]],
+            colorPalette = bin_palette,
+            xlabels = x_labels
+        )
     }
 
     graphics::par(oldpar)

@@ -6,7 +6,8 @@
 \usage{
 plotStackProfileLegend(
   zlim,
-  palette = colorRampPalette(c("white", "grey", "black"))
+  palette = colorRampPalette(c("white", "grey", "black")),
+  title = NA
 )
 }
 \arguments{
@@ -14,6 +15,8 @@ plotStackProfileLegend(
 
 \item{palette}{color palette,
 by default: colorRampPalette(c ("white", "gray", "black"))}
+
+\item{title}{an optionnal title to be display bellow the color legend.}
 }
 \value{
 a png

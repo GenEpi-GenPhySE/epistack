@@ -2,7 +2,8 @@
 #'
 #' @param zlim the limits of the values to be displayed
 #' @param palette color palette,
-#'  by default: colorRampPalette(c ("white", "gray", "black"))
+#' by default: colorRampPalette(c ("white", "gray", "black"))
+#' @param title an optionnal title to be display bellow the color legend.
 #'
 #' @return a png
 #'
@@ -16,7 +17,8 @@
 #'
 plotStackProfileLegend <- function(
     zlim,
-    palette = colorRampPalette(c("white", "grey", "black"))
+    palette = colorRampPalette(c("white", "grey", "black")),
+    title = NA
 ) {
     image(
         matrix(seq(zlim[1], zlim[2], length.out = 50)),
@@ -26,4 +28,5 @@ plotStackProfileLegend <- function(
     )
     box()
     axis(1, at = c(0, 1), labels = zlim)
+    axis(1, tick = FALSE, at = 0.5, labels = title)
 }
