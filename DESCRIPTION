@@ -1,5 +1,5 @@
 Package: epistack
-Title: heatMap of expression profiles
+Title: Heatmaps Of Stack Profiles Of Epigenetic Signals
 Version: 0.1.9
 Authors@R: 
     c(
