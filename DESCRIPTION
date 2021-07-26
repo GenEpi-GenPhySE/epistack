@@ -1,5 +1,5 @@
 Package: epistack
-Title: Heatmaps Of Stack Profiles Of Epigenetic Signals
+Title: Heatmaps of Stack Profiles from Epigenetic Signals
 Version: 0.1.9
 Authors@R: 
     c(
