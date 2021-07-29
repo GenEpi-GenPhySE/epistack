@@ -1,10 +1,14 @@
-
-#' addMetricAndArrangeGRanges
+#' addMetricAndArrangeGRanges()
 #'
-#' @param gr an input GRanges
-#' @param myOrder a data.frame or data.tabe contains the list of genes
-#' @param gr_key a character ...
-#' @param order_key a character corresponding to the column
+#' @description
+#'  Perform an inner join between a GRanges object and a data.frame and sort
+#'  the resulting GRanges based on a metric column.
+#'
+#' @param gr a GRanges object.
+#' @param myOrder a data.frame with at least two columns: keys and values.
+#' @param gr_key name of the gr metadat column containing unique names for
+#' each genomic region in gr. Usually gene names/id or peak id.
+#' @param order_key name of the  the column
 #'    that will be used to sort
 #' @param order_value a character corresponding to the column
 #'    of gene expression

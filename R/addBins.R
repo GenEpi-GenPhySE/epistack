@@ -4,7 +4,7 @@
 #'  Add an optional bin metadata column to \code{gr}, to serve as annotations
 #'  for the epistack plots.
 #'
-#' @param gr a gRanges object.
+#' @param gr a GRanges object.
 #' @param nbins an integer number, the number of bins.
 #' @param bin a vector containing pre-determined bins, in the same
 #' order as \code{gr}.
