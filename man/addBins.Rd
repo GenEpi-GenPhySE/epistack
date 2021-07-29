@@ -2,22 +2,34 @@
 % Please edit documentation in R/addBins.R
 \name{addBins}
 \alias{addBins}
-\title{addBins}
+\title{addBins()}
 \usage{
-addBins(gr, nbins = 5, bin = NULL)
+addBins(gr, nbins = 5L, bin = NULL)
 }
 \arguments{
-\item{gr}{a gRanges object}
+\item{gr}{a gRanges object.}
 
-\item{nbins}{a number corresponding to}
+\item{nbins}{an integer number, the number of bins.}
 
-\item{bin}{a vector on number}
+\item{bin}{a vector containing pre-determined bins, in the same
+order as \code{gr}.}
 }
 \value{
-a gRanges with a new "bin" column
+the \code{gr} GRanges object with a new \code{bin} metadata column
 }
 \description{
-addBins
+Add an optional bin metadata column to \code{gr}, to serve as annotations
+for the epistack plots.
+}
+\details{
+\code{nbins} is taken into account only if \code{bin} is \code{NULL}.
+\code{gr} should be sorted first, usually with the
+\code{addMetricAndArrangeGRanges()}
+function. \code{addBin(gr, bin = vec)} is equivalent to
+\code{gr$bin <- vec}, while
+\code{addBin(gr, nbins = 5)} will create 5 bins of equal size based on
+\code{gr}
+order.
 }
 \examples{
 data("gRanges_test")
@@ -29,5 +41,7 @@ addBins(gRanges_test, nbins = 3)
 # assign bins using a vector
 addBins(gRanges_test, bin = rep(c("a", "b", "c"),
  length.out = length(gRanges_test)))
-
+}
+\seealso{
+\link{addMetricAndArrangeGRanges}
 }
