@@ -1,10 +1,15 @@
-
-#' plotEpistack
+#' plotEpistack()
 #'
-#' @param gr a granges input
+#' @description Given a list of genomic regions,
+#' epigenetic signals surrounding these regions, and a score for each regions,
+#' plot epigenetic stacks depending on the score. An optional \code{bin} column
+#' allow the grouping of several genomic regions to produce average profiles per
+#' bins.
+#'
+#' @param gr a GRanges input
 #' @param patterns a character vector of column prefixes
-#' (can be regular expressions)
-#' @param tints color
+#' (can be regular expressions) that shouls match columns of \code{gr}
+#' @param tints a vector of colors to tint the heatmaps.
 #' @param titles a titles of each epistack
 #' @param legends a character vector of legends for the epistacks
 #' @param x_labels x axis labels
@@ -29,6 +34,7 @@
 #' @return a png
 #' @export
 #'
+#' @details
 #'
 #' @examples
 #' data("gRanges_test")
