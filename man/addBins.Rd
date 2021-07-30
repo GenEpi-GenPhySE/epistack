@@ -7,7 +7,7 @@
 addBins(gr, nbins = 5L, bin = NULL)
 }
 \arguments{
-\item{gr}{a gRanges object.}
+\item{gr}{a GRanges object.}
 
 \item{nbins}{an integer number, the number of bins.}
 
@@ -43,5 +43,5 @@ addBins(gRanges_test, bin = rep(c("a", "b", "c"),
  length.out = length(gRanges_test)))
 }
 \seealso{
-\link{addMetricAndArrangeGRanges}
+\code{\link[epistack]{addMetricAndArrangeGRanges}}
 }

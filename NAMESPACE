@@ -2,7 +2,7 @@
 
 export(addBins)
 export(addMetricAndArrangeGRanges)
-export(mean_color)
+export(meanColor)
 export(plotAverageProfile)
 export(plotBinning)
 export(plotBoxMetric)

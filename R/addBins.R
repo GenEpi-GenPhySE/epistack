@@ -23,7 +23,7 @@
 #'
 #' @export
 #'
-#' @seealso \link{addMetricAndArrangeGRanges}
+#' @seealso \code{\link[epistack]{addMetricAndArrangeGRanges}}
 #'
 #' @examples
 #' data("gRanges_test")
