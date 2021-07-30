@@ -1,19 +1,21 @@
-
-#' plotBoxMetric
+#' plotBoxMetric()
+#'
+#' @description Plot distribution of a metric values as bowplots
+#' depending of bins.
+#' If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
 #'
 #' @param gr a GRanges input
-#' @param metric name of the column containing epigenetic profile score
-#' @param title a character corresponding to metric title
-#' @param trans_func a function to transform value of x
-#' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
-#' @param ylim limit of the y axis; format: ylim = c (min, max)
-#' @param ylab y axis title
-#' @param palette a function of parameter `n`
-#'  that returns a palette of `n` colors.
+#' @param metric name of the column in \code{gr} metadata containing scores.
+#' @param title title of the plot.
+#' @param trans_func A function to transform value of x before ploting.
+#' Useful to apply log10 transformation
+#' (i.e. with \code{trans_func = function(x) log10(x+1)}).
+#' @param ylim limit of the y axis; format: \code{ylim = c(min, max)}
+#' @param ylab y-axis title
+#' @param palette a function that returns a palette of \code{n} colors.
 #'
 #' @importFrom stats setNames
 #'
-#' @return a boxplot
 #' @export
 #'
 #' @examples
@@ -24,8 +26,6 @@
 #'        metric = "exp",
 #'        title = "Metric"
 #'   )
-#'
-#'
 plotBoxMetric <- function(
     gr,
     metric = "expr", title = "Metric",

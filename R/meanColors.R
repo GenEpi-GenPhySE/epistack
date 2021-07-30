@@ -1,24 +1,30 @@
-#' mean_color
+#' meanColor
+#'
+#' @description
+#' Return the mean color of a vector of colors computed in the RGB space.
 #'
 #' @param colors vector of colors
 #'
-#' @return a color
+#' @return a single color value
 #'
 #' @export
 #'
+#' @details Input colors can be either in html or color name formats.
+#' The alpha channel is supported but optional.
+#'
 #' @examples
-#' mean_color(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))
+#' meanColor(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))
 #'
 #' # works with color names
-#' mean_color(c("blue", "red"))
+#' meanColor(c("blue", "red"))
 #'
 #' # Mix color names and HTML codes
-#' mean_color(c("blue", "red", "#FFFF00FF"))
+#' meanColor(c("blue", "red", "#FFFF00FF"))
 #'
 #' # works without alpha channel in inputs (but outputs an alpha channel):
-#' mean_color(c("#000000", "#FFFFFF", "#FFFF00", "#FF0000"))
+#' meanColor(c("#000000", "#FFFFFF", "#FFFF00", "#FF0000"))
 
-mean_color <- function(colors) {
+meanColor <- function(colors) {
     do.call(
         grDevices::rgb,
         c(

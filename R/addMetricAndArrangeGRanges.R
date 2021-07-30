@@ -1,17 +1,28 @@
-
-#' addMetricAndArrangeGRanges
+#' addMetricAndArrangeGRanges()
 #'
-#' @param gr an input GRanges
-#' @param myOrder a data.frame or data.tabe contains the list of genes
-#' @param gr_key a character ...
-#' @param order_key a character corresponding to the column
-#'    that will be used to sort
-#' @param order_value a character corresponding to the column
-#'    of gene expression
-#' @param shuffle_tie a boolean Value (TRUE - FALSE),
-#'    when TRUE, shuffle the gRanges before sorting
+#' @description
+#'  Perform an inner join between a GRanges object and a data.frame. Sort
+#'  the resulting GRanges based on a metric column.
 #'
-#' @return a GRanges sorted in ascending order
+#' @param gr a GRanges object.
+#' @param order a data.frame with at least two columns: keys and values.
+#' @param gr_key name of the gr metadata column containing unique names for
+#' each genomic region in \code{gr}. Usually gene names/id or peak id.
+#' @param order_key name of the \code{order} column
+#'    that will be used as key for the inner join.
+#' @param order_value name of the \code{order} column
+#'    that contain value used for sorting.
+#' @param shuffle_tie a boolean Value (TRUE / FALSE).
+#'    When TRUE, shuffle the gRanges before sorting, mixing the ties.
+#'
+#' @return a GRanges sorted in ascending order.
+#'
+#' @details This utility function allow the addition of a metric column to
+#' genomic regions of interest. One of its common use case is to add
+#' gene expression values on a set of transcription start sites.
+#' The resulting GRanges object will only contain regions presents in both
+#' \code{gr} and \code{order}.
+#'
 #' @export
 #'
 #' @importFrom S4Vectors mcols
@@ -27,15 +38,15 @@
 #'
 #'
 addMetricAndArrangeGRanges <- function(gr,
-                                       myOrder,
+                                       order,
                                        gr_key = "name",
                                        order_key = "name",
                                        order_value = "exp",
                                        shuffle_tie = TRUE) {
     names(gr) <- mcols(gr)[[gr_key]]
-    common_names <- base::intersect(names(gr), myOrder[[order_key]])
+    common_names <- base::intersect(names(gr), order[[order_key]])
     gr <- gr[common_names, ]
-    myMcols <- base::merge(myOrder,
+    myMcols <- base::merge(order,
                            S4Vectors::mcols(gr),
                            by.x = order_key,
                            by.y = gr_key)

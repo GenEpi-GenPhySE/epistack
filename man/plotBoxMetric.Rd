@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotBoxMetric.R
 \name{plotBoxMetric}
 \alias{plotBoxMetric}
-\title{plotBoxMetric}
+\title{plotBoxMetric()}
 \usage{
 plotBoxMetric(
   gr,
@@ -17,25 +17,24 @@ plotBoxMetric(
 \arguments{
 \item{gr}{a GRanges input}
 
-\item{metric}{name of the column containing epigenetic profile score}
+\item{metric}{name of the column in \code{gr} metadata containing scores.}
 
-\item{title}{a character corresponding to metric title}
+\item{title}{title of the plot.}
 
-\item{trans_func}{a function to transform value of x
-Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) log10(x+1)}).}
+\item{trans_func}{A function to transform value of x before ploting.
+Useful to apply log10 transformation
+(i.e. with \code{trans_func = function(x) log10(x+1)}).}
 
-\item{ylim}{limit of the y axis; format: ylim = c (min, max)}
+\item{ylim}{limit of the y axis; format: \code{ylim = c(min, max)}}
 
-\item{ylab}{y axis title}
+\item{ylab}{y-axis title}
 
-\item{palette}{a function of parameter \code{n}
-that returns a palette of \code{n} colors.}
-}
-\value{
-a boxplot
+\item{palette}{a function that returns a palette of \code{n} colors.}
 }
 \description{
-plotBoxMetric
+Plot distribution of a metric values as bowplots
+depending of bins.
+If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
 }
 \examples{
 data("gRanges_test")
@@ -45,6 +44,4 @@ plotBoxMetric(
        metric = "exp",
        title = "Metric"
   )
-
-
 }

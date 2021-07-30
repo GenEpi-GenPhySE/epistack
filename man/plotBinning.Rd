@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotBinning.R
 \name{plotBinning}
 \alias{plotBinning}
-\title{plotBinning}
+\title{plotBinning()}
 \usage{
 plotBinning(
   gr,
@@ -11,25 +11,22 @@ plotBinning(
 )
 }
 \arguments{
-\item{gr}{a gRanges object containing a "bin" column}
+\item{gr}{a GRanges object containing a \code{bin} metadata column}
 
-\item{target_height}{an integer, the approximate number of pixels of the final plot.
-Used to reduce the matrix before plotting to improve performance and reduce overploting artefacts.}
+\item{target_height}{an integer, the approximate height (in pixels)
+of the final plot. Used to avoid overplotting artefacts.}
 
-\item{palette}{a function taking a number has a first argument, and returning a vector of colors.}
-}
-\value{
-a plot
+\item{palette}{a function taking a number has a first argument,
+and returning a vector of colors.}
 }
 \description{
-plotBinning
+Plot a vertical color bar of the \code{bin} column.
 }
 \examples{
 data("gRanges_test")
 gr <- gRanges_test
 gr <- addBins(gr, nbins = 3)
 plot_bin <- plotBinning(gr)
-
 
 gr2 <- data.frame(bin = rep(c(1,2,3,4), each = 5))
 plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))

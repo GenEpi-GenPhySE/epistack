@@ -2,11 +2,11 @@
 % Please edit documentation in R/addMetricAndArrangeGRanges.R
 \name{addMetricAndArrangeGRanges}
 \alias{addMetricAndArrangeGRanges}
-\title{addMetricAndArrangeGRanges}
+\title{addMetricAndArrangeGRanges()}
 \usage{
 addMetricAndArrangeGRanges(
   gr,
-  myOrder,
+  order,
   gr_key = "name",
   order_key = "name",
   order_value = "exp",
@@ -14,26 +14,35 @@ addMetricAndArrangeGRanges(
 )
 }
 \arguments{
-\item{gr}{an input GRanges}
+\item{gr}{a GRanges object.}
 
-\item{myOrder}{a data.frame or data.tabe contains the list of genes}
+\item{order}{a data.frame with at least two columns: keys and values.}
 
-\item{gr_key}{a character ...}
+\item{gr_key}{name of the gr metadata column containing unique names for
+each genomic region in \code{gr}. Usually gene names/id or peak id.}
 
-\item{order_key}{a character corresponding to the column
-that will be used to sort}
+\item{order_key}{name of the \code{order} column
+that will be used as key for the inner join.}
 
-\item{order_value}{a character corresponding to the column
-of gene expression}
+\item{order_value}{name of the \code{order} column
+that contain value used for sorting.}
 
-\item{shuffle_tie}{a boolean Value (TRUE - FALSE),
-when TRUE, shuffle the gRanges before sorting}
+\item{shuffle_tie}{a boolean Value (TRUE / FALSE).
+When TRUE, shuffle the gRanges before sorting, mixing the ties.}
 }
 \value{
-a GRanges sorted in ascending order
+a GRanges sorted in ascending order.
 }
 \description{
-addMetricAndArrangeGRanges
+Perform an inner join between a GRanges object and a data.frame. Sort
+the resulting GRanges based on a metric column.
+}
+\details{
+This utility function allow the addition of a metric column to
+genomic regions of interest. One of its common use case is to add
+gene expression values on a set of transcription start sites.
+The resulting GRanges object will only contain regions presents in both
+\code{gr} and \code{order}.
 }
 \examples{
 data("gRanges_test")

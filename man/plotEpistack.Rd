@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotEpistack.R
 \name{plotEpistack}
 \alias{plotEpistack}
-\title{plotEpistack}
+\title{plotEpistack()}
 \usage{
 plotEpistack(
   gr,
@@ -25,12 +25,12 @@ plotEpistack(
 )
 }
 \arguments{
-\item{gr}{a granges input}
+\item{gr}{a GRanges input}
 
 \item{patterns}{a character vector of column prefixes
-(can be regular expressions)}
+(can be regular expressions) that shouls match columns of \code{gr}}
 
-\item{tints}{color}
+\item{tints}{a vector of colors to tint the heatmaps.}
 
 \item{titles}{a titles of each epistack}
 
@@ -70,7 +70,14 @@ corresponding to the margins of the bottom figures}
 a png
 }
 \description{
-plotEpistack
+Given a list of genomic regions,
+epigenetic signals surrounding these regions, and a score for each regions,
+plot epigenetic stacks depending on the score. An optional \code{bin} column
+allow the grouping of several genomic regions to produce average profiles per
+bins.
+}
+\details{
+
 }
 \examples{
 data("gRanges_test")
