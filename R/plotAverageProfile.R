@@ -1,17 +1,22 @@
-#' plotAverageProfile
+#' plotAverageProfile()
 #'
-#' @param gr a gRanges input
-#' @param what_pattern a character vector of column prefixes
-#'  (can be regular expressions)
-#' @param xlabels x axis labels
-#' @param colorPalette color palette,
-#'  by default: colorRampPalette(c("magenta", "black", "green"))
-#' @param alphaForSe transparency value for standard error of the mean bend
-#' @param reversedZOrder should the z-order of the curves be reversed
-#' @param ylim a vector of number corresponding
-#'  to the limits of the values to be displayed
+#' @description Plot the average stack profiles +/- standard error of the
+#' means. If a \code{bin} column is present in \code{gr}, one average profile
+#' is drawn for each bin.
 #'
-#' @return a png
+#' @param gr a GRanges input
+#' @param what_pattern a single character that should match
+#'  metadata of \code{gr} (can be a regular expression).
+#' @param xlabels x-axis labels.
+#' @param palette a color palette function,
+#'  by default: \code{colorRampPalette(c("magenta", "black", "green"))}
+#' @param alpha_for_se the transparency (alpha) value for
+#' standard error of the mean band.
+#' @param reversed_z_order should the z-order of the curves be reversed
+#' (i.e. first or last bin on top?)
+#' @param ylim a vector of two numbers corresponding
+#'  to the y-limits of the plot
+#'
 #' @export
 #'
 #' @examples
@@ -22,9 +27,9 @@ plotAverageProfile <- function(
     gr,
     what_pattern = "^window_",
     xlabels = c("-2.5kb", "TSS", "+2.5kb"),
-    colorPalette = colorRampPalette(c("magenta", "black", "green")),
-    alphaForSe = 0.25,
-    reversedZOrder = FALSE,
+    palette = colorRampPalette(c("magenta", "black", "green")),
+    alpha_for_se = 0.25,
+    reversed_z_order = FALSE,
     ylim = NULL
 ) {
     mat <- S4Vectors::mcols(gr)
@@ -54,9 +59,9 @@ plotAverageProfile <- function(
     xind <- seq_len(ncol(mat))
 
     if(!is.null(gr$bin)) {
-        myColorPalette <- colorPalette(length(unique(gr$bin)))
+        mypalette <- palette(length(unique(gr$bin)))
     } else {
-        myColorPalette <- colorPalette(1)
+        mypalette <- palette(1)
     }
 
     if (is.null(ylim)) {
@@ -72,7 +77,7 @@ plotAverageProfile <- function(
     axis(2, at = ylim)
 
     iter <- rev(seq_along(myMats))
-    if (reversedZOrder) {
+    if (reversed_z_order) {
         iter <- rev(iter)
     }
 
@@ -81,12 +86,12 @@ plotAverageProfile <- function(
                             myMeans[[i]],
                             mySes[[i]],
                             type = "l",
-                            fill = grDevices::adjustcolor(myColorPalette[i],
-                                                          alphaForSe))
+                            fill = grDevices::adjustcolor(mypalette[i],
+                                                          alpha_for_se))
         graphics::lines(xind,
                         myMeans[[i]],
                         type = "l",
-                        col = myColorPalette[i], lwd = 2)
+                        col = mypalette[i], lwd = 2)
     }
 }
 

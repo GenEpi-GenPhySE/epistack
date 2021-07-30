@@ -2,41 +2,42 @@
 % Please edit documentation in R/plotAverageProfile.R
 \name{plotAverageProfile}
 \alias{plotAverageProfile}
-\title{plotAverageProfile}
+\title{plotAverageProfile()}
 \usage{
 plotAverageProfile(
   gr,
   what_pattern = "^window_",
   xlabels = c("-2.5kb", "TSS", "+2.5kb"),
-  colorPalette = colorRampPalette(c("magenta", "black", "green")),
-  alphaForSe = 0.25,
-  reversedZOrder = FALSE,
+  palette = colorRampPalette(c("magenta", "black", "green")),
+  alpha_for_se = 0.25,
+  reversed_z_order = FALSE,
   ylim = NULL
 )
 }
 \arguments{
-\item{gr}{a gRanges input}
+\item{gr}{a GRanges input}
 
-\item{what_pattern}{a character vector of column prefixes
-(can be regular expressions)}
+\item{what_pattern}{a single character that should match
+metadata of \code{gr} (can be a regular expression).}
 
-\item{xlabels}{x axis labels}
+\item{xlabels}{x-axis labels.}
 
-\item{colorPalette}{color palette,
-by default: colorRampPalette(c("magenta", "black", "green"))}
+\item{palette}{a color palette function,
+by default: \code{colorRampPalette(c("magenta", "black", "green"))}}
 
-\item{alphaForSe}{transparency value for standard error of the mean bend}
+\item{alpha_for_se}{the transparency (alpha) value for
+standard error of the mean band.}
 
-\item{reversedZOrder}{should the z-order of the curves be reversed}
+\item{reversed_z_order}{should the z-order of the curves be reversed
+(i.e. first or last bin on top?)}
 
-\item{ylim}{a vector of number corresponding
-to the limits of the values to be displayed}
-}
-\value{
-a png
+\item{ylim}{a vector of two numbers corresponding
+to the y-limits of the plot}
 }
 \description{
-plotAverageProfile
+Plot the average stack profiles +/- standard error of the
+means. If a \code{bin} column is present in \code{gr}, one average profile
+is drawn for each bin.
 }
 \examples{
 data("gRanges_test")

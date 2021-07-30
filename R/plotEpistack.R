@@ -129,7 +129,7 @@ plotEpistack <- function(
             gr,
             what_pattern = patterns[i],
             ylim = ylim[[i]],
-            colorPalette = bin_palette,
+            palette = bin_palette,
             xlabels = x_labels
         )
     }
