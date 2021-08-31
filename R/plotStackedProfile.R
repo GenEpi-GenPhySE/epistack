@@ -1,17 +1,50 @@
-#' plotStackedProfile
+#' plotStackedProfile()
+#'
+#' @description Display a heatmap of an epigenetic track centered at
+#' genomic anchors such as Transcription Start Sites or peak center.
 #'
 #' @param gr a GRanges input
-#' @param what_pattern a character
-#' @param x_labels a character vectors with column labels to use
-#' @param title a character corresponding to the title of the heatmap
-#' @param zlim = the minimum and maximum z values for which colors should be plotted
-#' @param palette function to determine the palette of heatmap color
-#' @param target_height a number
-#' @param summary_func function whitch applicate
-#'    the mean function to the gRanges input
-#' @param n_core a number : parallel processing
+#' @param what_pattern a character vector of length 1 of a column prefixe
+#' (can be regular expressions) that should match columns of \code{gr}.
+#' @param x_labels a character vectors of length 3 used to label the x-axis.
+#' @param title The title of the heatmap
+#' @param zlim The minimum and maximum z values to match color to values.
+#' Format: zlim = c (min, max)
+#' @param palette a palette of color,
+#' (i.e. a function of parameter n that should retrun n colors).
+#' @param target_height The matrix height is reduced to this number of rows
+#' before plotting.
+#' Useful to limit overplotting artefacts. It should roughtly be set to
+#' the pixel height in the final heatmap.
+#' @param summary_func function passed to \code{redimMatrix()}.
+#' Usualy \code{mean}, but can be set to \code{median} or \code{max} for sparse
+#' matrices.
+#' @param n_core multicore option, passed to \code{redimMatrix()}.
 #'
-#' @return a png
+#' @details
+#' The visualisation is centered on an anchor,
+#' a set of genomic coordinated that can be transcription start sites or
+#' peak center for example. Anchor coordinates are those of the \code{GRanges}
+#' used as an input (hereafter \code{gr}).
+#'
+#' Anchors are plotted from top to bottom in the same order as in \code{gr}.
+#' One should sort \code{gr} before plotting if needed.
+#'
+#' The matrix used to display the heatmap should be passed as
+#' additional metadata columns of \code{gr}. Such matrix can be obtained using
+#' \code{EnrichedHeatmap::normalizeToMatrix()} for example. The matrix columns
+#' names are then specified through \code{what_pattern} using a prefix, a suffix
+#' or a regular expressions.
+#'
+#' This function scale reasonnably wells up to hundred thousands
+#' of regions. Overplotting issues are solved by last-minute reduction of the
+#' matrix size using \code{redimMatrix()}.
+#'
+#' @seealso \code{\link[epistack]{plotAverageProfile}},
+#' \code{\link[epistack]{plotEpistack}},
+#' \code{\link[EnrichedHeatmap]{normalizeToMatrix}},
+#' \code{\link[epistack]{plotStackedProfileLegend}}
+#'
 #' @export
 #'
 #' @importFrom S4Vectors mcols
@@ -25,7 +58,7 @@
 #' plotStackedProfile(gRanges_test,
 #'                    target_height = 650,
 #'                    zlim = c(0, 1),
-#'                    palette = colorRampPalette(c("magenta", "black", "green")),
+#'                    palette = colorRampPalette(c("white", "dodgerblue", "black")),
 #'                    title = "DNA methylation")
 #'
 plotStackedProfile <- function(

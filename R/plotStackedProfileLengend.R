@@ -1,11 +1,15 @@
-#' plotStackProfileLegend
+#' plotStackProfileLegend()
 #'
-#' @param zlim the limits of the values to be displayed
-#' @param palette color palette,
-#' by default: colorRampPalette(c ("white", "gray", "black"))
+#' @description Utility function to plot the corresponding legend key of
+#' \code{plotStackedProfile()}'s plots.
+#'
+#' @param zlim the limits of the values to be displayed.
+#' Format: \code{c(min, max)}
+#' @param palette a palette of color,
+#' (i.e. a function of parameter n that should retrun n colors).
 #' @param title an optionnal title to be display bellow the color legend.
 #'
-#' @return a png
+#' @seealso \code{\link[epistack]{plotStackedProfile}}
 #'
 #' @importFrom grDevices colorRampPalette
 #' @importFrom graphics box
@@ -13,7 +17,8 @@
 #' @export
 #'
 #' @examples
-#' plotStackProfileLegend(zlim = c(0, 2), palette = colorRampPalette(c("white", "grey", "black")))
+#' plotStackProfileLegend(zlim = c(0, 2),
+#'     palette = colorRampPalette(c("white", "grey", "black")))
 #'
 plotStackProfileLegend <- function(
     zlim,
