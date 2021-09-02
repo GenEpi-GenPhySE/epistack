@@ -12,6 +12,8 @@
 #' @details Input colors can be either in html or color name formats.
 #' The alpha channel is supported but optional.
 #'
+#' @seealso \code{\link[epistack]{redim_matrix}}
+#'
 #' @examples
 #' meanColor(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))
 #'

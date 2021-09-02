@@ -1,16 +1,28 @@
-#' redim_matrix
+#' redim_matrix()
 #'
-#' this function resizes the input matrix by applying the rounded average
-#' on the columns
+#' Reduce the input matrix size by applying a summary function on cells to
+#' be fused.
 #'
-#' @param mat a matrix: the input matrix
-#' @param target_height a number: the length of the output matrix
-#' @param target_width a number: the width of the output matrix
-#' @param summary_func a function: the mean function with "na.rm = TRUE"
-#' @param output_type a number: vapply style
-#' @param n_core a number: parallel processing
+#' @param mat the input matrix.
+#' @param target_height height of the output matrix
+#' (should be smaller than or equal to \code{nrow(mat)}).
+#' @param target_width width of the output matrix
+#' (should be smaller than or equal to \code{ncol(mat)}).
+#' @param summary_func how to summerize cells? A function such has
+#' \code{mean}, \code{median}, \code{max}, or \code{meanColors}.
+#' @param output_type Type of the output, to be passed to \code{vapply}'s
+#' FUN.VALUE.
+#' @param n_core number of core to use for parallel processing.
 #'
-#' @return a matrix: a resized matrix
+#' @return a resized matrix of size \code{target_width} x \code{target_height}
+#'  where the \code{summary_fun} was apply
+#'  to adjacent cells.
+#'
+#' @details This function is used to reduce matrix right before plotting them
+#' in order to avoid overplotting issues as well as other plotting artefacts.
+#'
+#' @seealso \code{\link[epistack]{meanColors}}
+#'
 #' @export
 #'
 #' @importFrom S4Vectors mcols
