@@ -25,6 +25,9 @@ Useful to apply log10 transformation
 
 \item{xlab}{x-axis title}
 }
+\value{
+Display a plot.
+}
 \description{
 Plot a vertical line chart or the metric column,
 in the same order as the input.

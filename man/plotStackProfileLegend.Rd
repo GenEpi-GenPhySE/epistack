@@ -19,6 +19,9 @@ Format: \code{c(min, max)}}
 
 \item{title}{an optionnal title to be display bellow the color legend.}
 }
+\value{
+Display a plot.
+}
 \description{
 Utility function to plot the corresponding legend key of
 \code{plotStackProfile()}'s plots.

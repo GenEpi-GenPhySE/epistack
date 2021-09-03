@@ -13,6 +13,8 @@
 #'
 #' @export
 #'
+#' @return Display a plot.
+#'
 #' @seealso \code{\link[epistack]{plotEpistack}},
 #' \code{\link[epistack]{plotBoxMetric}}
 #'

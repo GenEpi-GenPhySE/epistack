@@ -86,6 +86,8 @@
 #'
 #' @export
 #'
+#' @return Display a plot.
+#'
 #' @seealso \code{\link[epistack]{plotStackProfile}},
 #' \code{\link[epistack]{plotAverageProfile}},
 #' \code{\link[epistack]{redimMatrix}},

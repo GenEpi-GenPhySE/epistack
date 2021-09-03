@@ -43,6 +43,9 @@ matrices.}
 
 \item{n_core}{multicore option, passed to \code{redimMatrix()}.}
 }
+\value{
+Display a plot.
+}
 \description{
 Display a heatmap of an epigenetic track centered at
 genomic anchors such as Transcription Start Sites or peak center.

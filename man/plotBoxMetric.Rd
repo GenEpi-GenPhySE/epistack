@@ -31,6 +31,9 @@ Useful to apply log10 transformation
 
 \item{palette}{a function that returns a palette of \code{n} colors.}
 }
+\value{
+Display a plot.
+}
 \description{
 Plot distribution of a metric values as bowplots
 depending of bins.

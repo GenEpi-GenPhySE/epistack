@@ -47,6 +47,8 @@
 #'
 #' @export
 #'
+#' @return Display a plot.
+#'
 #' @importFrom S4Vectors mcols
 #' @importFrom viridisLite viridis
 #' @importFrom BiocGenerics image

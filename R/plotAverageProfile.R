@@ -19,6 +19,8 @@
 #'
 #' @export
 #'
+#' @return Display a plot.
+#'
 #' @examples
 #' data("stackepi")
 #' plotAverageProfile(stackepi)

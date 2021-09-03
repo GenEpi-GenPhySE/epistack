@@ -10,6 +10,8 @@
 #'
 #' @importFrom grDevices rainbow
 #'
+#' @return Display a plot.
+#'
 #' @export
 #'
 #' @examples

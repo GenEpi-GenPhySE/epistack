@@ -19,6 +19,9 @@ of the final plot. Used to avoid overplotting artefacts.}
 \item{palette}{a function taking a number has a first argument,
 and returning a vector of colors.}
 }
+\value{
+Display a plot.
+}
 \description{
 Plot a vertical color bar of the \code{bin} column.
 }

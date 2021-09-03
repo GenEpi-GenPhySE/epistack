@@ -34,6 +34,9 @@ standard error of the mean band.}
 \item{ylim}{a vector of two numbers corresponding
 to the y-limits of the plot}
 }
+\value{
+Display a plot.
+}
 \description{
 Plot the average stack profiles +/- standard error of the
 means. If a \code{bin} column is present in \code{gr}, one average profile

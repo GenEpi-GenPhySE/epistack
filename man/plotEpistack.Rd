@@ -74,6 +74,9 @@ c(bottom, left, top, right)}
 corresponding to the margins of the bottom figures.
 c(bottom, left, top, right)}
 }
+\value{
+Display a plot.
+}
 \description{
 Given a list of genomic regions,
 epigenetic signals surrounding these regions, and a score for each regions,

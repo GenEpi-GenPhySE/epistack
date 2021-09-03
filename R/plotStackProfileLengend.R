@@ -11,6 +11,8 @@
 #'
 #' @seealso \code{\link[epistack]{plotStackProfile}}
 #'
+#' @return Display a plot.
+#'
 #' @importFrom grDevices colorRampPalette
 #' @importFrom graphics box
 #'

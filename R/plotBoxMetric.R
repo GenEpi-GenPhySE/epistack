@@ -16,6 +16,8 @@
 #'
 #' @importFrom stats setNames
 #'
+#' @return Display a plot.
+#'
 #' @export
 #'
 #' @examples
