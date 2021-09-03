@@ -33,4 +33,7 @@ remotes::install_github("GenEpi-GenPhySE/epistack")
 
 A (draft) version of `epistack` vignette can be read [here](https://gdevailly.github.io/using_epistack.html).
 
+## Funding
+
+{epistack} recieved financial support from [INRAE](https://www.inrae.fr/en) and from [Agence Nationnale de la Recherche](https://anr.fr/en/) though the funding ANR-19-DATA-0007.
 
