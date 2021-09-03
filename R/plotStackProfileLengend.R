@@ -1,7 +1,7 @@
 #' plotStackProfileLegend()
 #'
 #' @description Utility function to plot the corresponding legend key of
-#' \code{plotStackedProfile()}'s plots.
+#' \code{plotStackProfile()}'s plots.
 #'
 #' @param zlim the limits of the values to be displayed.
 #' Format: \code{c(min, max)}
@@ -9,7 +9,7 @@
 #' (i.e. a function of parameter n that should retrun n colors).
 #' @param title an optionnal title to be display bellow the color legend.
 #'
-#' @seealso \code{\link[epistack]{plotStackedProfile}}
+#' @seealso \code{\link[epistack]{plotStackProfile}}
 #'
 #' @importFrom grDevices colorRampPalette
 #' @importFrom graphics box

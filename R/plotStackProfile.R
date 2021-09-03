@@ -1,4 +1,4 @@
-#' plotStackedProfile()
+#' plotStackProfile()
 #'
 #' @description Display a heatmap of an epigenetic track centered at
 #' genomic anchors such as Transcription Start Sites or peak center.
@@ -43,7 +43,7 @@
 #' @seealso \code{\link[epistack]{plotAverageProfile}},
 #' \code{\link[epistack]{plotEpistack}},
 #' \code{\link[EnrichedHeatmap]{normalizeToMatrix}},
-#' \code{\link[epistack]{plotStackedProfileLegend}}
+#' \code{\link[epistack]{plotStackProfileLegend}}
 #'
 #' @export
 #'
@@ -54,14 +54,14 @@
 #' @importFrom graphics mtext
 #'
 #' @examples
-#' data("gRanges_test")
-#' plotStackedProfile(gRanges_test,
+#' data("stackepi")
+#' plotStackProfile(stackepi,
 #'                    target_height = 650,
 #'                    zlim = c(0, 1),
 #'                    palette = colorRampPalette(c("white", "dodgerblue", "black")),
 #'                    title = "DNA methylation")
 #'
-plotStackedProfile <- function(
+plotStackProfile <- function(
     gr,
     what_pattern = "^window_",
     x_labels = c("-2.5kb", "TSS", "+2.5kb"),
@@ -89,7 +89,7 @@ plotStackedProfile <- function(
 
     breaks <- seq(zlim[1], zlim[2], length.out = 100)
 
-    smallMat <- redim_matrix(mat,
+    smallMat <- redimMatrix(mat,
                              target_height = target_height,
                              target_width = ncol(mat),
                              summary_func = summary_func,

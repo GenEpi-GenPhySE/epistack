@@ -17,8 +17,8 @@
 #' \code{\link[epistack]{plotBoxMetric}}
 #'
 #' @examples
-#' data("gRanges_test")
-#' plotMetric(gRanges_test$exp)
+#' data("stackepi")
+#' plotMetric(stackepi$exp)
 #'
 #'
 plotMetric <- function(

@@ -1,5 +1,5 @@
-data("gRanges_test")
-gr <- gRanges_test
+data("stackepi")
+gr <- stackepi
 gr <- addBins(gr, nbins = 3)
 plot_bin1 <- function() plotBinning(gr)
 

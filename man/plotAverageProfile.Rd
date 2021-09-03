@@ -40,7 +40,7 @@ means. If a \code{bin} column is present in \code{gr}, one average profile
 is drawn for each bin.
 }
 \examples{
-data("gRanges_test")
-plotAverageProfile(gRanges_test)
+data("stackepi")
+plotAverageProfile(stackepi)
 
 }

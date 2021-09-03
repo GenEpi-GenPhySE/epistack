@@ -1,5 +1,5 @@
 # input and output definitions ---------
-data("gRanges_test")
+data("stackepi")
 
 set.seed(2807)
 
@@ -7,7 +7,7 @@ gr <- GenomicRanges::GRanges(
     seqnames = S4Vectors::Rle(c("chr1", "chr2", "chr1", "chr3"), c(10, 10, 15, 15)),
     ranges = IRanges::IRanges(101:150, end = 111:160, names = paste0("r", 1:50)),
     strand = S4Vectors::Rle(BiocGenerics::strand(c("-", "+", "*", "+", "-")), c(10, 15, 5, 10, 10)),
-    gene_id = base::sample(gRanges_test$gene_id, size = 50),
+    gene_id = base::sample(stackepi$gene_id, size = 50),
     score = base::sample(1:50),
     GC = base::sample(seq(1, 0, length=50)))
 
@@ -115,14 +115,14 @@ rownames=NULL,nrows=50L,listData=list(gene_id=c("ENSSSCG00000048651",
 elementMetadata=NULL,metadata=list()),elementType="ANY",
 metadata=list())
 
-ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id, value = rnorm(length(gRanges_test)))
+ramdomOrder <- data.frame(gene_id = stackepi$gene_id, value = rnorm(length(stackepi)))
 
 result2 <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 # tests -------------
 test_that("test the sort with value value", {
     expect_equal(
-        tail(addMetricAndArrangeGRanges(gRanges_test,
+        tail(addMetricAndArrangeGRanges(stackepi,
                                    ramdomOrder, gr_key = "gene_id",
                                    order_key = "gene_id",
                                    order_value = "exp" )$exp, n = 20),

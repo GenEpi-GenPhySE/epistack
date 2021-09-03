@@ -20,8 +20,8 @@
 #' @export
 #'
 #' @examples
-#' data("gRanges_test")
-#' plotAverageProfile(gRanges_test)
+#' data("stackepi")
+#' plotAverageProfile(stackepi)
 #'
 plotAverageProfile <- function(
     gr,

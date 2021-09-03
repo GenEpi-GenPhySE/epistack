@@ -45,10 +45,10 @@ The resulting GRanges object will only contain regions presents in both
 \code{gr} and \code{order}.
 }
 \examples{
-data("gRanges_test")
-ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id,
-   value = rnorm(length(gRanges_test)))
-addMetricAndArrangeGRanges(gRanges_test,
+data("stackepi")
+ramdomOrder <- data.frame(gene_id = stackepi$gene_id,
+   value = rnorm(length(stackepi)))
+addMetricAndArrangeGRanges(stackepi,
    ramdomOrder, gr_key = "gene_id",
    order_key = "gene_id", order_value = "value" )
 

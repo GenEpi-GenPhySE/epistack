@@ -23,8 +23,8 @@ and returning a vector of colors.}
 Plot a vertical color bar of the \code{bin} column.
 }
 \examples{
-data("gRanges_test")
-gr <- gRanges_test
+data("stackepi")
+gr <- stackepi
 gr <- addBins(gr, nbins = 3)
 plot_bin <- plotBinning(gr)
 

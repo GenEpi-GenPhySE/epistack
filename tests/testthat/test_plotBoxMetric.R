@@ -1,6 +1,6 @@
-data("gRanges_test")
+data("stackepi")
 test1 <- function() plotBoxMetric(
-    gRanges_test,
+    stackepi,
     metric = "exp"
 )
 

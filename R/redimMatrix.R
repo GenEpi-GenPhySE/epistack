@@ -1,4 +1,4 @@
-#' redim_matrix()
+#' redimMatrix()
 #'
 #' Reduce the input matrix size by applying a summary function on cells to
 #' be fused.
@@ -21,27 +21,27 @@
 #' @details This function is used to reduce matrix right before plotting them
 #' in order to avoid overplotting issues as well as other plotting artefacts.
 #'
-#' @seealso \code{\link[epistack]{meanColors}}
+#' @seealso \code{\link[epistack]{meanColor}}
 #'
 #' @export
 #'
 #' @importFrom S4Vectors mcols
 #'
 #' @examples
-#' data("gRanges_test")
-#' mat <- S4Vectors::mcols(gRanges_test)
+#' data("stackepi")
+#' mat <- S4Vectors::mcols(stackepi)
 #' whichCols <- grepl("^window_", colnames(mat))
 #' mat <- as.matrix(mat[, whichCols])
 #' dim(mat)
-#' smallMat <- redim_matrix(mat, target_height = 10, target_width = ncol(mat))
+#' smallMat <- redimMatrix(mat, target_height = 10, target_width = ncol(mat))
 #' dim(smallMat)
 #'
 #' mat <- matrix(sample(1:40,100,replace=TRUE),nrow=10,ncol=10)
 #' dim(mat)
-#' smallMat <- redim_matrix(mat, target_height = 5, target_width = ncol(mat),
+#' smallMat <- redimMatrix(mat, target_height = 5, target_width = ncol(mat),
 #'    summary_func = function(x) max(x, na.rm = TRUE))
 #' dim(smallMat)
-redim_matrix <- function(
+redimMatrix <- function(
     mat,
     target_height = 100,
     target_width = 100,

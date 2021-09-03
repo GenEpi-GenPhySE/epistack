@@ -19,9 +19,9 @@
 #' @export
 #'
 #' @examples
-#' data("gRanges_test")
+#' data("stackepi")
 #' plotBoxMetric(
-#'        gRanges_test,
+#'        stackepi,
 #'        trans_func = function(x) x,
 #'        metric = "exp",
 #'        title = "Metric"

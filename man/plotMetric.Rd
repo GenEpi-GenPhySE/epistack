@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotMetric.R
 \name{plotMetric}
 \alias{plotMetric}
-\title{plotMetric}
+\title{plotMetric()}
 \usage{
 plotMetric(
   x,
@@ -13,26 +13,29 @@ plotMetric(
 )
 }
 \arguments{
-\item{x}{a GRanges input}
+\item{x}{a numeric vector.}
 
-\item{trans_func}{a function to transform value of x.
-Useful to apply log10 transformation (i.e. with \code{trans_func = function(x) log10(x+1)}).}
+\item{trans_func}{a function to transform \code{x} values before ploting.
+Useful to apply log10 transformation
+(i.e. with \code{trans_func = function(x) log10(x+1)}).}
 
-\item{title}{a character corresponding to the title of the plot}
+\item{title}{Title of the plot.}
 
-\item{ylim}{limit of the y axis; format: ylim = c (min, max)}
+\item{ylim}{limit of the y axis; format: \code{ylim = c(min, max)}}
 
-\item{xlab}{x axix title}
-}
-\value{
-a png
+\item{xlab}{x-axis title}
 }
 \description{
-plotMetric
+Plot a vertical line chart or the metric column,
+in the same order as the input.
 }
 \examples{
-data("gRanges_test")
-plotMetric(gRanges_test$exp)
+data("stackepi")
+plotMetric(stackepi$exp)
 
 
+}
+\seealso{
+\code{\link[epistack]{plotEpistack}},
+\code{\link[epistack]{plotBoxMetric}}
 }

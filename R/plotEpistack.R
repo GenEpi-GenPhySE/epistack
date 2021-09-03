@@ -72,7 +72,7 @@
 #' panels can be specified using \code{high_mar} and \code{low_mar} parameters
 #' if needed, especially to avoid text overlaps. The default value should
 #' be apprpriate in most situations. Individual component can be plotted
-#' using severa \code{epistack} functions such has \code{plotStackedProfile()}
+#' using severa \code{epistack} functions such has \code{plotStackProfile()}
 #' or \code{plotAverageProfile()}.
 #'
 #' Ploting more than > 1000 regions has an heatmap can lead to overploting
@@ -86,7 +86,7 @@
 #'
 #' @export
 #'
-#' @seealso \code{\link[epistack]{plotStackedProfile}},
+#' @seealso \code{\link[epistack]{plotStackProfile}},
 #' \code{\link[epistack]{plotAverageProfile}},
 #' \code{\link[epistack]{redimMatrix}},
 #' \code{\link[EnrichedHeatmap]{normalizeToMatrix}},
@@ -94,8 +94,8 @@
 #' \code{\link[epistack]{addBins}}
 #'
 #' @examples
-#' data("gRanges_test")
-#' plotEpistack(gRanges_test,
+#' data("stackepi")
+#' plotEpistack(stackepi,
 #'     metric_col = "exp",
 #'     ylim = c(0, 1),
 #'     metric_transfunc = function(x) log10(x+1))
@@ -175,7 +175,7 @@ plotEpistack <- function(
 
     for (i in seq_along(patterns)) {
         graphics::par(mar = high_mar)
-        plotStackedProfile(
+        plotStackProfile(
             gr, what_pattern = patterns[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,

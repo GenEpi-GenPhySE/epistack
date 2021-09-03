@@ -39,10 +39,10 @@ plotEpistack(
 \item{x_labels}{a character vector of length 3 used as x-axis labels.}
 
 \item{zlim}{the minimum and maximum z values the heatmap.
-format: zlim = c (min, max)}
+Format: zlim = c (min, max)}
 
 \item{ylim}{limits of the y axis for bottom plots.
-format: ylim = c (min, max)}
+Format: ylim = c (min, max)}
 
 \item{metric_col}{a character, name of a column in \code{gr}
 such as expression value, peak height, pvalue, fold change, etc.}
@@ -62,7 +62,7 @@ average profiles per bin in the bottom plots.}
 \item{npix_height}{The matrix height is reduced to this number of rows
 before plotting.
 Useful to limit overplotting artefacts. It should roughtly be set to
-the number of pixels in the final image.}
+the pixel height in the final heatmaps}
 
 \item{n_core}{number of core used to speedup the martrix resizing.}
 
@@ -92,7 +92,7 @@ a set of genomic coordinated that can be transcription start sites or
 peak center for example. Anchor coordinates are those of the \code{GRanges}
 used as an input (hereafter \code{gr}).
 
-Anchor are plot from top to bottom in the same order as in \code{gr}.
+Anchors are plotted from top to bottom in the same order as in \code{gr}.
 One should sort \code{gr} before plotting if needed.
 
 \code{gr} should have a metric column that is used in the leftmost plots.
@@ -101,7 +101,7 @@ The metric can be transformed before ploting if needed using the
 \code{metric_transfunc} parameter.
 
 The matrix or matrices used to display the heatmap(s) should be passed as
-additional metadata column of \code{gr}. Such matrix can be obtained using
+additional metadata columns of \code{gr}. Such matrix can be obtained using
 \code{EnrichedHeatmap::normalizeToMatrix()} for example. The matrix columns
 names are then specified through \code{patterns} using prefixes, suffixes or
 regular expressions.
@@ -114,7 +114,7 @@ Epistack are multipanel plots build using \code{layout()}. Margins for the
 panels can be specified using \code{high_mar} and \code{low_mar} parameters
 if needed, especially to avoid text overlaps. The default value should
 be apprpriate in most situations. Individual component can be plotted
-using severa \code{epistack} functions such has \code{plotStackedProfile()}
+using severa \code{epistack} functions such has \code{plotStackProfile()}
 or \code{plotAverageProfile()}.
 
 Ploting more than > 1000 regions has an heatmap can lead to overploting
@@ -127,15 +127,15 @@ plotting using \code{npix_height} as target height. Parameter \code{n_core}
 is passed to \code{redimMatrix()} to speed up the down-scaling.
 }
 \examples{
-data("gRanges_test")
-plotEpistack(gRanges_test,
+data("stackepi")
+plotEpistack(stackepi,
     metric_col = "exp",
     ylim = c(0, 1),
     metric_transfunc = function(x) log10(x+1))
 
 }
 \seealso{
-\code{\link[epistack]{plotStackedProfile}},
+\code{\link[epistack]{plotStackProfile}},
 \code{\link[epistack]{plotAverageProfile}},
 \code{\link[epistack]{redimMatrix}},
 \code{\link[EnrichedHeatmap]{normalizeToMatrix}},

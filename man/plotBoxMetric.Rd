@@ -37,9 +37,9 @@ depending of bins.
 If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
 }
 \examples{
-data("gRanges_test")
+data("stackepi")
 plotBoxMetric(
-       gRanges_test,
+       stackepi,
        trans_func = function(x) x,
        metric = "exp",
        title = "Metric"

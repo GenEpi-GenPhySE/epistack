@@ -26,15 +26,15 @@
 #' @seealso \code{\link[epistack]{addMetricAndArrangeGRanges}}
 #'
 #' @examples
-#' data("gRanges_test")
-#' addBins(gRanges_test)
+#' data("stackepi")
+#' addBins(stackepi)
 #'
 #' # 3 bins instead of 5
-#' addBins(gRanges_test, nbins = 3)
+#' addBins(stackepi, nbins = 3)
 #'
 #' # assign bins using a vector
-#' addBins(gRanges_test, bin = rep(c("a", "b", "c"),
-#'  length.out = length(gRanges_test)))
+#' addBins(stackepi, bin = rep(c("a", "b", "c"),
+#'  length.out = length(stackepi)))
 addBins <- function(gr, nbins = 5L, bin = NULL){
 
     if(is.null(bin)) {

@@ -13,8 +13,8 @@
 #' @export
 #'
 #' @examples
-#' data("gRanges_test")
-#' gr <- gRanges_test
+#' data("stackepi")
+#' gr <- stackepi
 #' gr <- addBins(gr, nbins = 3)
 #' plot_bin <- plotBinning(gr)
 #'
@@ -28,7 +28,7 @@ plotBinning <- function(
 ) {
     bins <- as.numeric(factor(gr$bin))
     if (length(bins) > target_height) {
-        bins_red <- redim_matrix(
+        bins_red <- redimMatrix(
             matrix(bins),
             target_height = target_height, target_width = 1
         )
