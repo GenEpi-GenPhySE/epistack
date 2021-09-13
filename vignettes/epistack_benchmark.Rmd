@@ -1,0 +1,62 @@
+---
+title: "epistack benchmarking"
+author: "Guillaume Devailly"
+package: epistack
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{epistack benchmarking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+To compare {epistack} with other methods, we will use an artificially generated
+dataset. The epigenetic signal matrix is build as followed:
+
+```{r fakemat}
+NROW <- 20000
+
+mat = matrix(nrow = NROW, ncol = 50)
+for(i in seq_len(nrow(mat))) {
+    mat[i, ] = runif(50) +
+      c(sort(abs(rnorm(50)))[1:25], rev(sort(abs(rnorm(50)))[1:25]))*i/(NROW/4)
+}
+
+```
+
+It is then added to an empty GRanges object :
+```{r fakegr}
+library(GenomicRanges)
+library(epistack)
+
+testdat <- GRanges(
+  rep("chr1", NROW),
+  IRanges(rep(1, NROW), rep(2, NROW)),
+  mcols = mat
+)
+testdat$expr <- exp(seq(from = 0, to = 3, length.out = NROW)) 
+testdat <- testdat[seq(length(testdat), 1),]
+testdat <- addBins(testdat, nbins = 5)
+testdat
+
+```
+This dataset can then be plotted with epistack:
+
+```{r plot1}
+
+plotEpistack(
+  testdat, 
+  zlim = c(0, 3), ylim = c(0, 4), tints = "dodgerblue",
+  patterns = "mcols", titles = "Mark level", x_labels = c("", "middle", ""), 
+  metric_col = "expr", metric_title = "Expression"
+)
+
+```
+
