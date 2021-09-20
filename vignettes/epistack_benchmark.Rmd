@@ -2,7 +2,7 @@
 title: "epistack benchmarking"
 author: "Guillaume Devailly"
 package: epistack
-output: rmarkdown::html_vignette
+output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{epistack benchmarking}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,43 +16,53 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Generating benchmark datasets
 
 To compare {epistack} with other methods, we will use an artificially generated
-dataset. The epigenetic signal matrix is build as followed:
+dataset. We will generate artificial datasets of various regon length using 
+a function defined bellow (there is no need to understand how this function
+works, it's simply generate a dumy object that can be input to 
+`plotEpistack()`). 
 
-```{r fakemat}
-NROW <- 20000
-
-mat = matrix(nrow = NROW, ncol = 50)
-for(i in seq_len(nrow(mat))) {
-    mat[i, ] = runif(50) +
-      c(sort(abs(rnorm(50)))[1:25], rev(sort(abs(rnorm(50)))[1:25]))*i/(NROW/4)
-}
-
-```
-
-It is then added to an empty GRanges object :
-```{r fakegr}
+```{r fakemat, message=FALSE}
 library(GenomicRanges)
 library(epistack)
 
-testdat <- GRanges(
-  rep("chr1", NROW),
-  IRanges(rep(1, NROW), rep(2, NROW)),
-  mcols = mat
-)
-testdat$expr <- exp(seq(from = 0, to = 3, length.out = NROW)) 
-testdat <- testdat[seq(length(testdat), 1),]
-testdat <- addBins(testdat, nbins = 5)
-testdat
-
+epidataset <- function(n) {
+  # fist we generate a fake epigenetic signal matrix
+  mat = matrix(nrow = n, ncol = 50)
+  for(i in seq_len(nrow(mat))) {
+    mat[i, ] = runif(50) +
+      c(sort(abs(rnorm(50)))[1:25], rev(sort(abs(rnorm(50)))[1:25]))*i/(n/4)
+  }
+  
+  # we then embeded the matrix in a GRanges object
+  testdat <- GRanges(
+    rep("chr1", n),
+    IRanges(rep(1, n), rep(2, n)),
+    mcols = mat
+  )
+  testdat$expr <- exp(seq(from = 0, to = 3, length.out = n)) 
+  testdat <- testdat[seq(length(testdat), 1),]
+  testdat <- addBins(testdat, nbins = 5)
+  testdat
+}
 ```
-This dataset can then be plotted with epistack:
 
-```{r plot1}
+
+The function is working as intended:
+```{r testfunc}
+epidataset(100)[, 49:52]
+epidataset(10000)[, 49:52]
+```
+
+
+The datasets can then be plotted with epistack:
+
+```{r plot1, fig.small=TRUE}
 
 plotEpistack(
-  testdat, 
+  epidataset(10000), 
   zlim = c(0, 3), ylim = c(0, 4), tints = "dodgerblue",
   patterns = "mcols", titles = "Mark level", x_labels = c("", "middle", ""), 
   metric_col = "expr", metric_title = "Expression"
@@ -60,3 +70,105 @@ plotEpistack(
 
 ```
 
+We can now generate a benchmark dataset containing GRanges objects of
+various lengths. 
+
+```{r benchdata}
+sizes <- c(
+  1000, 2000, 5000,
+  10000, 20000, 50000,
+  100000, 200000
+)
+
+benchdata <- lapply(sizes, epidataset)
+
+```
+
+# Benchmarking `epistack()`
+
+```{r benchmark1, message=FALSE, fig.keep = FALSE}
+
+runtimes <- sapply(benchdata, function(x) system.time(
+  plotEpistack(
+    x, 
+    zlim = c(0, 3), ylim = c(0, 4), tints = "dodgerblue",
+    patterns = "mcols", titles = "Mark level", x_labels = c("", "middle", ""), 
+    metric_col = "expr", metric_title = "Expression"
+  )
+)["elapsed"])
+
+library(ggplot2)
+
+data.frame(size = sizes, time = runtimes) |>
+  ggplot(aes(x = size, y = time)) +
+    geom_line() +
+    geom_point(shape = 3) +
+    theme_bw(base_size = 14) +
+    labs(x = "Number of regions", y = "Time (s)",
+         title = "plotEpistack() and EnrichedHeatmap() benchmark") +
+    coord_cartesian(ylim = c(0, 15))
+
+```
+
+# Comparison with EnrichedHeatmap
+
+First we transform the benchmark dataset into the format needed by 
+EnrichedHeatmap:
+
+```{r EnrichedHeatmap1}
+library(EnrichedHeatmap)
+# we first make a dummy normalizedMatrix object to later steal its attributes
+load(
+  system.file("extdata", "chr21_test_data.RData", package = "EnrichedHeatmap")
+)
+ehmat <- normalizeToMatrix(
+  meth, 
+  resize(cgi, width = 1, fix = "center"),
+  value_column = "meth", mean_mode = "absolute",
+  extend = 2500, w = 100, smooth = TRUE
+)
+
+# we then apply the attributes to the signal matrices in benchdata
+ehbenchdata <- lapply(
+  benchdata,
+  function(x) {
+    mat <- as.matrix(mcols(x)[, 1:50])
+    mdim <- dim(mat)
+    mdimnames <- dimnames(mat)
+    mostattributes(mat) <- attributes(ehmat)
+    dim(mat) <- mdim
+    dimnames(mat) <- mdimnames
+    mat
+  }
+)
+```
+
+We can now call EnrichedHeatmap:
+```{r EnrichedHeatmap2}
+EnrichedHeatmap(ehbenchdata[[1]], col = c("white", "dodgerblue", "black"))
+```
+
+And therefore run a benchmark:
+
+```{r benchmark2, message=FALSE, fig.keep = FALSE}
+
+runtimes2 <- sapply(ehbenchdata, function(x) system.time(
+  EnrichedHeatmap(x, col = c("white", "dodgerblue", "black"))
+)["elapsed"])
+
+library(ggplot2)
+
+data.frame(
+  size = c(sizes, sizes),
+  time = c(runtimes, runtimes2),
+  method = c(rep("epistack", 8), rep("EnrichedHeatmap", 8))) |>
+  ggplot(aes(x = size, y = time, color = method)) +
+    geom_line() +
+    geom_point(shape = 3) +
+    theme_bw(base_size = 14) +
+    labs(x = "Number of regions", y = "Time (s)",
+         title = "plotEpistack() benchmark") +
+    coord_cartesian(ylim = c(0, 20))
+```
+
+EnrichedHeatmp is also very fast up to hundred thousands of regions!
