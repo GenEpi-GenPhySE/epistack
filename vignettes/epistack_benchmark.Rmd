@@ -86,9 +86,18 @@ benchdata <- lapply(sizes, epidataset)
 
 # Benchmarking `epistack()`
 
-```{r benchmark1, message=FALSE, fig.keep = FALSE}
+```{r benchmark1, message=FALSE, fig.keep = 'last'}
 
 runtimes <- sapply(benchdata, function(x) system.time(
+  plotEpistack(
+    x, 
+    zlim = c(0, 3), ylim = c(0, 4), tints = "dodgerblue",
+    patterns = "mcols", titles = "Mark level", x_labels = c("", "middle", ""), 
+    metric_col = "expr", metric_title = "Expression"
+  )
+)["elapsed"])
+
+runtimes2 <- sapply(benchdata, function(x) system.time(
   plotEpistack(
     x, 
     zlim = c(0, 3), ylim = c(0, 4), tints = "dodgerblue",
@@ -145,18 +154,92 @@ ehbenchdata <- lapply(
 
 We can now call EnrichedHeatmap:
 ```{r EnrichedHeatmap2}
-EnrichedHeatmap(ehbenchdata[[1]], col = c("white", "dodgerblue", "black"))
+col_fun = circlize::colorRamp2(c(0, 1.5, 3), c("white", "dodgerblue", "black"))
+EnrichedHeatmap(
+    ehbenchdata[[1]], col = col_fun,
+    name= "Mark level",  column_title = "Mark level")
+
 ```
 
-And therefore run a benchmark:
+With some fiddeling, it is possible to make EnrichedHeatmap outputs
+equivalent to the plotEpistack's outputs.
 
-```{r benchmark2, message=FALSE, fig.keep = FALSE}
+```{r EnrichedHeatmap3}
+ht_list <- Heatmap(
+  log10(benchdata[[1]]$expr+1), 
+  col = c("white", "orange", "black"), name = "log10(expr+1)", 
+  show_row_names = FALSE, width = unit(10, "mm"),
+  top_annotation = HeatmapAnnotation(
+    summary = anno_summary(
+      gp = gpar(fill = 2:6),
+      outline = FALSE, axis_param = list(side = "right")
+    )
+  )
+) +
+  Heatmap(
+    paste("bin", benchdata[[1]]$bin),
+    col = structure(2:6, names = paste("bin", 1:5)), 
+    name = "bins",
+    show_row_names = FALSE, width = unit(3, "mm")
+  ) + 
+  EnrichedHeatmap(
+    ehbenchdata[[1]], col = col_fun,
+    name= "Mark level",  column_title = "Mark level",
+    top_annotation = HeatmapAnnotation(
+      lines = anno_enriched(gp = gpar(col = 2:6))
+    )
+  )
 
-runtimes2 <- sapply(ehbenchdata, function(x) system.time(
-  EnrichedHeatmap(x, col = c("white", "dodgerblue", "black"))
-)["elapsed"])
+draw(
+  ht_list,
+  split = paste("bin", benchdata[[1]]$bin), cluster_rows = FALSE
+)
 
-library(ggplot2)
+```
+
+We can now run a benchmark. Note that there is currently 
+[a bug](https://github.com/jokergoo/EnrichedHeatmap/issues/58) in 
+EnrichedHeatmap preventing us to generate the Heatmaps with more than 100.000
+regions unless we shut off rasterization.
+
+
+```{r benchmark2, message=FALSE, fig.keep = 'last'}
+
+runtimes2 <- sapply(1:8, function(i) system.time({
+  
+  ht_list <- Heatmap(
+    log10(benchdata[[i]]$expr+1), 
+    col = c("white", "orange", "black"), name = "log10(expr+1)", 
+    show_row_names = FALSE, width = unit(10, "mm"),
+    top_annotation = HeatmapAnnotation(
+      summary = anno_summary(
+        gp = gpar(fill = 2:6),
+        outline = FALSE, axis_param = list(side = "right")
+      )
+    )
+  ) +
+    Heatmap(
+      paste("bin", benchdata[[i]]$bin),
+      col = structure(2:6, names = paste("bin", 1:5)), 
+      name = "bins",
+      show_row_names = FALSE, width = unit(3, "mm")
+    ) + 
+    EnrichedHeatmap(
+      ehbenchdata[[i]], col = col_fun,
+      name= "Mark level",  column_title = "Mark level",
+      top_annotation = HeatmapAnnotation(
+        lines = anno_enriched(gp = gpar(col = 2:6))
+      )
+    )
+  
+  draw(
+    ht_list,
+    split = paste("bin", benchdata[[i]]$bin), cluster_rows = FALSE,
+    use_raster = FALSE
+  )
+  
+})["elapsed"])
+
 
 data.frame(
   size = c(sizes, sizes),
@@ -168,7 +251,45 @@ data.frame(
     theme_bw(base_size = 14) +
     labs(x = "Number of regions", y = "Time (s)",
          title = "plotEpistack() benchmark") +
-    coord_cartesian(ylim = c(0, 20))
+    coord_cartesian(ylim = c(0, 60))
 ```
 
-EnrichedHeatmp is also very fast up to hundred thousands of regions!
+EnrichedHeatmp is less fast, but can still plot up to hundred thousands
+of regions!
+
+# Making plotEpistack outputs similar to EnrichedHeatmap outputs
+
+In the previous benchmark, we used the amazing flexibility of EnrichedHeatmap
+to make its outputs similiar to epistack outputs. It is alsa possible to do the
+opposti: make epistack output more similar to the EnrichedHeatmap outputs,
+as illustrated bellow:
+
+```{r enrichedepistack, fig.height=6}
+testdata <- benchdata[[1]]
+testdata$bins <- NULL
+
+layout(matrix(1:3, ncol = 1), heights = c(1, 3, 0.5))
+old_par <- par(mar = c(2.5, 1, 0.6, 0.6))
+
+plotAverageProfile(
+  testdata, what_pattern = "mcols",
+  xlabels = c("", "middle", ""), ylim = c(0, 4)
+)
+
+
+plotStackedProfile(
+  testdata, what_pattern = "mcols",
+  x_labels = c("", "middle", ""),
+  zlim = c(0, 3), palette = colorRampPalette(c("white", "dodgerblue", "black")),
+  title = "Mark level"
+)
+plotStackProfileLegend(
+  zlim = c(0, 3),
+  palette = colorRampPalette(c("white", "dodgerblue", "black"))
+)
+
+par(old_par)
+layout(1)
+
+```
+
