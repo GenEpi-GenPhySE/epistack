@@ -38,6 +38,8 @@
 #' @param low_mar a vector of numerical values
 #'  corresponding to the margins of the bottom figures.
 #'  c(bottom, left, top, right)
+#' @param ... Arguments to be passed to \code{\link[graphics]{par}} such as
+#'  \code{cex}
 #'
 #' @details
 #' This function produce a coprenhensive figure including epigenetic heatmaps
@@ -112,13 +114,9 @@ plotEpistack <- function(
     metric_transfunc = function(x) x,
     bin_palette = colorRampPalette(c("magenta", "black", "green")),
     npix_height = 650, n_core = 1,
-    high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6)
+    high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
+    ...
 ) {
-
-    oldpar <- graphics::par(
-        mgp = c(1.5, 0.5, 0),
-        mar = high_mar + c(0, 4, 0, 0)
-    )
 
     n_pattern <- length(patterns)
     bin_present <- !is.null(gr$bin)
@@ -132,7 +130,13 @@ plotEpistack <- function(
         c(0.3, rep(0.35, n_pattern))
     }
 
-    graphics::layout(layout_mat, heights = layout_heights, widths = layout_widths)
+    graphics::layout(layout_mat,
+                     heights = layout_heights, widths = layout_widths)
+    oldpar <- graphics::par(
+        mgp = c(1.5, 0.5, 0),
+        mar = high_mar + c(0, 4, 0, 0),
+        ...
+    )
 
     plotMetric(
         mcols(gr)[[metric_col]],

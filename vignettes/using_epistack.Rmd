@@ -9,15 +9,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  cache = FALSE
+  cache = FALSE,
+  fig.width=4, fig.height=5,
+  global.par = FALSE
 )
 ```
 
 # Introduction
+
+![Example of epistack outputs](example_vizbi_bos_epistack2.png)
 
 The `epistack` package main objective is the visualizations of stacks 
 of genomic tracks (such as, but not restricted to, ChIP-seq or
@@ -38,7 +42,96 @@ to investigate the associations between an epigenetic mark and gene expression
 
 Tips and other `epistack` functionalities will then be presented.
 
-# example data
+# Epistack visualisation
+
+Epistack is a visualisation package. It uses as input GRanges objects with
+matrices embeded as metadata columns (`mcols()`). We will discuss how to
+build such input obects in the next section. For now on we will focus on
+the visualisation functions using the example dataset included in the dataset.
+
+The dataset can be access with:
+```{r epidata, message=FALSE}
+library(GenomicRanges)
+library(epistack)
+
+data("stackepi")
+dim(mcols(stackepi))
+stackepi[, 1:6]
+```
+
+This dataset can be visualised with the `plotEpistack()` function.
+The first parameter is the input `GRanges` object.
+
+The second parameter, `patterns` specify which columns of `mcols(gr)` 
+should be displayed as heatmaps. The `patterns` values are prefixes or
+regular expression that should match a set of column names. In the `stackepi`
+dataset, only one track is present, with columns names starting with `window`.
+Note that it is possible to have several different tracks embeded in the 
+same `GRanges` object, as demonstarted in the next sections.
+
+An aditional `metric_col` is used, to display score associated with each 
+anchor region, such as expression values or peak scores. Optionaly, 
+the `metric_col` can be transformed before ploting using the 
+`metric_transfunc` parameters.
+
+```{r epistack1}
+plotEpistack(
+  stackepi,
+  metric_col = "exp",
+  ylim = c(0, 1), zlim = c(0, 1),
+  titles = "DNA methylation", legends = "%mCpG",
+  metric_title = "Expression", metric_label = "log10(TPM+1)",
+  metric_transfunc = function(x) log10(x+1)
+)
+```
+
+If a `bin` column is present, it is used to generat one average profile per bin.
+
+```{r bining}
+stackepi <- addBins(stackepi, nbins = 5)
+plotEpistack(
+  stackepi,
+  metric_col = "exp",
+  ylim = c(0, 1), zlim = c(0, 1),
+  titles = "DNA methylation", legends = "%mCpG",
+  metric_title = "Expression", metric_label = "log10(TPM+1)",
+  metric_transfunc = function(x) log10(x+1)
+)
+```
+
+
+Colours can be changed using dedicated parameters:
+```{r colours}
+plotEpistack(
+  stackepi,
+  metric_col = "exp",
+  ylim = c(0, 1), zlim = c(0, 1),
+  titles = "DNA methylation", legends = "%mCpG",
+  metric_title = "Expression", metric_label = "log10(TPM+1)",
+  metric_transfunc = function(x) log10(x+1),
+  tints = "dodgerblue",
+  bin_palette = rainbow
+)
+```
+Text size, and other graphical parameters, can be changed using `cex` inside of
+`plotEpistack()`. Indeed, additional arguments will be passed internaly to 
+`par()` (see `?par` for more details).
+
+```{r par, collapse=TRUE}
+plotEpistack(
+  stackepi,
+  metric_col = "exp",
+  ylim = c(0, 1), zlim = c(0, 1),
+  titles = "DNA methylation", legends = "%mCpG",
+  metric_title = "Expression", metric_label = "log10(TPM+1)",
+  metric_transfunc = function(x) log10(x+1),
+  cex = 0.2
+)
+
+```
+
+
+# Building epistack input object
 
 To illustrate `epistack` fucntionalities, we will use example ChIP-seq data
 used in the 
@@ -166,6 +259,12 @@ mcols(merged_peaks) <- cbind(
 ```
 
 ## Plotting
+
+```{r setup2, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width=6, fig.height=5
+)
+```
 
 The `plotEpistack()` function will use the `merged_peaks` object to generate a
 complex representation of the ChIP-seq signals around
