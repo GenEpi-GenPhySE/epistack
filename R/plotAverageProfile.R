@@ -5,9 +5,9 @@
 #' is drawn for each bin.
 #'
 #' @param gr a GRanges input
-#' @param what_pattern a single character that should match
+#' @param pattern a single character that should match
 #'  metadata of \code{gr} (can be a regular expression).
-#' @param xlabels x-axis labels.
+#' @param x_labels x-axis labels.
 #' @param palette a color palette function,
 #'  by default: \code{colorRampPalette(c("magenta", "black", "green"))}
 #' @param alpha_for_se the transparency (alpha) value for
@@ -27,15 +27,15 @@
 #'
 plotAverageProfile <- function(
     gr,
-    what_pattern = "^window_",
-    xlabels = c("-2.5kb", "TSS", "+2.5kb"),
+    pattern = "^window_",
+    x_labels = c("Before", "Anchor", "After"),
     palette = colorRampPalette(c("magenta", "black", "green")),
     alpha_for_se = 0.25,
     reversed_z_order = FALSE,
     ylim = NULL
 ) {
     mat <- S4Vectors::mcols(gr)
-    whichCols <- grepl(what_pattern, colnames(mat))
+    whichCols <- grepl(pattern, colnames(mat))
     mat <- as.matrix(mat[, whichCols])
 
     if(!is.null(gr$bin)) {
@@ -71,9 +71,9 @@ plotAverageProfile <- function(
     }
 
     plot(NA, xlim = range(xind), ylim = ylim, axes = FALSE, xlab = NA, ylab = NA)
-    axis(1, at = xind[1], labels = xlabels[1], hadj = 0)
-    axis(1, at =  xind[(length(xind)+1)/2], labels = xlabels[2], hadj = 0.5)
-    axis(1, at = xind[length(xind)], labels = xlabels[3], hadj = 1)
+    axis(1, at = xind[1], labels = x_labels[1], hadj = 0)
+    axis(1, at =  xind[(length(xind)+1)/2], labels = x_labels[2], hadj = 0.5)
+    axis(1, at = xind[length(xind)], labels = x_labels[3], hadj = 1)
     axis(1, at = c(xind[1], xind[(length(xind)+1)/2], xind[length(xind)]), labels = NA)
 
     axis(2, at = ylim)

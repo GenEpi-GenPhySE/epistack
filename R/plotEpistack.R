@@ -108,7 +108,7 @@ plotEpistack <- function(
     gr,
     patterns = "^window_", tints = "gray",
     titles = "", legends = "",
-    x_labels = c("-2.5kb", "TSS", "+2.5kb"),
+    x_labels = c("Before", "Anchor", "After"),
     zlim = c(0, 1), ylim = NULL,
     metric_col = "expr", metric_title = "Metric", metric_label = "metric",
     metric_transfunc = function(x) x,
@@ -123,11 +123,14 @@ plotEpistack <- function(
 
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3),
                          nrow  = 3)
-    layout_heights <- c(1, 0.14, 0.25)
-    layout_widths <- if (bin_present) {
-        c(0.3, 0.08, rep(0.35, n_pattern))
+    layout_heights <- c(1, 0.14, 0.3)
+    if (bin_present) {
+        layout_widths <- c(0.3, 0.08, rep(0.35, n_pattern))
+        # boxmetric extend below plotbin
+        layout_mat[3, 2] <- 3
+        layout_mat[layout_mat > 6] <-  layout_mat[layout_mat > 6] - 1
     } else {
-        c(0.3, rep(0.35, n_pattern))
+        layout_widths <- c(0.3, rep(0.35, n_pattern))
     }
 
     graphics::layout(layout_mat,
@@ -160,7 +163,6 @@ plotEpistack <- function(
         plotBinning(gr, target_height = npix_height, palette = bin_palette)
         graphics::par(mar = low_mar)
         graphics::plot.new()
-        graphics::plot.new()
     }
 
     if(!is.list(zlim)) {
@@ -182,7 +184,7 @@ plotEpistack <- function(
     for (i in seq_along(patterns)) {
         graphics::par(mar = high_mar)
         plotStackProfile(
-            gr, what_pattern = patterns[i],
+            gr, pattern = patterns[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
@@ -196,10 +198,10 @@ plotEpistack <- function(
         graphics::par(mar = low_mar)
         plotAverageProfile(
             gr,
-            what_pattern = patterns[i],
+            pattern = patterns[i],
             ylim = ylim[[i]],
             palette = bin_palette,
-            xlabels = x_labels
+            x_labels = x_labels
         )
     }
 

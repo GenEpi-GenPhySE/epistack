@@ -272,13 +272,13 @@ layout(matrix(1:3, ncol = 1), heights = c(1, 3, 0.5))
 old_par <- par(mar = c(2.5, 1, 0.6, 0.6))
 
 plotAverageProfile(
-  testdata, what_pattern = "mcols",
+  testdata, pattern = "mcols",
   xlabels = c("", "middle", ""), ylim = c(0, 4)
 )
 
 
 plotStackedProfile(
-  testdata, what_pattern = "mcols",
+  testdata, pattern = "mcols",
   x_labels = c("", "middle", ""),
   zlim = c(0, 3), palette = colorRampPalette(c("white", "dodgerblue", "black")),
   title = "Mark level"

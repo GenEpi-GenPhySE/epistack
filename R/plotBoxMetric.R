@@ -54,7 +54,7 @@ plotBoxMetric <- function(
         )
     }
     axis(2, at = ylim)
-    mtext(side = 3, title, line = 0.5,  cex = 0.8)
+    mtext(side = 3, title, line = 0.5, cex = 0.8 * graphics::par()$cex.main)
 }
 
 

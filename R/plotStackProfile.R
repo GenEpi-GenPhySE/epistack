@@ -4,7 +4,7 @@
 #' genomic anchors such as Transcription Start Sites or peak center.
 #'
 #' @param gr a GRanges input
-#' @param what_pattern a character vector of length 1 of a column prefixe
+#' @param pattern a character vector of length 1 of a column prefixe
 #' (can be regular expressions) that should match columns of \code{gr}.
 #' @param x_labels a character vectors of length 3 used to label the x-axis.
 #' @param title The title of the heatmap
@@ -65,8 +65,8 @@
 #'
 plotStackProfile <- function(
     gr,
-    what_pattern = "^window_",
-    x_labels = c("-2.5kb", "TSS", "+2.5kb"),
+    pattern = "^window_",
+    x_labels = c("Before", "Anchor", "After"),
     title = "",
     zlim = NULL,
     palette = function(n) viridisLite::viridis(n, direction = -1),
@@ -75,7 +75,7 @@ plotStackProfile <- function(
     n_core = 1
 ) {
     mat <- S4Vectors::mcols(gr)
-    whichCols <- grepl(what_pattern, colnames(mat))
+    whichCols <- grepl(pattern, colnames(mat))
     mat <- as.matrix(mat[, whichCols])
 
     mat[is.na(mat)] <- 0
@@ -103,12 +103,12 @@ plotStackProfile <- function(
         col = palette(length(breaks) - 1),
         axes = FALSE
     )
-    box()
+    graphics::box()
     graphics::axis(1, at = 0, labels = x_labels[1], hadj = 0)
     graphics::axis(1, at = 0.5, labels = x_labels[2], hadj = 0.5)
     graphics::axis(1, at = 1, labels = x_labels[3], hadj = 1)
-
-    graphics::mtext(side = 3, title, line = 0.5,  cex = 0.8)
+    graphics::mtext(side = 3, title, line = 0.5,
+                    cex = 0.8 * graphics::par()$cex.main)
 }
 
 

@@ -35,8 +35,8 @@ plotMetric <- function(
         xaxs="i", yaxs="i"
     )
     graphics::box()
-    axis(1)
-    axis(2, at = c(1, length(x)))
-    title(xlab = xlab)
-    mtext(side = 3, title , line = 0.5, cex = 0.8)
+    graphics::axis(1)
+    graphics::axis(2, at = c(1, length(x)))
+    graphics::title(xlab = xlab)
+    mtext(side = 3, title , line = 0.5, cex = 0.8 * graphics::par()$cex.main)
 }
