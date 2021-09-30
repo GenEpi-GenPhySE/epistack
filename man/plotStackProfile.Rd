@@ -6,8 +6,8 @@
 \usage{
 plotStackProfile(
   gr,
-  what_pattern = "^window_",
-  x_labels = c("-2.5kb", "TSS", "+2.5kb"),
+  pattern = "^window_",
+  x_labels = c("Before", "Anchor", "After"),
   title = "",
   zlim = NULL,
   palette = function(n) viridisLite::viridis(n, direction = -1),
@@ -19,7 +19,7 @@ plotStackProfile(
 \arguments{
 \item{gr}{a GRanges input}
 
-\item{what_pattern}{a character vector of length 1 of a column prefixe
+\item{pattern}{a character vector of length 1 of a column prefixe
 (can be regular expressions) that should match columns of \code{gr}.}
 
 \item{x_labels}{a character vectors of length 3 used to label the x-axis.}

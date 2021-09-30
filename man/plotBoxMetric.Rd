@@ -35,9 +35,9 @@ Useful to apply log10 transformation
 Display a plot.
 }
 \description{
-Plot distribution of a metric values as bowplots
+Plot distribution of a metric values as boxplots
 depending of bins.
-If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
+If the \code{bin} is absent from \code{gr}, a single boxplot is drawn.
 }
 \examples{
 data("stackepi")

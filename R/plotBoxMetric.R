@@ -1,8 +1,8 @@
 #' plotBoxMetric()
 #'
-#' @description Plot distribution of a metric values as bowplots
+#' @description Plot distribution of a metric values as boxplots
 #' depending of bins.
-#' If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
+#' If the \code{bin} is absent from \code{gr}, a single boxplot is drawn.
 #'
 #' @param gr a GRanges input
 #' @param metric name of the column in \code{gr} metadata containing scores.

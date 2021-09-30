@@ -5,7 +5,7 @@
 #' @param gr a GRanges object containing a \code{bin} metadata column
 #' @param target_height an integer, the approximate height (in pixels)
 #'  of the final plot. Used to avoid overplotting artefacts.
-#' @param palette a function taking a number has a first argument,
+#' @param palette a function taking a number as a first argument,
 #' and returning a vector of colors.
 #'
 #' @importFrom grDevices rainbow

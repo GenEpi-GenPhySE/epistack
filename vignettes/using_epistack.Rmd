@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   cache = FALSE,
-  fig.width=4, fig.height=5,
+  fig.width = 4, fig.height = 5, fig.show = "hold",
   global.par = FALSE
 )
 ```
@@ -35,12 +35,15 @@ provided as a `GRanges` (easily obtained from `bigwig` or `bam` files)
 provided as a `GRanges` (easily obtained from `gtf` or `bed` files)
 - a score to sort the features, such as peak height, or gene expression value
 
+Each inputs are then combined in a single `GRanges` object use by epistack's
+ploting functions.
+
 After introducing epistack's plotting capacity, 
 this document will present two use cases:
 
-- plotting ChIP-seq signal at peaks to investigate peak quality
-- plotting ANA methylation and ChIP-seq signals at gene promoters 
-sorted according to gene expression
+- plotting ChIP-seq signal at peaks, to investigate peak quality
+- plotting DNA methylation and ChIP-seq signals at gene promoters 
+sorted according to gene expression,
 to investigate the associations between an epigenetic mark and gene expression
 
 # Epistack visualisation
@@ -50,7 +53,7 @@ matrices embeded as metadata columns (`mcols()`). We will discuss how to
 build such input obects in the next section. For now on, we will focus on
 the visualisation functions using the example dataset included in the package.
 
-The dataset can be access with:
+The dataset can be accessed with:
 ```{r epidata, message=FALSE}
 library(GenomicRanges)
 library(epistack)
@@ -92,6 +95,7 @@ If a `bin` column is present, it is used to generate one average profile per bin
 
 ```{r bining}
 stackepi <- addBins(stackepi, nbins = 5)
+
 plotEpistack(
   stackepi,
   pattern = "^window_", metric_col = "exp",
@@ -162,11 +166,11 @@ plotStackProfile(
 )
 ```
 
-It is therefore possible to arrange panels as you whished, using the
+It is therefore possible to arrange panels as you whish, using the
 multipanel framework of your choice (layout, grid, patchwork, etc.).
 
-```{r customPanels}
-layout(matrix(1:3, ncol = 1), heights = c(1, 3, 0.5))
+```{r customPanels, }
+layout(matrix(1:3, ncol = 1), heights = c(1.5, 3, 0.5))
 old_par <- par(mar = c(2.5, 4, 0.6, 0.6))
 
 plotAverageProfile(
@@ -193,10 +197,9 @@ layout(1)
 
 # Example 1: ChIP-seq coverage at peaks
 
-
 ## data origin
 In this part, we will use example ChIP-seq data
-used in the 
+from the 
 [2016 CASME course](https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html)
 "Basics of ChIP-seq data analysis" 
 by Aleksandra Pekowska and Simon Anders.
@@ -204,7 +207,7 @@ Data can be found in this github repository:
 [https://github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles](github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles)
 
 There is no need to download the data as it can be remotely parsed.
-The data consists of two H3K27mac ChIP-seq replicates, an input control,
+The data consists of two H3K27ac ChIP-seq replicates, an input control,
 and one list of peak for each replicates. It has been generated in 
 mouse Embryonic Stem cells and been subseted to have only data from chromosome 6
 to allow fast vignette generation (but `epistack` can deal with whole genome 
@@ -272,12 +275,12 @@ reads <- lapply(path_reads, import)
 
 We generate coverage matrices with ChIP-seq coverage signal
 summarized around each ChIP-seq peaks.
-Several tools exists to generate such coverage matrix. We will demonstrate the
+Several tools exists to generate such coverage matrices. We will demonstrate the
 `normalizeToMatrix()` method from `r Biocpkg("EnrichedHeatmap")`.
 Other alternatives include `r Biocpkg("Repitools")`' `featureScores()`,
 or `r Biocpkg("seqplots")`' `getPlotSetArray()`.
 
-We will focus on the regions around peak centers, extended from +-5kb with
+We will focus on the regions around peak centers, extended from +/-5kb with
 a window size of 250 bp. We keep track of the extent of our region of interest
 in a `xlab` variable, and specify unique column names for each matrix.
 
@@ -370,7 +373,8 @@ plotEpistack(
 
 ```
 
-It might be also interesting to sort on the bins first, and then on peak score:
+We can also sort on the bins first, and then on peak score. Epistack will 
+respect the order in the `GRanges` object.
 ```{r peak_plot_bin2}
 merged_peaks <- merged_peaks[order(
   merged_peaks$bin, merged_peaks$mean_scores,
@@ -396,7 +400,7 @@ plotEpistack(
 
 ## Obtaining the TSS coordinates
 
-We now want to plot the epigenetic signals at gene promoters, or more
+In this part, we will plot the epigenetic signals at gene promoters, or more
 precisely around gene Transcription Start Sites (TSS).
 TSS coordinates can be obtained from various sources. One can access
 the [Ensembl](https://www.ensembl.org/index.html) annotations using 
@@ -447,7 +451,7 @@ We create 5 bins of genes of equal sizes depending on the expression levels,
 with `r Biocpkg("epistack")` utility function `addBins()`:
 
 ```{r adding_bins}
-epidata <- epistack:::addBins(epidata, nbins = 5)
+epidata <- addBins(epidata, nbins = 5)
 epidata
 ```
 

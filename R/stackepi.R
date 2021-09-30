@@ -1,10 +1,12 @@
-#' DNA methylation profiles (from MBD-seq data) arround transcription
+#' epistack example and test dataset
+#'
+#' @description DNA methylation profiles (from MBD-seq data) arround transcription
 #' start sites of the 693 chr18 genes annotated on the pig genome
 #' (Sscrofa11.1), as well as gene expression levels in
 #' Transcript Per Million (TPM) measured by RNA-seq in the same
 #' duodenum sample.
 #'
-#' @format A \code{GRanges} of the 693 rows and 54 metadat columns
+#' @format A \code{GRanges} of the 693 rows and 54 metadata columns
 #'
 #' @importFrom GenomicRanges GRanges
 #'

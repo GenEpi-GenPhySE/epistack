@@ -10,7 +10,7 @@ plotEpistack(
   tints = "gray",
   titles = "",
   legends = "",
-  x_labels = c("-2.5kb", "TSS", "+2.5kb"),
+  x_labels = c("Before", "Anchor", "After"),
   zlim = c(0, 1),
   ylim = NULL,
   metric_col = "expr",
@@ -21,7 +21,8 @@ plotEpistack(
   npix_height = 650,
   n_core = 1,
   high_mar = c(2.5, 0.6, 4, 0.6),
-  low_mar = c(2.5, 0.6, 0.3, 0.6)
+  low_mar = c(2.5, 0.6, 0.3, 0.6),
+  ...
 )
 }
 \arguments{
@@ -32,17 +33,17 @@ plotEpistack(
 
 \item{tints}{a vector of colors to tint the heatmaps.}
 
-\item{titles}{a titles of each heatmap.}
+\item{titles}{titles of each heatmap.}
 
-\item{legends}{a character vector of legend names for the epistacks.}
+\item{legends}{legend names for the epistacks.}
 
 \item{x_labels}{a character vector of length 3 used as x-axis labels.}
 
 \item{zlim}{the minimum and maximum z values the heatmap.
-Format: zlim = c (min, max)}
+Format: \code{zlim = c (min, max)}}
 
 \item{ylim}{limits of the y axis for bottom plots.
-Format: ylim = c (min, max)}
+Format: \code{ylim = c (min, max)}}
 
 \item{metric_col}{a character, name of a column in \code{gr}
 such as expression value, peak height, pvalue, fold change, etc.}
@@ -73,6 +74,9 @@ c(bottom, left, top, right)}
 \item{low_mar}{a vector of numerical values
 corresponding to the margins of the bottom figures.
 c(bottom, left, top, right)}
+
+\item{...}{Arguments to be passed to \code{\link[graphics]{par}} such as
+\code{cex}}
 }
 \value{
 Display a plot.
@@ -85,9 +89,9 @@ allow the grouping of several genomic regions to produce average profiles per
 bins.
 }
 \details{
-This function produce a coprenhensive figure including epigenetic heatmaps
+This function produce a comprehensive figure including epigenetic heatmaps
 and average epigenetic profiles from a well formated \code{GRanges} object
-with expected metadata-columns. It scales resonably well up to hundreds of
+with expected metadata columns. It scales resonably well up to hundreds of
 thousands of genomic regions.
 
 The visualisation is centered on an anchor,
@@ -100,7 +104,7 @@ One should sort \code{gr} before plotting if needed.
 
 \code{gr} should have a metric column that is used in the leftmost plots.
 The name of the metric column must be specified to \code{metric_col}.
-The metric can be transformed before ploting if needed using the
+The metric can be transformed before plotting if needed using the
 \code{metric_transfunc} parameter.
 
 The matrix or matrices used to display the heatmap(s) should be passed as
@@ -116,12 +120,12 @@ plots.
 Epistack are multipanel plots build using \code{layout()}. Margins for the
 panels can be specified using \code{high_mar} and \code{low_mar} parameters
 if needed, especially to avoid text overlaps. The default value should
-be apprpriate in most situations. Individual component can be plotted
+be appropriate in most situations. Individual component can be plotted
 using severa \code{epistack} functions such has \code{plotStackProfile()}
 or \code{plotAverageProfile()}.
 
-Ploting more than > 1000 regions has an heatmap can lead to overploting
-issued as well as some ploting artefacts (such as horizontal white strips).
+Plotting more than > 1000 regions can lead to overplotting
+issued as well as some plotting artefacts (such as horizontal white strips).
 Both issues can be resolved with fidling with the \code{npix_height}
 parameter. \code{npix_height} should be smaller than the number of regions,
 and in the same order of magnitude of the final heatmap height in pixels.

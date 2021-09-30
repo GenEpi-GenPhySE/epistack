@@ -28,10 +28,10 @@ that will be used as key for the inner join.}
 that contain value used for sorting.}
 
 \item{shuffle_tie}{a boolean Value (TRUE / FALSE).
-When TRUE, shuffle the gRanges before sorting, mixing the ties.}
+When TRUE, shuffle the GRanges before sorting, mixing the ties.}
 }
 \value{
-a GRanges sorted in ascending order.
+a GRanges sorted in descending order.
 }
 \description{
 Perform an inner join between a GRanges object and a data.frame. Sort

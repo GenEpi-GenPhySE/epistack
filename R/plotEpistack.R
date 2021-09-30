@@ -10,13 +10,13 @@
 #' @param patterns a character vector of column prefixes
 #' (can be regular expressions) that should match columns of \code{gr}.
 #' @param tints a vector of colors to tint the heatmaps.
-#' @param titles a titles of each heatmap.
-#' @param legends a character vector of legend names for the epistacks.
+#' @param titles titles of each heatmap.
+#' @param legends legend names for the epistacks.
 #' @param x_labels a character vector of length 3 used as x-axis labels.
 #' @param zlim the minimum and maximum z values the heatmap.
-#' Format: zlim = c (min, max)
+#' Format: \code{zlim = c (min, max)}
 #' @param ylim limits of the y axis for bottom plots.
-#' Format: ylim = c (min, max)
+#' Format: \code{ylim = c (min, max)}
 #' @param metric_col a character, name of a column in \code{gr}
 #' such as expression value, peak height, pvalue, fold change, etc.
 #' @param metric_title title to be display on the leftmost plots.
@@ -42,9 +42,9 @@
 #'  \code{cex}
 #'
 #' @details
-#' This function produce a coprenhensive figure including epigenetic heatmaps
+#' This function produce a comprehensive figure including epigenetic heatmaps
 #' and average epigenetic profiles from a well formated \code{GRanges} object
-#' with expected metadata-columns. It scales resonably well up to hundreds of
+#' with expected metadata columns. It scales resonably well up to hundreds of
 #' thousands of genomic regions.
 #'
 #' The visualisation is centered on an anchor,
@@ -57,7 +57,7 @@
 #'
 #' \code{gr} should have a metric column that is used in the leftmost plots.
 #' The name of the metric column must be specified to \code{metric_col}.
-#' The metric can be transformed before ploting if needed using the
+#' The metric can be transformed before plotting if needed using the
 #' \code{metric_transfunc} parameter.
 #'
 #' The matrix or matrices used to display the heatmap(s) should be passed as
@@ -73,12 +73,12 @@
 #' Epistack are multipanel plots build using \code{layout()}. Margins for the
 #' panels can be specified using \code{high_mar} and \code{low_mar} parameters
 #' if needed, especially to avoid text overlaps. The default value should
-#' be apprpriate in most situations. Individual component can be plotted
+#' be appropriate in most situations. Individual component can be plotted
 #' using severa \code{epistack} functions such has \code{plotStackProfile()}
 #' or \code{plotAverageProfile()}.
 #'
-#' Ploting more than > 1000 regions has an heatmap can lead to overploting
-#' issued as well as some ploting artefacts (such as horizontal white strips).
+#' Plotting more than > 1000 regions can lead to overplotting
+#' issued as well as some plotting artefacts (such as horizontal white strips).
 #' Both issues can be resolved with fidling with the \code{npix_height}
 #' parameter. \code{npix_height} should be smaller than the number of regions,
 #' and in the same order of magnitude of the final heatmap height in pixels.

@@ -18,7 +18,8 @@ order as \code{gr}.}
 the \code{gr} GRanges object with a new \code{bin} metadata column
 }
 \description{
-Add an optional bin metadata column to \code{gr}, to serve as annotations
+Add an optional \code{bin} metadata column to \code{gr},
+to serve as annotations
 for the epistack plots.
 }
 \details{

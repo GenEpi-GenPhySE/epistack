@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/GenEpi-GenPhySE/epistack/workflows/R-CMD-check/badge.svg)](https://github.com/GenEpi-GenPhySE/epistack/actions)
 <!-- badges: end -->
 
-<img src="inst/extdata/example_vizbi_bos_epistack2.png" width="450" alt="Example of an epistack output">
+<img src="vignettes/example_vizbi_bos_epistack2.png" width="450" alt="Example of an epistack output">
 
 The `epistack` package main objective is the visualizations of stacks 
 of genomic tracks (such as, but not restricted to, ChIP-seq, ATAC-seq,

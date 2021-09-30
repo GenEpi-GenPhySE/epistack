@@ -1,9 +1,9 @@
 #' meanColor
 #'
 #' @description
-#' Return the mean color of a vector of colors computed in the RGB space.
+#' Return the average color of a vector of colors, computed in the RGB space.
 #'
-#' @param colors vector of colors
+#' @param colors a vector of colors
 #'
 #' @return a single color value
 #'

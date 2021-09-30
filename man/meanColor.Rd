@@ -7,13 +7,13 @@
 meanColor(colors)
 }
 \arguments{
-\item{colors}{vector of colors}
+\item{colors}{a vector of colors}
 }
 \value{
 a single color value
 }
 \description{
-Return the mean color of a vector of colors computed in the RGB space.
+Return the average color of a vector of colors, computed in the RGB space.
 }
 \details{
 Input colors can be either in html or color name formats.

@@ -13,9 +13,9 @@
 #' @param order_value name of the \code{order} column
 #'    that contain value used for sorting.
 #' @param shuffle_tie a boolean Value (TRUE / FALSE).
-#'    When TRUE, shuffle the gRanges before sorting, mixing the ties.
+#'    When TRUE, shuffle the GRanges before sorting, mixing the ties.
 #'
-#' @return a GRanges sorted in ascending order.
+#' @return a GRanges sorted in descending order.
 #'
 #' @details This utility function allow the addition of a metric column to
 #' genomic regions of interest. One of its common use case is to add

@@ -1,7 +1,8 @@
 #' addBins()
 #'
 #' @description
-#'  Add an optional bin metadata column to \code{gr}, to serve as annotations
+#'  Add an optional \code{bin} metadata column to \code{gr},
+#'  to serve as annotations
 #'  for the epistack plots.
 #'
 #' @param gr a GRanges object.
