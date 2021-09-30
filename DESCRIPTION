@@ -37,7 +37,8 @@ Suggests:
     biomaRt,
     rtracklayer,
     covr,
-    vdiffr
+    vdiffr,
+    magick
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression

@@ -240,7 +240,7 @@ We then rescue peaks metadata, and compute a new `mean_score` that we use
 to arrange our peak list.
 
 ```{r peak_merge, message=FALSE}
-merged_peaks <- union(peaks[[1]], peaks[[2]])
+merged_peaks <- GenomicRanges::union(peaks[[1]], peaks[[2]])
 
 scores_rep1 <- double(length(merged_peaks))
 scores_rep1[findOverlaps(peaks[[1]], merged_peaks, select = "first")] <- peaks[[1]]$score
