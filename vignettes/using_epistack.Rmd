@@ -58,7 +58,7 @@ The dataset can be accessed with:
 library(GenomicRanges)
 library(epistack)
 
-message(paste(R.version()$major, R.version()$minor))
+message(paste(R.Version()$major, R.Version()$minor))
 
 data("stackepi")
 dim(mcols(stackepi))
