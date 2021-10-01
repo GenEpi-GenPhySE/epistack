@@ -38,16 +38,16 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install macOS X11
+        if: runner.os == 'macOS'
+        run: |
+          brew install xquartz --cask
+
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
 
       - uses: r-lib/actions/check-r-package@v1
-
-      - name: Install macOS X11
-        if: runner.os == 'macOS'
-        run: |
-          brew install xquartz --cask
 
       - name: Show testthat output
         if: always()
