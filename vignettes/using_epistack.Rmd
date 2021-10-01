@@ -241,7 +241,9 @@ to arrange our peak list.
 
 ```{r peak_merge, message=FALSE}
 merged_peaks <- GenomicRanges::union(peaks[[1]], peaks[[2]])
+```
 
+```{r peak_merge2, message=FALSE}
 scores_rep1 <- double(length(merged_peaks))
 scores_rep1[findOverlaps(peaks[[1]], merged_peaks, select = "first")] <- peaks[[1]]$score
 
@@ -249,7 +251,7 @@ scores_rep2 <- double(length(merged_peaks))
 scores_rep2[findOverlaps(peaks[[2]], merged_peaks, select = "first")] <- peaks[[2]]$score
 ```
 
-```{r peak_merge2, message=FALSE}
+```{r peak_merge3, message=FALSE}
 peak_type <- ifelse(
     scores_rep1 != 0 & scores_rep2 != 0, "Both", ifelse(
         scores_rep1 != 0, "Rep1 only", "Rep2 only"
