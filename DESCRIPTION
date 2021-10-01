@@ -6,11 +6,10 @@ Authors@R:
     person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "aut"),
     person("DEVAILLY", "Guillaume",
         email = "gdevailly@hotmail.com", role = "cre"))
-Description: Starting from a GRanges type file, this package is used to:
-    Resize the expression matrix for a better display of heatMaps.
-    Sort the expression profiles.
-    Generate 04 type of plots, in order to visualize the differences between
-    the profiles of expression in all our data samples.
+Description: The epistack package main objective is the visualizations of
+    stacks of genomic tracks (such as, but not restricted to, ChIP-seq,
+    ATAC-seq, DNA methyation or genomic conservation data)
+    centered at genomic regions of interest.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
@@ -27,7 +26,7 @@ Imports:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: 
-    R (>= 4.0)
+    R (>= 4.1)
 Suggests: 
     testthat (>= 3.0.0),
     BiocStyle,

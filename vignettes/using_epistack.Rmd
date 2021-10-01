@@ -247,7 +247,9 @@ scores_rep1[findOverlaps(peaks[[1]], merged_peaks, select = "first")] <- peaks[[
 
 scores_rep2 <- double(length(merged_peaks))
 scores_rep2[findOverlaps(peaks[[2]], merged_peaks, select = "first")] <- peaks[[2]]$score
+```
 
+```{r peak_merge2, message=FALSE}
 peak_type <- ifelse(
     scores_rep1 != 0 & scores_rep2 != 0, "Both", ifelse(
         scores_rep1 != 0, "Rep1 only", "Rep2 only"
