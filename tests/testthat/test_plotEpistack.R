@@ -1,6 +1,6 @@
-data("gRanges_test")
+data("stackepi")
 plot_epistack <- function() plotEpistack(
-    gRanges_test,
+    stackepi,
     metric_col = "exp",
     ylim = c(0, 1),
     metric_transfunc = function(x) log10(x+1)

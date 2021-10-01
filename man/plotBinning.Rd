@@ -16,15 +16,18 @@ plotBinning(
 \item{target_height}{an integer, the approximate height (in pixels)
 of the final plot. Used to avoid overplotting artefacts.}
 
-\item{palette}{a function taking a number has a first argument,
+\item{palette}{a function taking a number as a first argument,
 and returning a vector of colors.}
+}
+\value{
+Display a plot.
 }
 \description{
 Plot a vertical color bar of the \code{bin} column.
 }
 \examples{
-data("gRanges_test")
-gr <- gRanges_test
+data("stackepi")
+gr <- stackepi
 gr <- addBins(gr, nbins = 3)
 plot_bin <- plotBinning(gr)
 

@@ -1,9 +1,9 @@
 #' meanColor
 #'
 #' @description
-#' Return the mean color of a vector of colors computed in the RGB space.
+#' Return the average color of a vector of colors, computed in the RGB space.
 #'
-#' @param colors vector of colors
+#' @param colors a vector of colors
 #'
 #' @return a single color value
 #'
@@ -11,6 +11,8 @@
 #'
 #' @details Input colors can be either in html or color name formats.
 #' The alpha channel is supported but optional.
+#'
+#' @seealso \code{\link[epistack]{redimMatrix}}
 #'
 #' @examples
 #' meanColor(c("#000000FF", "#FFFFFF00", "#FFFF00FF", "#FF0000FF"))

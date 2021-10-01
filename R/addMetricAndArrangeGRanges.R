@@ -13,9 +13,9 @@
 #' @param order_value name of the \code{order} column
 #'    that contain value used for sorting.
 #' @param shuffle_tie a boolean Value (TRUE / FALSE).
-#'    When TRUE, shuffle the gRanges before sorting, mixing the ties.
+#'    When TRUE, shuffle the GRanges before sorting, mixing the ties.
 #'
-#' @return a GRanges sorted in ascending order.
+#' @return a GRanges sorted in descending order.
 #'
 #' @details This utility function allow the addition of a metric column to
 #' genomic regions of interest. One of its common use case is to add
@@ -29,10 +29,10 @@
 #' @importFrom IRanges IRanges
 #'
 #' @examples
-#' data("gRanges_test")
-#' ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id,
-#'    value = rnorm(length(gRanges_test)))
-#' addMetricAndArrangeGRanges(gRanges_test,
+#' data("stackepi")
+#' ramdomOrder <- data.frame(gene_id = stackepi$gene_id,
+#'    value = rnorm(length(stackepi)))
+#' addMetricAndArrangeGRanges(stackepi,
 #'    ramdomOrder, gr_key = "gene_id",
 #'    order_key = "gene_id", order_value = "value" )
 #'

@@ -6,8 +6,8 @@
 \usage{
 plotAverageProfile(
   gr,
-  what_pattern = "^window_",
-  xlabels = c("-2.5kb", "TSS", "+2.5kb"),
+  pattern = "^window_",
+  x_labels = c("Before", "Anchor", "After"),
   palette = colorRampPalette(c("magenta", "black", "green")),
   alpha_for_se = 0.25,
   reversed_z_order = FALSE,
@@ -17,10 +17,10 @@ plotAverageProfile(
 \arguments{
 \item{gr}{a GRanges input}
 
-\item{what_pattern}{a single character that should match
+\item{pattern}{a single character that should match
 metadata of \code{gr} (can be a regular expression).}
 
-\item{xlabels}{x-axis labels.}
+\item{x_labels}{x-axis labels.}
 
 \item{palette}{a color palette function,
 by default: \code{colorRampPalette(c("magenta", "black", "green"))}}
@@ -34,13 +34,16 @@ standard error of the mean band.}
 \item{ylim}{a vector of two numbers corresponding
 to the y-limits of the plot}
 }
+\value{
+Display a plot.
+}
 \description{
 Plot the average stack profiles +/- standard error of the
 means. If a \code{bin} column is present in \code{gr}, one average profile
 is drawn for each bin.
 }
 \examples{
-data("gRanges_test")
-plotAverageProfile(gRanges_test)
+data("stackepi")
+plotAverageProfile(stackepi)
 
 }

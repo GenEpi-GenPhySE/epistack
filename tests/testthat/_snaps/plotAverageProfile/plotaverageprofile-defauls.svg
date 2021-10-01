@@ -20,13 +20,13 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <line x1='82.40' y1='502.56' x2='82.40' y2='502.56' style='stroke-width: 0.75;' />
 <line x1='82.40' y1='502.56' x2='82.40' y2='509.76' style='stroke-width: 0.75;' />
-<text x='82.40' y='528.48' style='font-size: 12.00px; font-family: sans;' textLength='33.36px' lengthAdjust='spacingAndGlyphs'>-2.5kb</text>
+<text x='82.40' y='528.48' style='font-size: 12.00px; font-family: sans;' textLength='35.36px' lengthAdjust='spacingAndGlyphs'>Before</text>
 <line x1='374.40' y1='502.56' x2='374.40' y2='502.56' style='stroke-width: 0.75;' />
 <line x1='374.40' y1='502.56' x2='374.40' y2='509.76' style='stroke-width: 0.75;' />
-<text x='374.40' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.34px' lengthAdjust='spacingAndGlyphs'>TSS</text>
+<text x='374.40' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='38.03px' lengthAdjust='spacingAndGlyphs'>Anchor</text>
 <line x1='666.40' y1='502.56' x2='666.40' y2='502.56' style='stroke-width: 0.75;' />
 <line x1='666.40' y1='502.56' x2='666.40' y2='509.76' style='stroke-width: 0.75;' />
-<text x='666.40' y='528.48' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='36.37px' lengthAdjust='spacingAndGlyphs'>+2.5kb</text>
+<text x='666.40' y='528.48' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='25.34px' lengthAdjust='spacingAndGlyphs'>After</text>
 <line x1='82.40' y1='502.56' x2='666.40' y2='502.56' style='stroke-width: 0.75;' />
 <line x1='82.40' y1='502.56' x2='82.40' y2='509.76' style='stroke-width: 0.75;' />
 <line x1='374.40' y1='502.56' x2='374.40' y2='509.76' style='stroke-width: 0.75;' />

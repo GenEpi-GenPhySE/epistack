@@ -5,16 +5,18 @@
 #' @param gr a GRanges object containing a \code{bin} metadata column
 #' @param target_height an integer, the approximate height (in pixels)
 #'  of the final plot. Used to avoid overplotting artefacts.
-#' @param palette a function taking a number has a first argument,
+#' @param palette a function taking a number as a first argument,
 #' and returning a vector of colors.
 #'
 #' @importFrom grDevices rainbow
 #'
+#' @return Display a plot.
+#'
 #' @export
 #'
 #' @examples
-#' data("gRanges_test")
-#' gr <- gRanges_test
+#' data("stackepi")
+#' gr <- stackepi
 #' gr <- addBins(gr, nbins = 3)
 #' plot_bin <- plotBinning(gr)
 #'
@@ -28,7 +30,7 @@ plotBinning <- function(
 ) {
     bins <- as.numeric(factor(gr$bin))
     if (length(bins) > target_height) {
-        bins_red <- redim_matrix(
+        bins_red <- redimMatrix(
             matrix(bins),
             target_height = target_height, target_width = 1
         )
@@ -41,7 +43,8 @@ plotBinning <- function(
           axes = FALSE,
           breaks = seq(0.5, length(unique(bins)) + 0.5, by = 1))
     graphics::box()
-    mtext(side = 3, "bins", line = 0.5,  cex = 0.8, las = 2)
+    mtext(side = 3, "bins", line = 0.5, las = 2,
+          cex = graphics::par()$cex.main * 0.8)
 }
 
 

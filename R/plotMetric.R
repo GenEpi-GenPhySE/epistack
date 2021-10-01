@@ -1,18 +1,26 @@
-#' plotMetric
+#' plotMetric()
 #'
-#' @param x a GRanges input
-#' @param trans_func a function to transform value of x.
-#' Useful to apply log10 transformation (i.e. with `trans_func = function(x) log10(x+1)`).
-#' @param title a character corresponding to the title of the plot
-#' @param ylim limit of the y axis; format: ylim = c (min, max)
-#' @param xlab x axix title
+#' @description Plot a vertical line chart of the metric column,
+#' in the same order as the input.
 #'
-#' @return a png
+#' @param x a numeric vector.
+#' @param trans_func a function to transform \code{x} values before ploting.
+#' Useful to apply log10 transformation
+#' (i.e. with `trans_func = function(x) log10(x+1)`).
+#' @param title Title of the plot.
+#' @param ylim limit of the y axis; format: \code{ylim = c(min, max)}
+#' @param xlab x-axis title
+#'
 #' @export
 #'
+#' @return Display a plot.
+#'
+#' @seealso \code{\link[epistack]{plotEpistack}},
+#' \code{\link[epistack]{plotBoxMetric}}
+#'
 #' @examples
-#' data("gRanges_test")
-#' plotMetric(gRanges_test$exp)
+#' data("stackepi")
+#' plotMetric(stackepi$exp)
 #'
 #'
 plotMetric <- function(
@@ -27,8 +35,8 @@ plotMetric <- function(
         xaxs="i", yaxs="i"
     )
     graphics::box()
-    axis(1)
-    axis(2, at = c(1, length(x)))
-    title(xlab = xlab)
-    mtext(side = 3, title , line = 0.5, cex = 0.8)
+    graphics::axis(1)
+    graphics::axis(2, at = c(1, length(x)))
+    graphics::title(xlab = xlab)
+    mtext(side = 3, title , line = 0.5, cex = 0.8 * graphics::par()$cex.main)
 }

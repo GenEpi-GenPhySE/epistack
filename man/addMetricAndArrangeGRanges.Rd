@@ -28,10 +28,10 @@ that will be used as key for the inner join.}
 that contain value used for sorting.}
 
 \item{shuffle_tie}{a boolean Value (TRUE / FALSE).
-When TRUE, shuffle the gRanges before sorting, mixing the ties.}
+When TRUE, shuffle the GRanges before sorting, mixing the ties.}
 }
 \value{
-a GRanges sorted in ascending order.
+a GRanges sorted in descending order.
 }
 \description{
 Perform an inner join between a GRanges object and a data.frame. Sort
@@ -45,10 +45,10 @@ The resulting GRanges object will only contain regions presents in both
 \code{gr} and \code{order}.
 }
 \examples{
-data("gRanges_test")
-ramdomOrder <- data.frame(gene_id = gRanges_test$gene_id,
-   value = rnorm(length(gRanges_test)))
-addMetricAndArrangeGRanges(gRanges_test,
+data("stackepi")
+ramdomOrder <- data.frame(gene_id = stackepi$gene_id,
+   value = rnorm(length(stackepi)))
+addMetricAndArrangeGRanges(stackepi,
    ramdomOrder, gr_key = "gene_id",
    order_key = "gene_id", order_value = "value" )
 

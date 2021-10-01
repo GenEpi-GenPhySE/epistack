@@ -1,8 +1,8 @@
 #' plotBoxMetric()
 #'
-#' @description Plot distribution of a metric values as bowplots
+#' @description Plot distribution of a metric values as boxplots
 #' depending of bins.
-#' If the \code{bin} is absent from \code{gr}, a single bowplot is drawn.
+#' If the \code{bin} is absent from \code{gr}, a single boxplot is drawn.
 #'
 #' @param gr a GRanges input
 #' @param metric name of the column in \code{gr} metadata containing scores.
@@ -16,12 +16,14 @@
 #'
 #' @importFrom stats setNames
 #'
+#' @return Display a plot.
+#'
 #' @export
 #'
 #' @examples
-#' data("gRanges_test")
+#' data("stackepi")
 #' plotBoxMetric(
-#'        gRanges_test,
+#'        stackepi,
 #'        trans_func = function(x) x,
 #'        metric = "exp",
 #'        title = "Metric"
@@ -52,7 +54,7 @@ plotBoxMetric <- function(
         )
     }
     axis(2, at = ylim)
-    mtext(side = 3, title, line = 0.5,  cex = 0.8)
+    mtext(side = 3, title, line = 0.5, cex = 0.8 * graphics::par()$cex.main)
 }
 
 

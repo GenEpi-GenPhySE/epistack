@@ -1,8 +1,8 @@
 library(GenomicRanges)
 
-data("gRanges_test")
+data("stackepi")
 
-mat1 <- S4Vectors::mcols(gRanges_test)
+mat1 <- S4Vectors::mcols(stackepi)
 whichCols <- grepl("^window_", colnames(mat1))
 mat1 <- as.matrix(mat1[, whichCols])
 
@@ -85,21 +85,21 @@ result2 <- structure(c(2, 2, 2, 2, 5, 4), .Dim = 2:3)
 
 test_that("Giving the smallest matrix", {
     expect_equal(
-        redim_matrix(mat1, target_height = 5, target_width = ncol(mat1)),
+        redimMatrix(mat1, target_height = 5, target_width = ncol(mat1)),
         result1
     )
 })
 #> Test passed
 
 test_that("Giving the largest matrix", {
-    expect_error(redim_matrix(mat2, target_height = 10, target_width = 5),
+    expect_error(redimMatrix(mat2, target_height = 10, target_width = 5),
                  "Input matrix must be bigger than target width and height")
 })
 
 #> Test passed
 test_that("Giving the result matrix with the summary sum function", {
     expect_equal(
-        redim_matrix(mat2, target_height = 2, target_width = ncol(mat2),
+        redimMatrix(mat2, target_height = 2, target_width = ncol(mat2),
                      summary_func = function(x) max(x, na.rm = TRUE)),
         result2
     )
