@@ -200,7 +200,7 @@ layout(1)
 ## data origin
 In this part, we will use example ChIP-seq data
 from the 
-[2016 CASME course](https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html)
+[2016 CSAMA course](https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html)
 "Basics of ChIP-seq data analysis" 
 by Aleksandra Pekowska and Simon Anders.
 Data can be found in this github repository: 
@@ -496,5 +496,11 @@ plotEpistack(
     metric_transfunc = function(x) log10(x + 1),
     npix_height = 300
 )
+```
+
+# `sessionInfo()`
+
+```{r sessionInfo}
+sessionInfo()
 ```
 
