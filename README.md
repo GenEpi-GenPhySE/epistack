@@ -2,8 +2,8 @@
 # epistack
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/GenEpi-GenPhySE/epistack/branch/master/graph/badge.svg)](https://codecov.io/gh/GenEpi-GenPhySE/epistack?branch=master)
-[![R-CMD-check](https://github.com/GenEpi-GenPhySE/epistack/workflows/R-CMD-check/badge.svg)](https://github.com/GenEpi-GenPhySE/epistack/actions)
+[![R build status](https://github.com/GenEpi-GenPhySE/epistack/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/GenEpi-GenPhySE/epistack/actions)
+[![codecov](https://codecov.io/gh/GenEpi-GenPhySE/epistack/branch/CI/graph/badge.svg)](https://codecov.io/gh/GenEpi-GenPhySE/epistack)
 <!-- badges: end -->
 
 <img src="vignettes/example_vizbi_bos_epistack2.png" width="450" alt="Example of an epistack output">
