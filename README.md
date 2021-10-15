@@ -23,9 +23,18 @@ provided as a `GRanges` (easily obtained from `gtf` or `bed` files)
 
 ## Installation
 
-You can install the current version of epistack from `R` using :
+To install the package from Bioconductor, use:
 
-``` r
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("epistack")
+```
+
+You can install the GitHub version of epistack from `R` using :
+
+```r
 remotes::install_github("GenEpi-GenPhySE/epistack")
 ```
 
