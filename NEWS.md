@@ -4,3 +4,7 @@ epistack v0.99.1 (2021-10-01)
 epistack v0.99.2 (2021-10-15)
 + sessionInfo() at the end of the vignette
 + edits in NEWS, README and the vignette
+
+epistack v0.99.3 (2021-10-19)
++ plotAverageProfile() now has the parameter `error_type`, value: sd or sem,
+default: sd (was previously sem)
