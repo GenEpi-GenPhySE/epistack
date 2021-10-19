@@ -107,7 +107,7 @@
 #'     metric_transfunc = function(x) log10(x+1))
 #'
 plotEpistack <- function(
-    gr,
+    rse,
     patterns = "^window_", tints = "gray",
     titles = "", legends = "",
     x_labels = c("Before", "Anchor", "After"),
@@ -122,7 +122,7 @@ plotEpistack <- function(
 ) {
 
     n_pattern <- length(patterns)
-    bin_present <- !is.null(gr$bin)
+    bin_present <- !is.null(rowRanges(rse)$bin)
 
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3),
                          nrow  = 3)
@@ -145,7 +145,7 @@ plotEpistack <- function(
     )
 
     plotMetric(
-        mcols(gr)[[metric_col]],
+        mcols(rse)[[metric_col]],
         title = metric_title,
         trans_func = metric_transfunc,
         xlab = metric_label
