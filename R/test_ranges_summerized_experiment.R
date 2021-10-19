@@ -34,7 +34,9 @@ h3k4me3stack <- normalizeToMatrix(
 colnames(h3k4me3stack) <- paste("H3K4me3", seq_len(ncol(h3k4me3stack)), sep = "_")
 
 testdata <- SummarizedExperiment(
-    assays = list(meth=methstack, h3k4me3=h3k4me3stack),
+    assays = list(meth = methstack, h3k4me3 = h3k4me3stack),
     rowData = epidata
 )
 
+# plot epistack ---------
+patterns <- c("meth", "h3k4me3")
