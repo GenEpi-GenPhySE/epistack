@@ -10,6 +10,7 @@ plotAverageProfile(
   x_labels = c("Before", "Anchor", "After"),
   palette = colorRampPalette(c("magenta", "black", "green")),
   alpha_for_se = 0.25,
+  error_type = c("sd", "sem"),
   reversed_z_order = FALSE,
   ylim = NULL
 )
@@ -26,7 +27,10 @@ metadata of \code{gr} (can be a regular expression).}
 by default: \code{colorRampPalette(c("magenta", "black", "green"))}}
 
 \item{alpha_for_se}{the transparency (alpha) value for
-standard error of the mean band.}
+the error band.}
+
+\item{error_type, }{can be either \code{sd} (standard deviation)
+or \code{sem} (standard error of the mean). Default: \code{sem}.}
 
 \item{reversed_z_order}{should the z-order of the curves be reversed
 (i.e. first or last bin on top?)}
@@ -38,8 +42,8 @@ to the y-limits of the plot}
 Display a plot.
 }
 \description{
-Plot the average stack profiles +/- standard error of the
-means. If a \code{bin} column is present in \code{gr}, one average profile
+Plot the average stack profiles +/-  error (sd or sem).
+If a \code{bin} column is present in \code{gr}, one average profile
 is drawn for each bin.
 }
 \examples{

@@ -38,6 +38,8 @@
 #' @param low_mar a vector of numerical values
 #'  corresponding to the margins of the bottom figures.
 #'  c(bottom, left, top, right)
+#' @param error_type, can be either \code{sd} (standard deviation)
+#' or \code{sem} (standard error of the mean). Default: \code{sem}.
 #' @param ... Arguments to be passed to \code{\link[graphics]{par}} such as
 #'  \code{cex}
 #'
@@ -115,6 +117,7 @@ plotEpistack <- function(
     bin_palette = colorRampPalette(c("magenta", "black", "green")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
+    error_type = c("sd", "sem"),
     ...
 ) {
 
@@ -201,7 +204,8 @@ plotEpistack <- function(
             pattern = patterns[i],
             ylim = ylim[[i]],
             palette = bin_palette,
-            x_labels = x_labels
+            x_labels = x_labels,
+            error_type = error_type
         )
     }
 
