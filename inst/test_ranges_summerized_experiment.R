@@ -1,4 +1,5 @@
 library(EnrichedHeatmap)
+library(SummarizedExperiment)
 load(
     system.file("extdata", "chr21_test_data.RData",
                 package = "EnrichedHeatmap"),
@@ -40,3 +41,4 @@ testdata <- SummarizedExperiment(
 
 # plot epistack ---------
 patterns <- c("meth", "h3k4me3")
+rse <- testdata

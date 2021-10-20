@@ -154,7 +154,7 @@ plotEpistack <- function(
     graphics::plot.new()
     graphics::par(mar = low_mar + c(0, 4, 0, 0))
     plotBoxMetric(
-        gr, trans_func = metric_transfunc,
+        rse, trans_func = metric_transfunc,
         palette = bin_palette,
         metric = metric_col,
         title = metric_title,
