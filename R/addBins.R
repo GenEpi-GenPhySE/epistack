@@ -36,15 +36,15 @@
 #' # assign bins using a vector
 #' addBins(stackepi, bin = rep(c("a", "b", "c"),
 #'  length.out = length(stackepi)))
-addBins <- function(gr, nbins = 5L, bin = NULL){
+addBins <- function(rse, nbins = 5L, bin = NULL){
 
     if(is.null(bin)) {
-        gr$bin = as.numeric(cut(seq_along(gr), nbins))
+        rowRanges(rse)$bin = as.numeric(cut(seq_along(rse), nbins))
     } else {
-        gr$bin = bin
+        rowRanges(rse)$bin = bin
     }
 
-    gr
+    rse
 }
 
 

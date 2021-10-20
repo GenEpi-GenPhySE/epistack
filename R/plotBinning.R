@@ -24,11 +24,11 @@
 #' plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))
 #'
 plotBinning <- function(
-    gr,
+    rse,
     target_height = 650,
     palette = colorRampPalette(c("magenta", "black", "green"))
 ) {
-    bins <- as.numeric(factor(gr$bin))
+    bins <- as.numeric(factor(SummarizedExperiment::rowRanges(rse)$bin))
     if (length(bins) > target_height) {
         bins_red <- redimMatrix(
             matrix(bins),

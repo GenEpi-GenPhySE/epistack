@@ -29,26 +29,32 @@
 #'        title = "Metric"
 #'   )
 plotBoxMetric <- function(
-    gr,
+    rse,
     metric = "expr", title = "Metric",
     trans_func = function(x) x,
     ylim = NULL, ylab = "metric",
     palette = colorRampPalette(c("magenta", "black", "green"))
 ){
-    if (!is.null(gr$bin)) {
+    if (!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
+        bin <- SummarizedExperiment::rowRanges(rse)$bin
         graphics::boxplot(
             lapply(
-                stats::setNames(levels(factor(gr$bin)), levels(factor(gr$bin))),
-                function(i) trans_func(mcols(gr)[gr$bin == i, metric])
+                stats::setNames(
+                    levels(factor(bin)),
+                    levels(factor(bin))
+                ),
+                function(i) trans_func(
+                    S4Vectors::mcols(rse)[bin == i, metric]
+                )
             ),
             ylab = ylab, pch = 19, ylim = ylim,
-            col = palette(length(unique(gr$bin))), axes = FALSE
+            col = palette(length(unique(bin))), axes = FALSE
         )
-        axis(1, at = seq_along(levels(factor(gr$bin))),
-             labels = levels(factor(gr$bin)))
+        axis(1, at = seq_along(levels(factor(bin))),
+             labels = levels(factor(bin)))
     } else {
         graphics::boxplot(
-            trans_func(mcols(gr)[[metric]]),
+            trans_func(S4Vectors::mcols(rse)[[metric]]),
             ylab = ylab, pch = 19, ylim = ylim,
             col = palette(1), axes = FALSE
         )

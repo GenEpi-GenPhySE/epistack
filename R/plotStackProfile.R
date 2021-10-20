@@ -64,7 +64,7 @@
 #'                    title = "DNA methylation")
 #'
 plotStackProfile <- function(
-    gr,
+    rse,
     pattern = "^window_",
     x_labels = c("Before", "Anchor", "After"),
     title = "",
@@ -74,9 +74,7 @@ plotStackProfile <- function(
     summary_func = function(x) mean(x, na.rm = TRUE),
     n_core = 1
 ) {
-    mat <- S4Vectors::mcols(gr)
-    whichCols <- grepl(pattern, colnames(mat))
-    mat <- as.matrix(mat[, whichCols])
+    mat <- SummarizedExperiment::assay(rse, pattern)
 
     mat[is.na(mat)] <- 0
     if (!is.null(zlim)) {

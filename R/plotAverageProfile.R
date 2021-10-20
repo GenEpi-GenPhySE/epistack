@@ -28,7 +28,7 @@
 #' plotAverageProfile(stackepi)
 #'
 plotAverageProfile <- function(
-    gr,
+    rse,
     pattern = "^window_",
     x_labels = c("Before", "Anchor", "After"),
     palette = colorRampPalette(c("magenta", "black", "green")),
@@ -37,9 +37,7 @@ plotAverageProfile <- function(
     reversed_z_order = FALSE,
     ylim = NULL
 ) {
-    mat <- S4Vectors::mcols(gr)
-    whichCols <- grepl(pattern, colnames(mat))
-    mat <- as.matrix(mat[, whichCols])
+    mat <- SummarizedExperiment::assay(rse, pattern)
     error_type <- error_type[1]
 
     if(!is.null(gr$bin)) {
@@ -56,7 +54,7 @@ plotAverageProfile <- function(
                                        mySds[[i]]/sqrt(nrow(myMats[[i]]))))
 
     myErr <- if (error_type == "sem") {mySes} else {mySds}
-    
+
     ymax <- max(
         vapply(
             seq_along(myMeans), function(i) {

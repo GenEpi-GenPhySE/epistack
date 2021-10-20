@@ -163,7 +163,7 @@ plotEpistack <- function(
 
     if (bin_present) {
         graphics::par(mar = high_mar)
-        plotBinning(gr, target_height = npix_height, palette = bin_palette)
+        plotBinning(rse, target_height = npix_height, palette = bin_palette)
         graphics::par(mar = low_mar)
         graphics::plot.new()
     }
@@ -187,7 +187,7 @@ plotEpistack <- function(
     for (i in seq_along(patterns)) {
         graphics::par(mar = high_mar)
         plotStackProfile(
-            gr, pattern = patterns[i],
+            rse, pattern = patterns[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
@@ -200,7 +200,7 @@ plotEpistack <- function(
         )
         graphics::par(mar = low_mar)
         plotAverageProfile(
-            gr,
+            rse,
             pattern = patterns[i],
             ylim = ylim[[i]],
             palette = bin_palette,
