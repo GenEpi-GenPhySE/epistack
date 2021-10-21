@@ -40,8 +40,11 @@ plotAverageProfile <- function(
     mat <- SummarizedExperiment::assay(rse, pattern)
     error_type <- error_type[1]
 
-    if(!is.null(gr$bin)) {
-        myMats <- lapply(levels(factor(gr$bin)), function(x) mat[gr$bin == x, ])
+    if(!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
+        myMats <- lapply(
+            levels(factor(SummarizedExperiment::rowRanges(rse)$bin)),
+            function(x) mat[SummarizedExperiment::rowRanges(rse)$bin == x, ]
+        )
     } else {
         myMats <- list(mat)
     }
@@ -63,8 +66,10 @@ plotAverageProfile <- function(
         )
     )
     xind <- seq_len(ncol(mat))
-    if(!is.null(gr$bin)) {
-        mypalette <- palette(length(unique(gr$bin)))
+    if(!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
+        mypalette <- palette(
+            length(unique(SummarizedExperiment::rowRanges(rse)$bin))
+        )
     } else {
         mypalette <- palette(1)
     }

@@ -19,7 +19,7 @@ epidata <- addMetricAndArrangeGRanges(
     order_key = "gene_id", order_value = "expr"
 )
 epidata
-epidata <- addBins(epidata, nbins = 5)
+# epidata <- addBins(epidata, nbins = 5)
 epidata
 
 methstack <- normalizeToMatrix(
@@ -42,3 +42,5 @@ testdata <- SummarizedExperiment(
 # plot epistack ---------
 patterns <- c("meth", "h3k4me3")
 rse <- testdata
+
+rseb <- addBins(rse)
