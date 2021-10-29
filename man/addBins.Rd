@@ -4,15 +4,15 @@
 \alias{addBins}
 \title{addBins()}
 \usage{
-addBins(gr, nbins = 5L, bin = NULL)
+addBins(rse, nbins = 5L, bin = NULL)
 }
 \arguments{
-\item{gr}{a GRanges object.}
-
 \item{nbins}{an integer number, the number of bins.}
 
 \item{bin}{a vector containing pre-determined bins, in the same
 order as \code{gr}.}
+
+\item{gr}{a GRanges object.}
 }
 \value{
 the \code{gr} GRanges object with a new \code{bin} metadata column

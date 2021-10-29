@@ -29,15 +29,16 @@
 #'
 plotAverageProfile <- function(
     rse,
-    pattern = "^window_",
+    assay = NULL,
     x_labels = c("Before", "Anchor", "After"),
     palette = colorRampPalette(c("magenta", "black", "green")),
     alpha_for_se = 0.25,
     error_type = c("sd", "sem"),
     reversed_z_order = FALSE,
-    ylim = NULL
+    ylim = NULL,
+    pattern = NULL
 ) {
-    mat <- SummarizedExperiment::assay(rse, pattern)
+    mat <- SummarizedExperiment::assay(rse, assay)
     error_type <- error_type[1]
 
     if(!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {

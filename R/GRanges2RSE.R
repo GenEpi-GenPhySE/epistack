@@ -1,4 +1,6 @@
-GRanges2RSE <- function(x, patterns, names = patterns) {
+#'
+
+GRanges2RSE <- function(gr, patterns, names = patterns) {
 
     mat <- S4Vectors::mcols(gr)
 
@@ -6,12 +8,14 @@ GRanges2RSE <- function(x, patterns, names = patterns) {
         whichCols <- grepl(pattern, colnames(mat))
         as.matrix(mat[, whichCols])
     })
+    names(assays) <- names
 
+    tokeep <- grepl(paste(patterns, collapse = "|"), colnames(mat))
 
+    mcols(gr) <- mcols(gr)[, !tokeep]
 
-    testdata <- SummarizedExperiment(
-        assays = assays
-        rowData = epidata
+    SummarizedExperiment::SummarizedExperiment(
+        assays = assays,
+        rowData = gr
     )
-
 }

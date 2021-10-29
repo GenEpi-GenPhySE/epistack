@@ -65,16 +65,17 @@
 #'
 plotStackProfile <- function(
     rse,
-    pattern = "^window_",
+    assay = NULL,
     x_labels = c("Before", "Anchor", "After"),
     title = "",
     zlim = NULL,
     palette = function(n) viridisLite::viridis(n, direction = -1),
     target_height = 650,
     summary_func = function(x) mean(x, na.rm = TRUE),
-    n_core = 1
+    n_core = 1,
+    pattern = NULL
 ) {
-    mat <- SummarizedExperiment::assay(rse, pattern)
+    mat <- SummarizedExperiment::assay(rse, assay)
 
     mat[is.na(mat)] <- 0
     if (!is.null(zlim)) {

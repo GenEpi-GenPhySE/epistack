@@ -5,19 +5,19 @@
 \title{plotBinning()}
 \usage{
 plotBinning(
-  gr,
+  rse,
   target_height = 650,
   palette = colorRampPalette(c("magenta", "black", "green"))
 )
 }
 \arguments{
-\item{gr}{a GRanges object containing a \code{bin} metadata column}
-
 \item{target_height}{an integer, the approximate height (in pixels)
 of the final plot. Used to avoid overplotting artefacts.}
 
 \item{palette}{a function taking a number as a first argument,
 and returning a vector of colors.}
+
+\item{gr}{a GRanges object containing a \code{bin} metadata column}
 }
 \value{
 Display a plot.

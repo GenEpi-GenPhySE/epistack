@@ -5,7 +5,7 @@
 \title{plotAverageProfile()}
 \usage{
 plotAverageProfile(
-  gr,
+  rse,
   pattern = "^window_",
   x_labels = c("Before", "Anchor", "After"),
   palette = colorRampPalette(c("magenta", "black", "green")),
@@ -16,8 +16,6 @@ plotAverageProfile(
 )
 }
 \arguments{
-\item{gr}{a GRanges input}
-
 \item{pattern}{a single character that should match
 metadata of \code{gr} (can be a regular expression).}
 
@@ -37,6 +35,8 @@ or \code{sem} (standard error of the mean). Default: \code{sem}.}
 
 \item{ylim}{a vector of two numbers corresponding
 to the y-limits of the plot}
+
+\item{gr}{a GRanges input}
 }
 \value{
 Display a plot.

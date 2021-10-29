@@ -5,8 +5,8 @@
 \title{plotEpistack()}
 \usage{
 plotEpistack(
-  gr,
-  patterns = "^window_",
+  rse,
+  assays = NULL,
   tints = "gray",
   titles = "",
   legends = "",
@@ -23,15 +23,11 @@ plotEpistack(
   high_mar = c(2.5, 0.6, 4, 0.6),
   low_mar = c(2.5, 0.6, 0.3, 0.6),
   error_type = c("sd", "sem"),
+  patterns = NULL,
   ...
 )
 }
 \arguments{
-\item{gr}{a GRanges input.}
-
-\item{patterns}{a character vector of column prefixes
-(can be regular expressions) that should match columns of \code{gr}.}
-
 \item{tints}{a vector of colors to tint the heatmaps.}
 
 \item{titles}{titles of each heatmap.}
@@ -79,8 +75,13 @@ c(bottom, left, top, right)}
 \item{error_type, }{can be either \code{sd} (standard deviation)
 or \code{sem} (standard error of the mean). Default: \code{sem}.}
 
+\item{patterns}{a character vector of column prefixes
+(can be regular expressions) that should match columns of \code{gr}.}
+
 \item{...}{Arguments to be passed to \code{\link[graphics]{par}} such as
 \code{cex}}
+
+\item{gr}{a GRanges input.}
 }
 \value{
 Display a plot.

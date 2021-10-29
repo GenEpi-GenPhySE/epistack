@@ -39,6 +39,13 @@ testdata <- SummarizedExperiment(
     rowData = epidata
 )
 
+# testdata <- SummarizedExperiment(
+#     assays = list(methstack, h3k4me3stack),
+#     rowData = epidata
+# )
+#
+# assayNames(testdata)
+
 # plot epistack ---------
 patterns <- c("meth", "h3k4me3")
 rse <- testdata

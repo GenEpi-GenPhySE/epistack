@@ -5,7 +5,7 @@
 \title{plotBoxMetric()}
 \usage{
 plotBoxMetric(
-  gr,
+  rse,
   metric = "expr",
   title = "Metric",
   trans_func = function(x) x,
@@ -15,8 +15,6 @@ plotBoxMetric(
 )
 }
 \arguments{
-\item{gr}{a GRanges input}
-
 \item{metric}{name of the column in \code{gr} metadata containing scores.}
 
 \item{title}{title of the plot.}
@@ -30,6 +28,8 @@ Useful to apply log10 transformation
 \item{ylab}{y-axis title}
 
 \item{palette}{a function that returns a palette of \code{n} colors.}
+
+\item{gr}{a GRanges input}
 }
 \value{
 Display a plot.

@@ -108,32 +108,54 @@
 #'
 plotEpistack <- function(
     rse,
-    patterns = "^window_", tints = "gray",
+    assays = NULL, tints = "gray",
     titles = "", legends = "",
     x_labels = c("Before", "Anchor", "After"),
     zlim = c(0, 1), ylim = NULL,
-    metric_col = "expr", metric_title = "Metric", metric_label = "metric",
+    metric_col = "exp", metric_title = "Metric", metric_label = "metric",
     metric_transfunc = function(x) x,
     bin_palette = colorRampPalette(c("magenta", "black", "green")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
     error_type = c("sd", "sem"),
+    patterns = NULL,
     ...
 ) {
 
-    n_pattern <- length(patterns)
+    if (class(rse) == "GRanges") {
+        if (is.null(patterns)) {
+            stop("patterns must be provided if the input is of class GRanges")
+        }
+        if (is.null(assays)) {
+            assays <- patterns
+        }
+        rse <- GRanges2RSE(rse, patterns, assays)
+    }
+
+    if (is.null(SummarizedExperiment::assayNames(rse))) {
+        SummarizedExperiment::assayNames(rse) <- paste0(
+            "assay_",
+            seq_len(length(SummarizedExperiment::assays(rse)))
+        )
+    }
+
+    if (is.null(assays)) {
+        assays <- SummarizedExperiment::assayNames(rse)
+    }
+
+    n_assays <- length(assays)
     bin_present <- !is.null(rowRanges(rse)$bin)
 
-    layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_pattern * 3),
+    layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_assays * 3),
                          nrow  = 3)
     layout_heights <- c(1, 0.14, 0.3)
     if (bin_present) {
-        layout_widths <- c(0.3, 0.08, rep(0.35, n_pattern))
+        layout_widths <- c(0.3, 0.08, rep(0.35, n_assays))
         # boxmetric extend below plotbin
         layout_mat[3, 2] <- 3
         layout_mat[layout_mat > 6] <-  layout_mat[layout_mat > 6] - 1
     } else {
-        layout_widths <- c(0.3, rep(0.35, n_pattern))
+        layout_widths <- c(0.3, rep(0.35, n_assays))
     }
 
     graphics::layout(layout_mat,
@@ -169,25 +191,25 @@ plotEpistack <- function(
     }
 
     if(!is.list(zlim)) {
-        zlim <- lapply(seq_along(patterns), function(x) zlim)
+        zlim <- lapply(seq_along(assays), function(x) zlim)
     }
     if(!is.list(ylim)) {
-        ylim <- lapply(seq_along(patterns), function(x) ylim)
+        ylim <- lapply(seq_along(assays), function(x) ylim)
     }
-    if(length(titles) == 1 && length(patterns) > 1) {
-        titles = rep(titles, length(patterns))
+    if(length(titles) == 1 && length(assays) > 1) {
+        titles = rep(titles, length(assays))
     }
-    if(length(tints) == 1 && length(patterns) > 1) {
-        tints = rep(tints, length(patterns))
+    if(length(tints) == 1 && length(assays) > 1) {
+        tints = rep(tints, length(assays))
     }
-    if(length(legends) == 1 && length(patterns) > 1) {
-        legends = rep(legends, length(patterns))
+    if(length(legends) == 1 && length(assays) > 1) {
+        legends = rep(legends, length(assays))
     }
 
-    for (i in seq_along(patterns)) {
+    for (i in seq_along(assays)) {
         graphics::par(mar = high_mar)
         plotStackProfile(
-            rse, pattern = patterns[i],
+            rse, assay = assays[i],
             palette = colorRampPalette(c("white", tints[i], "black")),
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
@@ -201,7 +223,7 @@ plotEpistack <- function(
         graphics::par(mar = low_mar)
         plotAverageProfile(
             rse,
-            pattern = patterns[i],
+            assay = assays[i],
             ylim = ylim[[i]],
             palette = bin_palette,
             x_labels = x_labels,

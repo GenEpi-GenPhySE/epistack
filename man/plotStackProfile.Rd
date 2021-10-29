@@ -5,7 +5,7 @@
 \title{plotStackProfile()}
 \usage{
 plotStackProfile(
-  gr,
+  rse,
   pattern = "^window_",
   x_labels = c("Before", "Anchor", "After"),
   title = "",
@@ -17,8 +17,6 @@ plotStackProfile(
 )
 }
 \arguments{
-\item{gr}{a GRanges input}
-
 \item{pattern}{a character vector of length 1 of a column prefixe
 (can be regular expressions) that should match columns of \code{gr}.}
 
@@ -42,6 +40,8 @@ Usualy \code{mean}, but can be set to \code{median} or \code{max} for sparse
 matrices.}
 
 \item{n_core}{multicore option, passed to \code{redimMatrix()}.}
+
+\item{gr}{a GRanges input}
 }
 \value{
 Display a plot.
