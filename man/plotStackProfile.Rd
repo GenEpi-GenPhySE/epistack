@@ -6,20 +6,18 @@
 \usage{
 plotStackProfile(
   rse,
-  pattern = "^window_",
+  assay = NULL,
   x_labels = c("Before", "Anchor", "After"),
   title = "",
   zlim = NULL,
   palette = function(n) viridisLite::viridis(n, direction = -1),
   target_height = 650,
   summary_func = function(x) mean(x, na.rm = TRUE),
-  n_core = 1
+  n_core = 1,
+  pattern = NULL
 )
 }
 \arguments{
-\item{pattern}{a character vector of length 1 of a column prefixe
-(can be regular expressions) that should match columns of \code{gr}.}
-
 \item{x_labels}{a character vectors of length 3 used to label the x-axis.}
 
 \item{title}{The title of the heatmap}
@@ -40,6 +38,9 @@ Usualy \code{mean}, but can be set to \code{median} or \code{max} for sparse
 matrices.}
 
 \item{n_core}{multicore option, passed to \code{redimMatrix()}.}
+
+\item{pattern}{a character vector of length 1 of a column prefixe
+(can be regular expressions) that should match columns of \code{gr}.}
 
 \item{gr}{a GRanges input}
 }

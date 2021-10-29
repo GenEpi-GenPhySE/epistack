@@ -6,11 +6,13 @@
 #' allow the grouping of several genomic regions to produce average profiles per
 #' bins.
 #'
-#' @param gr a GRanges input.
-#' @param patterns a character vector of column prefixes
-#' (can be regular expressions) that should match columns of \code{gr}.
+#' @param rse a RangedSummarizedExperiment input. Aletrnatively: can be a
+#' GRanges object
+#' (for backward compatibility, \code{patterns} will be required).
+#' @param assays specify the name(s) and order of assay(s) to plot. A vector of
+#' names that should match \code{assayNames(rse)}.
 #' @param tints a vector of colors to tint the heatmaps.
-#' @param titles titles of each heatmap.
+#' @param titles titles of each heatmap. Defaults to \code{assays}.
 #' @param legends legend names for the epistacks.
 #' @param x_labels a character vector of length 3 used as x-axis labels.
 #' @param zlim the minimum and maximum z values the heatmap.
@@ -40,35 +42,43 @@
 #'  c(bottom, left, top, right)
 #' @param error_type, can be either \code{sd} (standard deviation)
 #' or \code{sem} (standard error of the mean). Default: \code{sem}.
+#' @param patterns only if \code{rse} is of class GRanges.
+#' A character vector of column prefixes
+#' (can be regular expressions) that should match columns of \code{rse}.
 #' @param ... Arguments to be passed to \code{\link[graphics]{par}} such as
 #'  \code{cex}
 #'
 #' @details
 #' This function produce a comprehensive figure including epigenetic heatmaps
-#' and average epigenetic profiles from a well formated \code{GRanges} object
-#' with expected metadata columns. It scales resonably well up to hundreds of
+#' and average epigenetic profiles from a well formated
+#' \code{RangedSummarizedExperiment} object
+#' with expected rowData metadata columns.
+#' It scales resonably well up to hundreds of
 #' thousands of genomic regions.
 #'
 #' The visualisation is centered on an anchor,
 #' a set of genomic coordinated that can be transcription start sites or
-#' peak center for example. Anchor coordinates are those of the \code{GRanges}
-#' used as an input (hereafter \code{gr}).
+#' peak center for example.
+#' Anchor coordinates are those of the \code{GRanges}
+#' used as a rowData in the input  RangedSummarizedExperiment object
+#' (hereafter \code{rse}).
 #'
-#' Anchors are plotted from top to bottom in the same order as in \code{gr}.
-#' One should sort \code{gr} before plotting if needed.
+#' Anchors are plotted from top to bottom in the same order as in \code{rse}.
+#' One should sort \code{rse} before plotting if needed.
 #'
-#' \code{gr} should have a metric column that is used in the leftmost plots.
+#' \code{rse}'s rowData should have a metric column that is used in the
+#' leftmost plots.
 #' The name of the metric column must be specified to \code{metric_col}.
 #' The metric can be transformed before plotting if needed using the
 #' \code{metric_transfunc} parameter.
 #'
 #' The matrix or matrices used to display the heatmap(s) should be passed as
-#' additional metadata columns of \code{gr}. Such matrix can be obtained using
-#' \code{EnrichedHeatmap::normalizeToMatrix()} for example. The matrix columns
-#' names are then specified through \code{patterns} using prefixes, suffixes or
-#' regular expressions.
+#' assay(s) in \code{rse}. Such matrix can be obtained using
+#' \code{EnrichedHeatmap::normalizeToMatrix()} for example. The assay
+#' names are then specified through \code{assays}.
 #'
-#' If an optionnal \code{bin} column is present in \code{gr}, it will be used
+#' If an optionnal \code{bin} column is present in \code{rse}'s rowData,
+#'  it will be used
 #' to group genomic regions to performed average profile per bins in the bottom
 #' plots.
 #'
@@ -87,6 +97,9 @@
 #' Last minutes call to the \code{redimMatrix()} function will hapen before
 #' plotting using \code{npix_height} as target height. Parameter \code{n_core}
 #' is passed to \code{redimMatrix()} to speed up the down-scaling.
+#'
+#' The input can also be a \code{GRanges} object for backward compatibility. See
+#' \code{\link[epistack]{GRanges2RSE}}. \code{patterns} would then be required.
 #'
 #' @export
 #'
@@ -109,7 +122,7 @@
 plotEpistack <- function(
     rse,
     assays = NULL, tints = "gray",
-    titles = "", legends = "",
+    titles = NULL, legends = "",
     x_labels = c("Before", "Anchor", "After"),
     zlim = c(0, 1), ylim = NULL,
     metric_col = "exp", metric_title = "Metric", metric_label = "metric",
@@ -122,7 +135,7 @@ plotEpistack <- function(
     ...
 ) {
 
-    if (class(rse) == "GRanges") {
+    if (is(rse, "GRanges")) {
         if (is.null(patterns)) {
             stop("patterns must be provided if the input is of class GRanges")
         }
@@ -141,6 +154,10 @@ plotEpistack <- function(
 
     if (is.null(assays)) {
         assays <- SummarizedExperiment::assayNames(rse)
+    }
+
+    if (is.null(titles)) {
+        titles <- assays
     }
 
     n_assays <- length(assays)
