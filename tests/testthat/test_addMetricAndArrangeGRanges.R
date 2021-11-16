@@ -137,5 +137,3 @@ test_that("test the sort with GC", {
         result1
      )
 })
-
-

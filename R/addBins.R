@@ -5,12 +5,13 @@
 #'  to serve as annotations
 #'  for the epistack plots.
 #'
-#' @param gr a GRanges object.
+#' @param rse a SummarizedExperiment or a GRanges object.
 #' @param nbins an integer number, the number of bins.
 #' @param bin a vector containing pre-determined bins, in the same
 #' order as \code{gr}.
 #'
-#' @return the \code{gr} GRanges object with a new \code{bin} metadata column
+#' @return the RangedSummarizedExperiment or GRanges object with a
+#' new \code{bin} metadata column
 #'
 #' @details
 #'  \code{nbins} is taken into account only if \code{bin} is \code{NULL}.
