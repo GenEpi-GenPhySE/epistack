@@ -11,13 +11,16 @@ plotBinning(
 )
 }
 \arguments{
+\item{rse}{a RangedSummarizedExperiment input with a column \code{bin} in
+\code{rowRanges(rse)}.
+Alternatively (for backward compatibility),
+a GRanges object or any object such as \code{rse$bin} exists.}
+
 \item{target_height}{an integer, the approximate height (in pixels)
 of the final plot. Used to avoid overplotting artefacts.}
 
 \item{palette}{a function taking a number as a first argument,
 and returning a vector of colors.}
-
-\item{gr}{a GRanges object containing a \code{bin} metadata column}
 }
 \value{
 Display a plot.

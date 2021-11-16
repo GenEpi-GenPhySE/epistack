@@ -161,7 +161,7 @@ plotEpistack <- function(
     }
 
     n_assays <- length(assays)
-    bin_present <- !is.null(rowRanges(rse)$bin)
+    bin_present <- !is.null(SummarizedExperiment::rowRanges(rse)$bin)
 
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_assays * 3),
                          nrow  = 3)
@@ -184,7 +184,7 @@ plotEpistack <- function(
     )
 
     plotMetric(
-        mcols(rse)[[metric_col]],
+        S4Vectors::mcols(rse)[[metric_col]],
         title = metric_title,
         trans_func = metric_transfunc,
         xlab = metric_label

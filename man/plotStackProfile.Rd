@@ -18,6 +18,13 @@ plotStackProfile(
 )
 }
 \arguments{
+\item{rse}{a RangedSummarizedExperiment input. Aletrnatively: can be a
+GRanges object
+(for backward compatibility, \code{pattern} will be required).}
+
+\item{assay}{specify the name of the assay to plot,
+that should match one of \code{assayNames(rse)}.}
+
 \item{x_labels}{a character vectors of length 3 used to label the x-axis.}
 
 \item{title}{The title of the heatmap}
@@ -39,10 +46,9 @@ matrices.}
 
 \item{n_core}{multicore option, passed to \code{redimMatrix()}.}
 
-\item{pattern}{a character vector of length 1 of a column prefixe
-(can be regular expressions) that should match columns of \code{gr}.}
-
-\item{gr}{a GRanges input}
+\item{pattern}{only if \code{rse} is of class GRanges.
+A character vector of length 1 of a column prefixe
+(can be regular expressions) that should match columns of \code{rse}.}
 }
 \value{
 Display a plot.
@@ -54,17 +60,16 @@ genomic anchors such as Transcription Start Sites or peak center.
 \details{
 The visualisation is centered on an anchor,
 a set of genomic coordinated that can be transcription start sites or
-peak center for example. Anchor coordinates are those of the \code{GRanges}
-used as an input (hereafter \code{gr}).
+peak center for example. Anchor coordinates are those of the
+\code{RangedSummarizedExperiment} object used as an input
+(hereafter \code{rse}).
 
-Anchors are plotted from top to bottom in the same order as in \code{gr}.
-One should sort \code{gr} before plotting if needed.
+Anchors are plotted from top to bottom in the same order as in \code{rse}.
+One should sort \code{rse} before plotting if needed.
 
 The matrix used to display the heatmap should be passed as
-additional metadata columns of \code{gr}. Such matrix can be obtained using
-\code{EnrichedHeatmap::normalizeToMatrix()} for example. The matrix columns
-names are then specified through \code{what_pattern} using a prefix, a suffix
-or a regular expressions.
+assay of \code{rse}. Such matrix can be obtained using
+\code{EnrichedHeatmap::normalizeToMatrix()} for example.
 
 This function scale reasonnably wells up to hundred thousands
 of regions. Overplotting issues are solved by last-minute reduction of the

@@ -32,7 +32,7 @@ GRanges2RSE <- function(gr, patterns, names = patterns) {
 
     tokeep <- grepl(paste(patterns, collapse = "|"), colnames(mat))
 
-    mcols(gr) <- mcols(gr)[, !tokeep]
+    S4Vectors::mcols(gr) <- S4Vectors::mcols(gr)[, !tokeep]
 
     SummarizedExperiment::SummarizedExperiment(
         assays = assays,

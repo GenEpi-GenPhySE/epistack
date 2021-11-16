@@ -37,14 +37,21 @@
 #' addBins(stackepi, bin = rep(c("a", "b", "c"),
 #'  length.out = length(stackepi)))
 addBins <- function(rse, nbins = 5L, bin = NULL){
-
-    if(is.null(bin)) {
-        rowRanges(rse)$bin = as.numeric(cut(seq_along(rse), nbins))
+    if(is(rse, "RangedSummarizedExperiment")) {
+        if(is.null(bin)) {
+            SummarizedExperiment::rowRanges(rse)$bin = as.numeric(cut(seq_along(rse), nbins))
+        } else {
+            SummarizedExperiment::rowRanges(rse)$bin = bin
+        }
+        rse
     } else {
-        rowRanges(rse)$bin = bin
+        if(is.null(bin)) {
+            gr$bin = as.numeric(cut(seq_along(gr), nbins))
+        } else {
+            gr$bin = bin
+        }
+        gr
     }
-
-    rse
 }
 
 

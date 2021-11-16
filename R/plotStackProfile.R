@@ -3,9 +3,11 @@
 #' @description Display a heatmap of an epigenetic track centered at
 #' genomic anchors such as Transcription Start Sites or peak center.
 #'
-#' @param gr a GRanges input
-#' @param pattern a character vector of length 1 of a column prefixe
-#' (can be regular expressions) that should match columns of \code{gr}.
+#' @param rse a RangedSummarizedExperiment input. Aletrnatively: can be a
+#' GRanges object
+#' (for backward compatibility, \code{pattern} will be required).
+#' @param assay specify the name of the assay to plot,
+#' that should match one of \code{assayNames(rse)}.
 #' @param x_labels a character vectors of length 3 used to label the x-axis.
 #' @param title The title of the heatmap
 #' @param zlim The minimum and maximum z values to match color to values.
@@ -20,21 +22,23 @@
 #' Usualy \code{mean}, but can be set to \code{median} or \code{max} for sparse
 #' matrices.
 #' @param n_core multicore option, passed to \code{redimMatrix()}.
+#' @param pattern only if \code{rse} is of class GRanges.
+#' A character vector of length 1 of a column prefixe
+#' (can be regular expressions) that should match columns of \code{rse}.
 #'
 #' @details
 #' The visualisation is centered on an anchor,
 #' a set of genomic coordinated that can be transcription start sites or
-#' peak center for example. Anchor coordinates are those of the \code{GRanges}
-#' used as an input (hereafter \code{gr}).
+#' peak center for example. Anchor coordinates are those of the
+#' \code{RangedSummarizedExperiment} object used as an input
+#' (hereafter \code{rse}).
 #'
-#' Anchors are plotted from top to bottom in the same order as in \code{gr}.
-#' One should sort \code{gr} before plotting if needed.
+#' Anchors are plotted from top to bottom in the same order as in \code{rse}.
+#' One should sort \code{rse} before plotting if needed.
 #'
 #' The matrix used to display the heatmap should be passed as
-#' additional metadata columns of \code{gr}. Such matrix can be obtained using
-#' \code{EnrichedHeatmap::normalizeToMatrix()} for example. The matrix columns
-#' names are then specified through \code{what_pattern} using a prefix, a suffix
-#' or a regular expressions.
+#' assay of \code{rse}. Such matrix can be obtained using
+#' \code{EnrichedHeatmap::normalizeToMatrix()} for example.
 #'
 #' This function scale reasonnably wells up to hundred thousands
 #' of regions. Overplotting issues are solved by last-minute reduction of the
@@ -75,6 +79,28 @@ plotStackProfile <- function(
     n_core = 1,
     pattern = NULL
 ) {
+
+    if (is(rse, "GRanges")) {
+        if (is.null(pattern)) {
+            stop("pattern must be provided if the input is of class GRanges")
+        }
+        if (is.null(assay)) {
+            assay <- pattern
+        }
+        rse <- GRanges2RSE(rse, pattern, assay)
+    }
+
+    if (is.null(SummarizedExperiment::assayNames(rse))) {
+        SummarizedExperiment::assayNames(rse) <- paste0(
+            "assay_",
+            seq_len(length(SummarizedExperiment::assays(rse)))
+        )
+    }
+
+    if (is.null(assay)) {
+        assay <- SummarizedExperiment::assayNames(rse)[[1]]
+    }
+
     mat <- SummarizedExperiment::assay(rse, assay)
 
     mat[is.na(mat)] <- 0

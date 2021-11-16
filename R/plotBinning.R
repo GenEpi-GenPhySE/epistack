@@ -2,7 +2,10 @@
 #'
 #' @description Plot a vertical color bar of the \code{bin} column.
 #'
-#' @param gr a GRanges object containing a \code{bin} metadata column
+#' @param rse a RangedSummarizedExperiment input with a column \code{bin} in
+#' \code{rowRanges(rse)}.
+#' Alternatively (for backward compatibility),
+#' a GRanges object or any object such as \code{rse$bin} exists.
 #' @param target_height an integer, the approximate height (in pixels)
 #'  of the final plot. Used to avoid overplotting artefacts.
 #' @param palette a function taking a number as a first argument,
@@ -16,9 +19,9 @@
 #'
 #' @examples
 #' data("stackepi")
-#' gr <- stackepi
-#' gr <- addBins(gr, nbins = 3)
-#' plot_bin <- plotBinning(gr)
+#' rse <- stackepi
+#' rse <- addBins(rse, nbins = 3)
+#' plotBinning(rse)
 #'
 #' gr2 <- data.frame(bin = rep(c(1,2,3,4), each = 5))
 #' plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))
@@ -28,7 +31,12 @@ plotBinning <- function(
     target_height = 650,
     palette = colorRampPalette(c("magenta", "black", "green"))
 ) {
-    bins <- as.numeric(factor(SummarizedExperiment::rowRanges(rse)$bin))
+    if (is(rse, "RangedSummarizedExperiment")) {
+        bins <- as.numeric(factor(SummarizedExperiment::rowRanges(rse)$bin))
+    } else {
+        bins <- as.numeric(factor(rse$bin))
+    }
+
     if (length(bins) > target_height) {
         bins_red <- redimMatrix(
             matrix(bins),
@@ -46,5 +54,3 @@ plotBinning <- function(
     mtext(side = 3, "bins", line = 0.5, las = 2,
           cex = graphics::par()$cex.main * 0.8)
 }
-
-
