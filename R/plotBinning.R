@@ -31,7 +31,7 @@ plotBinning <- function(
     target_height = 650,
     palette = colorRampPalette(c("magenta", "black", "green"))
 ) {
-    if (is(rse, "RangedSummarizedExperiment")) {
+    if (methods::is(rse, "RangedSummarizedExperiment")) {
         bins <- as.numeric(factor(SummarizedExperiment::rowRanges(rse)$bin))
     } else {
         bins <- as.numeric(factor(rse$bin))

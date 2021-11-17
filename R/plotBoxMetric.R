@@ -36,7 +36,7 @@ plotBoxMetric <- function(
     ylim = NULL, ylab = "metric",
     palette = colorRampPalette(c("magenta", "black", "green"))
 ){
-    if (is(rse, "RangedSummarizedExperiment")) {
+    if (methods::is(rse, "RangedSummarizedExperiment")) {
         gr <- SummarizedExperiment::rowRanges(rse)
     } else  {
         gr <- rse

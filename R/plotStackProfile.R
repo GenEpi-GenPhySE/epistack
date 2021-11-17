@@ -80,7 +80,7 @@ plotStackProfile <- function(
     pattern = NULL
 ) {
 
-    if (is(rse, "GRanges")) {
+    if (methods::is(rse, "GRanges")) {
         if (is.null(pattern)) {
             stop("pattern must be provided if the input is of class GRanges")
         }

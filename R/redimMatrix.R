@@ -29,7 +29,7 @@
 #'
 #' @examples
 #' data("stackepi")
-#' mat <- assay(stackepi, "DNAme")
+#' mat <- SummarizedExperiment::assay(stackepi, "DNAme")
 #' dim(mat)
 #' smallMat <- redimMatrix(mat, target_height = 10, target_width = ncol(mat))
 #' dim(smallMat)

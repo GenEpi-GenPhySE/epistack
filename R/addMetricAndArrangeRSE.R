@@ -42,11 +42,11 @@
 #'
 #'
 addMetricAndArrangeRSE <- function(rse,
-                                       order,
-                                       rse_key = "name",
-                                       order_key = "name",
-                                       order_value = "exp",
-                                       shuffle_tie = TRUE) {
+                                   order,
+                                   rse_key = "name",
+                                   order_key = "name",
+                                   order_value = "exp",
+                                   shuffle_tie = TRUE) {
     names(rse) <- S4Vectors::mcols(
         SummarizedExperiment::rowRanges(rse)
     )[[rse_key]]
@@ -57,7 +57,7 @@ addMetricAndArrangeRSE <- function(rse,
                                SummarizedExperiment::rowRanges(rse)
                            ),
                            by.x = order_key,
-                           by.y = gr_key)
+                           by.y = rse_key)
     rownames(myMcols) <- myMcols[[order_key]]
     myMcols <- myMcols[common_names, ]
     S4Vectors::mcols(

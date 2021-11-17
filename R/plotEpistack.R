@@ -135,7 +135,7 @@ plotEpistack <- function(
     ...
 ) {
 
-    if (is(rse, "GRanges")) {
+    if (methods::is(rse, "GRanges")) {
         if (is.null(patterns)) {
             stop("patterns must be provided if the input is of class GRanges")
         }
