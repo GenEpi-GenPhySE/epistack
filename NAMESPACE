@@ -3,6 +3,7 @@
 export(GRanges2RSE)
 export(addBins)
 export(addMetricAndArrangeGRanges)
+export(addMetricAndArrangeRSE)
 export(meanColor)
 export(plotAverageProfile)
 export(plotBinning)

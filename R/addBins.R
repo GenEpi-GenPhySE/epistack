@@ -15,17 +15,18 @@
 #'
 #' @details
 #'  \code{nbins} is taken into account only if \code{bin} is \code{NULL}.
-#'  \code{gr} should be sorted first, usually with the
+#'  \code{rse} should be sorted first, usually with the
 #'  \code{addMetricAndArrangeGRanges()}
-#'  function. \code{addBin(gr, bin = vec)} is equivalent to
-#'  \code{gr$bin <- vec}, while
-#'  \code{addBin(gr, nbins = 5)} will create 5 bins of equal size based on
-#'  \code{gr}
+#'  function. \code{addBin(rse, bin = vec)} is equivalent to
+#'  \code{rse$bin <- vec}, while
+#'  \code{addBin(rse, nbins = 5)} will create 5 bins of equal size based on
+#'  \code{rse}
 #'  order.
 #'
 #' @export
 #'
 #' @seealso \code{\link[epistack]{addMetricAndArrangeGRanges}}
+#' \code{\link[epistack]{plotBinning}}
 #'
 #' @examples
 #' data("stackepi")
@@ -47,11 +48,11 @@ addBins <- function(rse, nbins = 5L, bin = NULL){
         rse
     } else {
         if(is.null(bin)) {
-            gr$bin = as.numeric(cut(seq_along(gr), nbins))
+            rse$bin = as.numeric(cut(seq_along(rse), nbins))
         } else {
-            gr$bin = bin
+            rse$bin = bin
         }
-        gr
+        rse
     }
 }
 

@@ -30,9 +30,9 @@ Plot a vertical color bar of the \code{bin} column.
 }
 \examples{
 data("stackepi")
-gr <- stackepi
-gr <- addBins(gr, nbins = 3)
-plot_bin <- plotBinning(gr)
+rse <- stackepi
+rse <- addBins(rse, nbins = 3)
+plotBinning(rse)
 
 gr2 <- data.frame(bin = rep(c(1,2,3,4), each = 5))
 plotBinning(gr2, palette = colorRampPalette(c("blue4", "forestgreen", "coral3", "goldenrod")))

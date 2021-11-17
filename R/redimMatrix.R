@@ -29,18 +29,27 @@
 #'
 #' @examples
 #' data("stackepi")
-#' mat <- S4Vectors::mcols(stackepi)
-#' whichCols <- grepl("^window_", colnames(mat))
-#' mat <- as.matrix(mat[, whichCols])
+#' mat <- assay(stackepi, "DNAme")
 #' dim(mat)
 #' smallMat <- redimMatrix(mat, target_height = 10, target_width = ncol(mat))
 #' dim(smallMat)
 #'
+#' # changing the summary function
 #' mat <- matrix(sample(1:40,100,replace=TRUE),nrow=10,ncol=10)
 #' dim(mat)
 #' smallMat <- redimMatrix(mat, target_height = 5, target_width = ncol(mat),
 #'    summary_func = function(x) max(x, na.rm = TRUE))
 #' dim(smallMat)
+#'
+#' # working with colors
+#' colmat <- matrix(
+#'     c("red", "red", "blue", "blue", "red", "blue", "blue", "green"),
+#'     ncol = 2
+#' )
+#' redimMatrix(colmat, target_height = 2, target_width = 2,
+#'             summary_func = meanColor, output_type = "color")
+#'
+
 redimMatrix <- function(
     mat,
     target_height = 100,

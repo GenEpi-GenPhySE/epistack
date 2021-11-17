@@ -15,7 +15,10 @@ plotBoxMetric(
 )
 }
 \arguments{
-\item{metric}{name of the column in \code{gr} metadata containing scores.}
+\item{rse}{a RangedSummarizedExperiment input. Aletrnatively: can be a
+GRanges object (for backward compatibility).}
+
+\item{metric}{name of the column in \code{rse} metadata containing scores.}
 
 \item{title}{title of the plot.}
 
@@ -28,8 +31,6 @@ Useful to apply log10 transformation
 \item{ylab}{y-axis title}
 
 \item{palette}{a function that returns a palette of \code{n} colors.}
-
-\item{gr}{a GRanges input}
 }
 \value{
 Display a plot.

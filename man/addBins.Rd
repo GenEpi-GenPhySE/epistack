@@ -7,15 +7,16 @@
 addBins(rse, nbins = 5L, bin = NULL)
 }
 \arguments{
+\item{rse}{a SummarizedExperiment or a GRanges object.}
+
 \item{nbins}{an integer number, the number of bins.}
 
 \item{bin}{a vector containing pre-determined bins, in the same
 order as \code{gr}.}
-
-\item{gr}{a GRanges object.}
 }
 \value{
-the \code{gr} GRanges object with a new \code{bin} metadata column
+the RangedSummarizedExperiment or GRanges object with a
+new \code{bin} metadata column
 }
 \description{
 Add an optional \code{bin} metadata column to \code{gr},
@@ -24,12 +25,12 @@ for the epistack plots.
 }
 \details{
 \code{nbins} is taken into account only if \code{bin} is \code{NULL}.
-\code{gr} should be sorted first, usually with the
+\code{rse} should be sorted first, usually with the
 \code{addMetricAndArrangeGRanges()}
-function. \code{addBin(gr, bin = vec)} is equivalent to
-\code{gr$bin <- vec}, while
-\code{addBin(gr, nbins = 5)} will create 5 bins of equal size based on
-\code{gr}
+function. \code{addBin(rse, bin = vec)} is equivalent to
+\code{rse$bin <- vec}, while
+\code{addBin(rse, nbins = 5)} will create 5 bins of equal size based on
+\code{rse}
 order.
 }
 \examples{
@@ -45,4 +46,5 @@ addBins(stackepi, bin = rep(c("a", "b", "c"),
 }
 \seealso{
 \code{\link[epistack]{addMetricAndArrangeGRanges}}
+\code{\link[epistack]{plotBinning}}
 }

@@ -29,12 +29,12 @@
 #' @importFrom IRanges IRanges
 #'
 #' @examples
-#' data("stackepi")
-#' ramdomOrder <- data.frame(gene_id = stackepi$gene_id,
-#'    value = rnorm(length(stackepi)))
-#' addMetricAndArrangeGRanges(stackepi,
+#' data("stackepi_gr")
+#' ramdomOrder <- data.frame(gene_id = stackepi_gr$gene_id,
+#'    value = rnorm(length(stackepi_gr)))
+#' addMetricAndArrangeGRanges(stackepi_gr,
 #'    ramdomOrder, gr_key = "gene_id",
-#'    order_key = "gene_id", order_value = "value" )
+#'    order_key = "gene_id", order_value = "value")
 #'
 #'
 addMetricAndArrangeGRanges <- function(gr,
@@ -43,7 +43,7 @@ addMetricAndArrangeGRanges <- function(gr,
                                        order_key = "name",
                                        order_value = "exp",
                                        shuffle_tie = TRUE) {
-    names(gr) <- mcols(gr)[[gr_key]]
+    names(gr) <- S4Vectors::mcols(gr)[[gr_key]]
     common_names <- base::intersect(names(gr), order[[order_key]])
     gr <- gr[common_names, ]
     myMcols <- base::merge(order,
@@ -59,3 +59,4 @@ addMetricAndArrangeGRanges <- function(gr,
     gr <- gr[order(S4Vectors::mcols(gr)[[order_value]], decreasing = TRUE)]
     gr
 }
+

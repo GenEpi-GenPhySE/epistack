@@ -18,8 +18,8 @@
 #'
 #' @examples
 #' data("stackepi_gr")
-#' GRanges2RSE(stackepi_gr, patterns = c("windows"))
-#' GRanges2RSE(stackepi_gr, patterns = c("^windows_"), names = c("DNAme"))
+#' GRanges2RSE(stackepi_gr, patterns = c("window"))
+#' GRanges2RSE(stackepi_gr, patterns = c("^window_"), names = c("DNAme"))
 
 GRanges2RSE <- function(gr, patterns, names = patterns) {
     mat <- S4Vectors::mcols(gr)

@@ -20,8 +20,7 @@
 #'
 #' @examples
 #' data("stackepi")
-#' plotMetric(stackepi$exp)
-#'
+#' plotMetric(SummarizedExperiment::rowRanges(stackepi)$exp)
 #'
 plotMetric <- function(
     x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL

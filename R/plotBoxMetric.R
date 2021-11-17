@@ -4,8 +4,9 @@
 #' depending of bins.
 #' If the \code{bin} is absent from \code{gr}, a single boxplot is drawn.
 #'
-#' @param gr a GRanges input
-#' @param metric name of the column in \code{gr} metadata containing scores.
+#' @param rse a RangedSummarizedExperiment input. Aletrnatively: can be a
+#' GRanges object (for backward compatibility).
+#' @param metric name of the column in \code{rse} metadata containing scores.
 #' @param title title of the plot.
 #' @param trans_func A function to transform value of x before ploting.
 #' Useful to apply log10 transformation
@@ -35,8 +36,14 @@ plotBoxMetric <- function(
     ylim = NULL, ylab = "metric",
     palette = colorRampPalette(c("magenta", "black", "green"))
 ){
-    if (!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
-        bin <- SummarizedExperiment::rowRanges(rse)$bin
+    if (is(rse, "RangedSummarizedExperiment")) {
+        gr <- SummarizedExperiment::rowRanges(rse)
+    } else  {
+        gr <- rse
+    }
+
+    if (!is.null(gr$bin)) {
+        bin <- gr$bin
         graphics::boxplot(
             lapply(
                 stats::setNames(
@@ -44,7 +51,7 @@ plotBoxMetric <- function(
                     levels(factor(bin))
                 ),
                 function(i) trans_func(
-                    S4Vectors::mcols(rse)[bin == i, metric]
+                    S4Vectors::mcols(gr)[bin == i, metric]
                 )
             ),
             ylab = ylab, pch = 19, ylim = ylim,
@@ -54,7 +61,7 @@ plotBoxMetric <- function(
              labels = levels(factor(bin)))
     } else {
         graphics::boxplot(
-            trans_func(S4Vectors::mcols(rse)[[metric]]),
+            trans_func(S4Vectors::mcols(gr)[[metric]]),
             ylab = ylab, pch = 19, ylim = ylim,
             col = palette(1), axes = FALSE
         )
