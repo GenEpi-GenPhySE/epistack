@@ -3,8 +3,10 @@
 .Rdata
 .httr-oauth
 .DS_Store
-.Rproj
+*.Rproj
 .codecov.yml
 doc/
 Meta/
 
+/doc/
+/Meta/
