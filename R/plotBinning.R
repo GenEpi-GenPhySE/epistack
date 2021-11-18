@@ -12,6 +12,7 @@
 #' and returning a vector of colors.
 #'
 #' @importFrom grDevices rainbow
+#' @importFrom methods is
 #'
 #' @return Display a plot.
 #'

@@ -1,5 +1,8 @@
 ^heatMapProfile\.Rproj$
 ^\.Rproj\.user$
+^epistack.Rproj$
 ^LICENSE\.md$
 ^codecov\.yml$
 ^\.github$
+^doc$
+^Meta$
