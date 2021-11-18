@@ -5,26 +5,28 @@
 #'  to serve as annotations
 #'  for the epistack plots.
 #'
-#' @param gr a GRanges object.
+#' @param rse a SummarizedExperiment or a GRanges object.
 #' @param nbins an integer number, the number of bins.
 #' @param bin a vector containing pre-determined bins, in the same
 #' order as \code{gr}.
 #'
-#' @return the \code{gr} GRanges object with a new \code{bin} metadata column
+#' @return the RangedSummarizedExperiment or GRanges object with a
+#' new \code{bin} metadata column
 #'
 #' @details
 #'  \code{nbins} is taken into account only if \code{bin} is \code{NULL}.
-#'  \code{gr} should be sorted first, usually with the
+#'  \code{rse} should be sorted first, usually with the
 #'  \code{addMetricAndArrangeGRanges()}
-#'  function. \code{addBin(gr, bin = vec)} is equivalent to
-#'  \code{gr$bin <- vec}, while
-#'  \code{addBin(gr, nbins = 5)} will create 5 bins of equal size based on
-#'  \code{gr}
+#'  function. \code{addBin(rse, bin = vec)} is equivalent to
+#'  \code{rse$bin <- vec}, while
+#'  \code{addBin(rse, nbins = 5)} will create 5 bins of equal size based on
+#'  \code{rse}
 #'  order.
 #'
 #' @export
 #'
 #' @seealso \code{\link[epistack]{addMetricAndArrangeGRanges}}
+#' \code{\link[epistack]{plotBinning}}
 #'
 #' @examples
 #' data("stackepi")
@@ -36,15 +38,22 @@
 #' # assign bins using a vector
 #' addBins(stackepi, bin = rep(c("a", "b", "c"),
 #'  length.out = length(stackepi)))
-addBins <- function(gr, nbins = 5L, bin = NULL){
-
-    if(is.null(bin)) {
-        gr$bin = as.numeric(cut(seq_along(gr), nbins))
+addBins <- function(rse, nbins = 5L, bin = NULL){
+    if(methods::is(rse, "RangedSummarizedExperiment")) {
+        if(is.null(bin)) {
+            SummarizedExperiment::rowRanges(rse)$bin = as.numeric(cut(seq_along(rse), nbins))
+        } else {
+            SummarizedExperiment::rowRanges(rse)$bin = bin
+        }
+        rse
     } else {
-        gr$bin = bin
+        if(is.null(bin)) {
+            rse$bin = as.numeric(cut(seq_along(rse), nbins))
+        } else {
+            rse$bin = bin
+        }
+        rse
     }
-
-    gr
 }
 
 

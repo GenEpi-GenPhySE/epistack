@@ -1,10 +1,7 @@
 library(GenomicRanges)
 
 data("stackepi")
-
-mat1 <- S4Vectors::mcols(stackepi)
-whichCols <- grepl("^window_", colnames(mat1))
-mat1 <- as.matrix(mat1[, whichCols])
+mat1 <- SummarizedExperiment::assay(stackepi, "DNAme")
 
 result1 <- structure(
     c(0.72759675364583, 0.702841165725677, 0.721548534230499,
@@ -80,27 +77,37 @@ mat2 <- matrix(
      0, 1, 4),
     ncol = 3, byrow = TRUE
 )
-
 result2 <- structure(c(2, 2, 2, 2, 5, 4), .Dim = 2:3)
 
-test_that("Giving the smallest matrix", {
+colmat <- matrix(
+    c("red", "red", "blue", "blue", "red", "blue", "blue", "green"),
+    ncol = 2
+)
+result3 <- structure(c("#BF003FFF", "#2A2AAAFF", "#7F007FFF", "#0055AAFF"
+), .Dim = c(2L, 2L))
+
+
+test_that("large matrix", {
     expect_equal(
         redimMatrix(mat1, target_height = 5, target_width = ncol(mat1)),
         result1
     )
 })
-#> Test passed
-
-test_that("Giving the largest matrix", {
+test_that("fail nicely", {
     expect_error(redimMatrix(mat2, target_height = 10, target_width = 5),
                  "Input matrix must be bigger than target width and height")
 })
-
-#> Test passed
-test_that("Giving the result matrix with the summary sum function", {
+test_that("different summary function", {
     expect_equal(
         redimMatrix(mat2, target_height = 2, target_width = ncol(mat2),
                      summary_func = function(x) max(x, na.rm = TRUE)),
         result2
+    )
+})
+test_that("works with colors", {
+    expect_equal(
+        redimMatrix(colmat, target_height = 2, target_width = 2,
+                    summary_func = meanColor, output_type = "color"),
+        result3
     )
 })

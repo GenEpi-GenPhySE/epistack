@@ -5,7 +5,7 @@
 \title{plotBoxMetric()}
 \usage{
 plotBoxMetric(
-  gr,
+  rse,
   metric = "expr",
   title = "Metric",
   trans_func = function(x) x,
@@ -15,9 +15,10 @@ plotBoxMetric(
 )
 }
 \arguments{
-\item{gr}{a GRanges input}
+\item{rse}{a RangedSummarizedExperiment input. Aletrnatively: can be a
+GRanges object (for backward compatibility).}
 
-\item{metric}{name of the column in \code{gr} metadata containing scores.}
+\item{metric}{name of the column in \code{rse} metadata containing scores.}
 
 \item{title}{title of the plot.}
 

@@ -34,8 +34,7 @@ in the same order as the input.
 }
 \examples{
 data("stackepi")
-plotMetric(stackepi$exp)
-
+plotMetric(SummarizedExperiment::rowRanges(stackepi)$exp)
 
 }
 \seealso{

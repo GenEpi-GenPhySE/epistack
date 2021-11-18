@@ -5,21 +5,24 @@
 \title{plotAverageProfile()}
 \usage{
 plotAverageProfile(
-  gr,
-  pattern = "^window_",
+  rse,
+  assay = NULL,
   x_labels = c("Before", "Anchor", "After"),
   palette = colorRampPalette(c("magenta", "black", "green")),
   alpha_for_se = 0.25,
   error_type = c("sd", "sem"),
   reversed_z_order = FALSE,
-  ylim = NULL
+  ylim = NULL,
+  pattern = NULL
 )
 }
 \arguments{
-\item{gr}{a GRanges input}
+\item{rse}{a RangedSummarizedExperiment input. Aletrnatively: can be a
+GRanges object
+(for backward compatibility, \code{pattern} will be required).}
 
-\item{pattern}{a single character that should match
-metadata of \code{gr} (can be a regular expression).}
+\item{assay}{specify the name of the assay to plot,
+that should match one of \code{assayNames(rse)}.}
 
 \item{x_labels}{x-axis labels.}
 
@@ -37,14 +40,18 @@ or \code{sem} (standard error of the mean). Default: \code{sem}.}
 
 \item{ylim}{a vector of two numbers corresponding
 to the y-limits of the plot}
+
+\item{pattern}{only if \code{rse} is of class GRanges.
+A single character that should match
+metadata of \code{rse} (can be a regular expression).}
 }
 \value{
 Display a plot.
 }
 \description{
 Plot the average stack profiles +/-  error (sd or sem).
-If a \code{bin} column is present in \code{gr}, one average profile
-is drawn for each bin.
+If a \code{bin} column is present in \code{rowRanges(rse)},
+one average profile is drawn for each bin.
 }
 \examples{
 data("stackepi")

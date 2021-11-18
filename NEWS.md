@@ -1,3 +1,7 @@
+epistack v1.1.1 (2021-11-17)
++ epistack now mostly use RangesSummarizedExperiment objects instead of GRanges
+objects (but backward compatibility with GRanges is ensured).
+
 epistack v0.99.1 (2021-10-01)
 + Initial Bioconductor submission
 

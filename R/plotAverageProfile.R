@@ -1,12 +1,14 @@
 #' plotAverageProfile()
 #'
 #' @description Plot the average stack profiles +/-  error (sd or sem).
-#' If a \code{bin} column is present in \code{gr}, one average profile
-#' is drawn for each bin.
+#' If a \code{bin} column is present in \code{rowRanges(rse)},
+#' one average profile is drawn for each bin.
 #'
-#' @param gr a GRanges input
-#' @param pattern a single character that should match
-#'  metadata of \code{gr} (can be a regular expression).
+#' @param rse a RangedSummarizedExperiment input. Aletrnatively: can be a
+#' GRanges object
+#' (for backward compatibility, \code{pattern} will be required).
+#' @param assay specify the name of the assay to plot,
+#' that should match one of \code{assayNames(rse)}.
 #' @param x_labels x-axis labels.
 #' @param palette a color palette function,
 #'  by default: \code{colorRampPalette(c("magenta", "black", "green"))}
@@ -18,7 +20,9 @@
 #' (i.e. first or last bin on top?)
 #' @param ylim a vector of two numbers corresponding
 #'  to the y-limits of the plot
-#'
+#' @param pattern only if \code{rse} is of class GRanges.
+#' A single character that should match
+#' metadata of \code{rse} (can be a regular expression).
 #' @export
 #'
 #' @return Display a plot.
@@ -28,22 +32,46 @@
 #' plotAverageProfile(stackepi)
 #'
 plotAverageProfile <- function(
-    gr,
-    pattern = "^window_",
+    rse,
+    assay = NULL,
     x_labels = c("Before", "Anchor", "After"),
     palette = colorRampPalette(c("magenta", "black", "green")),
     alpha_for_se = 0.25,
     error_type = c("sd", "sem"),
     reversed_z_order = FALSE,
-    ylim = NULL
+    ylim = NULL,
+    pattern = NULL
 ) {
-    mat <- S4Vectors::mcols(gr)
-    whichCols <- grepl(pattern, colnames(mat))
-    mat <- as.matrix(mat[, whichCols])
+
+    if (methods::is(rse, "GRanges")) {
+        if (is.null(pattern)) {
+            stop("pattern must be provided if the input is of class GRanges")
+        }
+        if (is.null(assay)) {
+            assay <- pattern
+        }
+        rse <- GRanges2RSE(rse, pattern, assay)
+    }
+
+    if (is.null(SummarizedExperiment::assayNames(rse))) {
+        SummarizedExperiment::assayNames(rse) <- paste0(
+            "assay_",
+            seq_len(length(SummarizedExperiment::assays(rse)))
+        )
+    }
+
+    if (is.null(assay)) {
+        assay <- SummarizedExperiment::assayNames(rse)[[1]]
+    }
+
+    mat <- SummarizedExperiment::assay(rse, assay)
     error_type <- error_type[1]
 
-    if(!is.null(gr$bin)) {
-        myMats <- lapply(levels(factor(gr$bin)), function(x) mat[gr$bin == x, ])
+    if(!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
+        myMats <- lapply(
+            levels(factor(SummarizedExperiment::rowRanges(rse)$bin)),
+            function(x) mat[SummarizedExperiment::rowRanges(rse)$bin == x, ]
+        )
     } else {
         myMats <- list(mat)
     }
@@ -56,7 +84,7 @@ plotAverageProfile <- function(
                                        mySds[[i]]/sqrt(nrow(myMats[[i]]))))
 
     myErr <- if (error_type == "sem") {mySes} else {mySds}
-    
+
     ymax <- max(
         vapply(
             seq_along(myMeans), function(i) {
@@ -65,8 +93,10 @@ plotAverageProfile <- function(
         )
     )
     xind <- seq_len(ncol(mat))
-    if(!is.null(gr$bin)) {
-        mypalette <- palette(length(unique(gr$bin)))
+    if(!is.null(SummarizedExperiment::rowRanges(rse)$bin)) {
+        mypalette <- palette(
+            length(unique(SummarizedExperiment::rowRanges(rse)$bin))
+        )
     } else {
         mypalette <- palette(1)
     }
