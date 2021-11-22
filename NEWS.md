@@ -1,14 +1,17 @@
+epistack v1.1.2 (in dev)
++ addition of an Rscript script in inst/
+
 epistack v1.1.1 (2021-11-17)
 + epistack now mostly use RangesSummarizedExperiment objects instead of GRanges
 objects (but backward compatibility with GRanges is ensured).
 
-epistack v0.99.1 (2021-10-01)
-+ Initial Bioconductor submission
+epistack v0.99.3 (2021-10-19)
++ plotAverageProfile() now has the parameter `error_type`, value: sd or sem,
+default: sd (was previously sem)
 
 epistack v0.99.2 (2021-10-15)
 + sessionInfo() at the end of the vignette
 + edits in NEWS, README and the vignette
 
-epistack v0.99.3 (2021-10-19)
-+ plotAverageProfile() now has the parameter `error_type`, value: sd or sem,
-default: sd (was previously sem)
+epistack v0.99.1 (2021-10-01)
++ Initial Bioconductor submission
