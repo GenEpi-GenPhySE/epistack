@@ -136,7 +136,7 @@ plotEpistack(
     dfp,
     assays = c("bound", "input"),
     titles = c("Bound", "Input"),
-    legends = "FPKM",
+    legends = "FPKM", main = opt$title,
     tints = c("firebrick1", "grey"),
     x_labels = c("-2.5kb", "peak center", "+2.5kb"),
     metric_col = "score", metric_label = "Peak scores",

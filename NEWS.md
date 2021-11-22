@@ -1,5 +1,7 @@
 epistack v1.1.2 (in dev)
 + addition of an Rscript script in inst/
++ new `main` parameter in plotEpistack()
++ plotBinning() `Bins` label in horizontal orientation
 
 epistack v1.1.1 (2021-11-17)
 + epistack now mostly use RangesSummarizedExperiment objects instead of GRanges
