@@ -14,6 +14,7 @@
 #' @param tints a vector of colors to tint the heatmaps.
 #' @param titles titles of each heatmap. Defaults to \code{assays}.
 #' @param legends legend names for the epistacks.
+#' @param main Main title for the figure.
 #' @param x_labels a character vector of length 3 used as x-axis labels.
 #' @param zlim the minimum and maximum z values the heatmap.
 #' Format: \code{zlim = c (min, max)}
@@ -123,6 +124,7 @@ plotEpistack <- function(
     rse,
     assays = NULL, tints = "gray",
     titles = NULL, legends = "",
+    main = NULL,
     x_labels = c("Before", "Anchor", "After"),
     zlim = c(0, 1), ylim = NULL,
     metric_col = "exp", metric_title = "Metric", metric_label = "metric",
@@ -248,8 +250,13 @@ plotEpistack <- function(
         )
     }
 
-    graphics::par(oldpar)
     graphics::layout(1)
+    graphics::par(oldpar)
+
+    if (!is.null(main)) {
+        graphics::title(main = main, xpd = NA, line = 3, ...)
+    }
+
     return(invisible())
 }
 

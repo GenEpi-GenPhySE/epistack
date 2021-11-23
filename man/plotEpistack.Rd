@@ -10,6 +10,7 @@ plotEpistack(
   tints = "gray",
   titles = NULL,
   legends = "",
+  main = NULL,
   x_labels = c("Before", "Anchor", "After"),
   zlim = c(0, 1),
   ylim = NULL,
@@ -40,6 +41,8 @@ names that should match \code{assayNames(rse)}.}
 \item{titles}{titles of each heatmap. Defaults to \code{assays}.}
 
 \item{legends}{legend names for the epistacks.}
+
+\item{main}{Main title for the figure.}
 
 \item{x_labels}{a character vector of length 3 used as x-axis labels.}
 
