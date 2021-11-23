@@ -52,6 +52,6 @@ plotBinning <- function(
           axes = FALSE,
           breaks = seq(0.5, length(unique(bins)) + 0.5, by = 1))
     graphics::box()
-    mtext(side = 3, "bins", line = 0.5, las = 2,
+    mtext(side = 3, "bins", line = 0.5,
           cex = graphics::par()$cex.main * 0.8)
 }
