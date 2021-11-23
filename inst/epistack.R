@@ -88,7 +88,7 @@ opt <- parse_args(OptionParser(
     processed files in a single CLI call"
 ))
 
-# scripts ----------------
+# script body ----------------
 
 anchors <- rtracklayer::import(opt$anchors)
 bigwig <- parallel::mclapply(
@@ -145,4 +145,3 @@ plotEpistack(
     cex = 1.4, cex.main = 2
 )
 dev.off()
-
