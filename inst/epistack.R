@@ -168,4 +168,5 @@ dev.off()
 
 if (opt$verbose) {
     message(" done!")
+    message(paste("Job completed for file:", opt$bound))
 }
