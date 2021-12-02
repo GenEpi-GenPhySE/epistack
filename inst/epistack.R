@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+# Command Line Interface for the {epistack} package
+# Not feature-complete yet
+
 # package installation and loading ----------------
 if(!requireNamespace("epistack", quietly = TRUE)) {
     remotes::install_github("GenEpi-GenPhySE/epistack")
@@ -55,19 +58,19 @@ option_list <- list(
         c("-g", "--group"),
         help = "Number of groups (bins) to plot average profiles.
         Default to NULL",
-        default = NULL
+        default = NULL, type = "integer"
     ),
     make_option(
         c("-y", "--ylim"),
-        help = "Y-limits for the average profile plot(s). Fromat: `c(0, 1)`
-        \n Default to NULL.",
-        default = NULL
+        help = "Y-limits for the average profile plot(s).
+        Default to 1",
+        default = 1
     ),
     make_option(
         c("-z", "--zlim"),
-        help = "Z-limits for the stack profile plot(s). Fromat: `c(0, 1)`
-        \n Default to `c(0, 1)`.",
-        default = c(0, 1)
+        help = "Z upper limit for the stack profile plot(s).
+        Default to 1.",
+        default = 1
     ),
     make_option(
         c("-t", "--title"),
@@ -77,26 +80,38 @@ option_list <- list(
     make_option(
         c("-c", "--cpu"),
         help = "Number of cores.
-        Increases speed at the cost of higher RAM usage.",
-        default = 1L
+        Increases speed at the cost of higher RAM usage."
+    ),
+    make_option(
+        c("-v", "--verbose"), action = "store_true",
+        default = FALSE,
+        help = "Print progress messages."
     )
 )
 
 opt <- parse_args(OptionParser(
     option_list = option_list,
-    description = "{epistack} CLI - make nice heatmaps from
-    processed files in a single CLI call"
+    description = "{epistack} CLI
+    make nice heatmaps from processed files in a single CLI call."
 ))
 
-# script body ----------------
+# uncomment next line for debugging
+# message(dput(opt))
 
+# script body ----------------
+if (opt$verbose) {
+    message("Parsing files...", appendLF = FALSE)
+}
 anchors <- rtracklayer::import(opt$anchors)
 bigwig <- parallel::mclapply(
     list(bound = opt$bound, input = opt$input),
     rtracklayer::import,
     mc.cores = opt$cpu
 )
-
+if (opt$verbose) {
+    message(" done!")
+    message("Processing...", appendLF = FALSE)
+}
 ranchors <- switch(
     opt$reference,
     "center" = GenomicRanges::resize(anchors, width = 1, fix = "center"),
@@ -131,6 +146,11 @@ if (!is.null(opt$group)) {
     dfp <- addBins(dfp, nbins = opt$group)
 }
 
+if (opt$verbose) {
+    message(" done!")
+    message("Plotting...", appendLF = FALSE)
+}
+
 png(opt$png, width = 1000, height = 1000)
 plotEpistack(
     dfp,
@@ -140,8 +160,12 @@ plotEpistack(
     tints = c("firebrick1", "grey"),
     x_labels = c("-2.5kb", "peak center", "+2.5kb"),
     metric_col = "score", metric_label = "Peak scores",
-    ylim = opt$ylim, zlim = opt$zlim,
+    ylim = c(0, opt$ylim), zlim = c(0, opt$zlim),
     n_core = opt$cpu,
-    cex = 1.4, cex.main = 2
+    cex = 1.6, cex.main = 2.4
 )
 dev.off()
+
+if (opt$verbose) {
+    message(" done!")
+}

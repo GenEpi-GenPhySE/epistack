@@ -254,7 +254,7 @@ plotEpistack <- function(
     graphics::par(oldpar)
 
     if (!is.null(main)) {
-        graphics::title(main = main, xpd = NA, line = 3, ...)
+        graphics::title(main = main, xpd = NA, line = 2.8, ...)
     }
 
     return(invisible())
