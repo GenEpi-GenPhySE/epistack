@@ -1,4 +1,7 @@
-epistack v1.1.2 (in dev)
+epistack v1.1.3 (2021-12-06)
++ changes in epistack.R Rscript CLI
+
+epistack v1.1.2 (2021-11-27)
 + addition of an Rscript script in inst/
 + new `main` parameter in plotEpistack()
 + plotBinning() `Bins` label in horizontal orientation

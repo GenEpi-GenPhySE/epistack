@@ -31,6 +31,10 @@ plot_epistack_gr <- function() plotEpistack(
     patterns = "window"
 )
 
+plot_epistack_tiny <- function() plotEpistack(
+    stackepi[1:200, ]
+)
+
 
 test_that("epistack log10 trans", {
     vdiffr::expect_doppelganger("plotEpistack log10 tran", plot_epistack)
@@ -46,4 +50,8 @@ test_that("epistack bins", {
 
 test_that("epistack backward comp GRanges", {
     vdiffr::expect_doppelganger("plotEpistack GRanges", plot_epistack_gr)
+})
+
+test_that("epistack tiny matrix", {
+    vdiffr::expect_doppelganger("epistack tiny matrix", plot_epistack_tiny)
 })
