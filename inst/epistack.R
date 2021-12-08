@@ -78,6 +78,11 @@ option_list <- list(
         default = NULL
     ),
     make_option(
+        c("-m", "--maxpeaks"),
+        help = "The maximum number of peaks to be plotted.",
+        default = NULL, type = "integer"
+    ),
+    make_option(
         c("-c", "--cpu"),
         help = "Number of cores.
         Increases speed at the cost of higher RAM usage."
@@ -108,6 +113,7 @@ bigwig <- parallel::mclapply(
     rtracklayer::import,
     mc.cores = opt$cpu
 )
+
 if (opt$verbose) {
     message(" done!")
     message("Processing...", appendLF = FALSE)
@@ -117,7 +123,14 @@ ranchors <- switch(
     "center" = GenomicRanges::resize(anchors, width = 1, fix = "center"),
     "start" = GenomicRanges::promoters(anchors, upstream = 0, downstream = 0)
 )
-
+ranchors <- ranchors[order(
+    SummarizedExperiment::rowRanges(dfp)$score,
+    decreasing = TRUE,
+    na.last = TRUE
+),]
+if (!is.null(opt$maxpeaks) && length(ranchors) > opt$maxpeaks) {
+    ranchors <- ranchors[seq(1L, opt$maxpeaks, by = 1L), ]
+}
 assays <-  parallel::mclapply(
     bigwig,
     function(x) EnrichedHeatmap::normalizeToMatrix(
@@ -128,20 +141,12 @@ assays <-  parallel::mclapply(
     ),
     mc.cores = opt$cpu
 )
-
+rm(bigwig)
 dfp <- SummarizedExperiment::SummarizedExperiment(
     rowRanges = anchors,
     assays =  assays
 )
-
-rm(ranchors, assays)
-
-dfp <- dfp[order(
-    SummarizedExperiment::rowRanges(dfp)$score,
-    decreasing = TRUE,
-    na.last = TRUE
-), ]
-
+rm(anchors, ranchors, assays)
 if (!is.null(opt$group)) {
     dfp <- addBins(dfp, nbins = opt$group)
 }
@@ -150,7 +155,6 @@ if (opt$verbose) {
     message(" done!")
     message("Plotting...", appendLF = FALSE)
 }
-
 png(opt$png, width = 1000, height = 1000)
 plotEpistack(
     dfp,
@@ -164,7 +168,7 @@ plotEpistack(
     n_core = opt$cpu,
     cex = 1.6, cex.main = 2.4
 )
-dev.off()
+invisible(dev.off())
 
 if (opt$verbose) {
     message(" done!")
