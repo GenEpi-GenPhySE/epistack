@@ -118,19 +118,19 @@ if (opt$verbose) {
     message(" done!")
     message("Processing...", appendLF = FALSE)
 }
+anchors <- anchors[order(
+    anchors$score,
+    decreasing = TRUE,
+    na.last = TRUE
+), ]
+if (!is.null(opt$maxpeaks) && length(anchors) > opt$maxpeaks) {
+    anchors  <-  anchors[seq(1L, opt$maxpeaks, by = 1L), ]
+}
 ranchors <- switch(
     opt$reference,
     "center" = GenomicRanges::resize(anchors, width = 1, fix = "center"),
     "start" = GenomicRanges::promoters(anchors, upstream = 0, downstream = 0)
 )
-ranchors <- ranchors[order(
-    SummarizedExperiment::rowRanges(dfp)$score,
-    decreasing = TRUE,
-    na.last = TRUE
-),]
-if (!is.null(opt$maxpeaks) && length(ranchors) > opt$maxpeaks) {
-    ranchors <- ranchors[seq(1L, opt$maxpeaks, by = 1L), ]
-}
 assays <-  parallel::mclapply(
     bigwig,
     function(x) EnrichedHeatmap::normalizeToMatrix(
