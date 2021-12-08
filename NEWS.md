@@ -1,5 +1,7 @@
-epistack v1.1.3 (2021-12-06)
+epistack v1.1.3 (2021-12-08)
 + changes in epistack.R Rscript CLI
++ plotAverageProfile() now support 95% confidence interval 
+(parameter `error_type`).
 
 epistack v1.1.2 (2021-11-27)
 + addition of an Rscript script in inst/

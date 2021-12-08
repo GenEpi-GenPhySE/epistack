@@ -10,7 +10,7 @@ plotAverageProfile(
   x_labels = c("Before", "Anchor", "After"),
   palette = colorRampPalette(c("magenta", "black", "green")),
   alpha_for_se = 0.25,
-  error_type = c("sd", "sem"),
+  error_type = c("sd", "sem", "ci95"),
   reversed_z_order = FALSE,
   ylim = NULL,
   pattern = NULL
@@ -32,8 +32,9 @@ by default: \code{colorRampPalette(c("magenta", "black", "green"))}}
 \item{alpha_for_se}{the transparency (alpha) value for
 the error band.}
 
-\item{error_type, }{can be either \code{sd} (standard deviation)
-or \code{sem} (standard error of the mean). Default: \code{sem}.}
+\item{error_type, }{can be either \code{"sd"} (standard deviation),
+\code{"sem"} (standard error of the mean),
+or \code{"ci95"} (95\% confidence interval). Default: \code{"sd"}.}
 
 \item{reversed_z_order}{should the z-order of the curves be reversed
 (i.e. first or last bin on top?)}
