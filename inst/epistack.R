@@ -83,6 +83,12 @@ option_list <- list(
         default = NULL, type = "integer"
     ),
     make_option(
+        c("-f", "--errortype"),
+        help = "Error type for the average profiles. One of: sd, sem, ci95.
+         Default: ci95.",
+        default = "ci95",
+    ),
+    make_option(
         c("-c", "--cpu"),
         help = "Number of cores.
         Increases speed at the cost of higher RAM usage."
@@ -166,6 +172,7 @@ plotEpistack(
     metric_col = "score", metric_label = "Peak scores",
     ylim = c(0, opt$ylim), zlim = c(0, opt$zlim),
     n_core = opt$cpu,
+    error_type = opt$errortype,
     cex = 1.6, cex.main = 2.4
 )
 invisible(dev.off())
