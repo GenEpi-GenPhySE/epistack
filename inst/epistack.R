@@ -16,6 +16,9 @@ if(!requireNamespace("EnrichedHeatmap", quietly = TRUE)) {
 if(!requireNamespace("optparse", quietly = TRUE)) {
     install.packages("optparse")
 }
+if(!requireNamespace("data.table", quietly = TRUE)) {
+    install.packages("data.table")
+}
 
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(epistack))
@@ -113,7 +116,19 @@ opt <- parse_args(OptionParser(
 if (opt$verbose) {
     message("Parsing files...", appendLF = FALSE)
 }
-anchors <- rtracklayer::import(opt$anchors)
+if (grepl("tsv$", opt$anchors)) {
+    anchors <- data.table::fread(opt$anchors)
+    anchors <- with(
+        anchors, 
+        GenomicRanges::GRanges(
+            chromosome_name,
+            IRanges::IRanges(median_tss),
+            strand = strand,
+            mcols = anchors[, c("ensembl_gene_id", "gene_biotype")]
+    ))
+} else {
+    anchors <- rtracklayer::import(opt$anchors)
+}
 bigwig <- parallel::mclapply(
     list(bound = opt$bound, input = opt$input),
     rtracklayer::import,
