@@ -29,7 +29,14 @@ option_list <- list(
         c("-a", "--anchors"),
         help = "Path to the anchor files. Currently supported format:
                     \n\tMACS .narrowPeak
+                    \n\t.tsv file with columns chr, start, strand, gene_id, gene_type
                 "),
+    make_option(
+        c("-s", "--scores"),
+        help = "Path to the file containing score information if absent from the anchors file.
+        Currently supported format:
+            \n\tSalmon quant.genes.sf"
+    ),
     make_option(
         c("-b", "--bound"),
         help = "Path to the ChIP-seq bound coverage (bigwig)"
@@ -119,16 +126,33 @@ if (opt$verbose) {
 if (grepl("tsv$", opt$anchors)) {
     anchors <- data.table::fread(opt$anchors)
     anchors <- with(
-        anchors, 
+        anchors,
         GenomicRanges::GRanges(
-            chromosome_name,
-            IRanges::IRanges(median_tss),
+            chr,
+            IRanges::IRanges(start),
             strand = strand,
-            mcols = anchors[, c("ensembl_gene_id", "gene_biotype")]
-    ))
+            gene_id, gene_type
+        )
+    )
 } else {
     anchors <- rtracklayer::import(opt$anchors)
 }
+
+if (!is.null(opt$scores)) {
+    scores <- data.table::fread(opt$scores)
+    anchors <- addMetricAndArrangeGRanges(
+        anchors, scores,
+        gr_key = "gene_id", order_key = "Name",
+        order_value = "TPM"
+    )
+} else {
+    anchors <- anchors[order(
+        anchors$score,
+        decreasing = TRUE,
+        na.last = TRUE
+    ), ]
+}
+
 bigwig <- parallel::mclapply(
     list(bound = opt$bound, input = opt$input),
     rtracklayer::import,
@@ -139,18 +163,14 @@ if (opt$verbose) {
     message(" done!")
     message("Processing...", appendLF = FALSE)
 }
-anchors <- anchors[order(
-    anchors$score,
-    decreasing = TRUE,
-    na.last = TRUE
-), ]
+
 if (!is.null(opt$maxpeaks) && length(anchors) > opt$maxpeaks) {
     anchors  <-  anchors[seq(1L, opt$maxpeaks, by = 1L), ]
 }
 ranchors <- switch(
     opt$reference,
-    "center" = GenomicRanges::resize(anchors, width = 1, fix = "center"),
-    "start" = GenomicRanges::promoters(anchors, upstream = 0, downstream = 0)
+    "center" = GenomicRanges::resize(anchors, width = 1L, fix = "center"),
+    "start" = GenomicRanges::promoters(anchors, upstream = 0L, downstream = 1L)
 )
 assays <-  parallel::mclapply(
     bigwig,
