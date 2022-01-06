@@ -56,6 +56,11 @@ option_list <- list(
         default = 2500L
     ),
     make_option(
+        c("-x", "--xlabs"),
+        help = "X-axis labels",
+        default = c("-2.5kb", "anchor", "+2.5kb")
+    ),
+    make_option(
         c("-r", "--reference"),
         help = "One of:
             \n\t'center' as in middle of the region (i.e. gene center)
@@ -196,6 +201,16 @@ if (opt$verbose) {
     message(" done!")
     message("Plotting...", appendLF = FALSE)
 }
+if (!is.null(opt$scores)) {
+    metric_col <- "TPM"
+    metric_label <- "log10(TPM+1)"
+    metric_transfunc <- function(x) log10(x + 1)
+} else {
+    metric_col <- "score"
+    metric_label <- "Peak scores"
+    metric_transfunc <- function(x) x
+}
+
 png(opt$png, width = 1000, height = 1000)
 plotEpistack(
     dfp,
@@ -203,8 +218,9 @@ plotEpistack(
     titles = c("Bound", "Input"),
     legends = "FPKM", main = opt$title,
     tints = c("firebrick1", "grey"),
-    x_labels = c("-2.5kb", "peak center", "+2.5kb"),
-    metric_col = "score", metric_label = "Peak scores",
+    x_labels = opt$xlabs,
+    metric_col = metric_col, metric_label = metric_label,
+    metric_transfunc = metric_transfunc,
     ylim = c(0, opt$ylim), zlim = c(0, opt$zlim),
     n_core = opt$cpu,
     error_type = opt$errortype,
