@@ -28,14 +28,14 @@ option_list <- list(
     make_option(
         c("-a", "--anchors"),
         help = "Path to the anchor files. Currently supported format:
-                    \n\tMACS .narrowPeak
-                    \n\t.tsv file with columns chr, start, strand, gene_id, gene_type
+                    \nMACS .narrowPeak
+                    \n.tsv file with columns chr, start, strand, gene_id, gene_type
                 "),
     make_option(
         c("-s", "--scores"),
         help = "Path to the file containing score information if absent from the anchors file.
         Currently supported format:
-            \n\tSalmon quant.genes.sf"
+            \nSalmon quant.genes.sf"
     ),
     make_option(
         c("-b", "--bound"),
@@ -57,14 +57,15 @@ option_list <- list(
     ),
     make_option(
         c("-x", "--xlabs"),
-        help = "X-axis labels",
-        default = c("-2.5kb", "anchor", "+2.5kb")
+        help = "X-axis labels. Syntax: a comma separated string of 3 values,
+        e.g. '-2.5kb,anchor,+2.5kb'",
+        default = "-2.5kb,anchor,+2.5kb"
     ),
     make_option(
         c("-r", "--reference"),
         help = "One of:
-            \n\t'center' as in middle of the region (i.e. gene center)
-            \n\t'start' as in begin of the region with regards to the strand
+            \n'center' as in middle of the region (i.e. gene center)
+            \n'start' as in begin of the region with regards to the strand
         (i.e. transcription start sites)
         ",
         default = "center"
@@ -120,6 +121,7 @@ opt <- parse_args(OptionParser(
     description = "{epistack} CLI
     make nice heatmaps from processed files in a single CLI call."
 ))
+opt$xlabs <- strsplit(xlabs, ",")[[1]]
 
 # uncomment next line for debugging
 # message(dput(opt))
@@ -204,10 +206,12 @@ if (opt$verbose) {
 if (!is.null(opt$scores)) {
     metric_col <- "TPM"
     metric_label <- "log10(TPM+1)"
+    metric_title <- "Expression levels"
     metric_transfunc <- function(x) log10(x + 1)
 } else {
     metric_col <- "score"
-    metric_label <- "Peak scores"
+    metric_label <- "MACS2 scores"
+    metric_title <- "Peak scores"
     metric_transfunc <- function(x) x
 }
 
@@ -220,7 +224,7 @@ plotEpistack(
     tints = c("firebrick1", "grey"),
     x_labels = opt$xlabs,
     metric_col = metric_col, metric_label = metric_label,
-    metric_transfunc = metric_transfunc,
+    metric_transfunc = metric_transfunc, metric_title = metric_title,
     ylim = c(0, opt$ylim), zlim = c(0, opt$zlim),
     n_core = opt$cpu,
     error_type = opt$errortype,
