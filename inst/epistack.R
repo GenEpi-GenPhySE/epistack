@@ -121,7 +121,7 @@ opt <- parse_args(OptionParser(
     description = "{epistack} CLI
     make nice heatmaps from processed files in a single CLI call."
 ))
-opt$xlabs <- strsplit(xlabs, ",")[[1]]
+opt$xlabs <- strsplit(opt$xlabs, ",")[[1]]
 
 # uncomment next line for debugging
 # message(dput(opt))
