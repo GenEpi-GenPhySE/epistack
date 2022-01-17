@@ -102,12 +102,13 @@ option_list <- list(
         c("-f", "--errortype"),
         help = "Error type for the average profiles. One of: sd, sem, ci95.
          Default: ci95.",
-        default = "ci95",
+        default = "ci95"
     ),
     make_option(
         c("-c", "--cpu"),
         help = "Number of cores.
-        Increases speed at the cost of higher RAM usage."
+        Increases speed at the cost of higher RAM usage.",
+        default = 1L, type = "integer"
     ),
     make_option(
         c("-v", "--verbose"), action = "store_true",
@@ -234,5 +235,5 @@ invisible(dev.off())
 
 if (opt$verbose) {
     message(" done!")
-    message(paste("Job completed for file:", opt$bound))
+    message(paste("Job completed for file:", opt$png))
 }
