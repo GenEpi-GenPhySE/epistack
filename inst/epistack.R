@@ -137,7 +137,7 @@ if (grepl("tsv$", opt$anchors)) {
         anchors,
         GenomicRanges::GRanges(
             chr,
-            IRanges::IRanges(start),
+            IRanges::IRanges(start, width = 1L),
             strand = strand,
             gene_id, gene_type
         )
