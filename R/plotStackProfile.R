@@ -116,11 +116,15 @@ plotStackProfile <- function(
 
     breaks <- seq(zlim[1], zlim[2], length.out = 100)
 
-    smallMat <- redimMatrix(mat,
+    if(nrow(mat) > target_height) {
+        smallMat <- redimMatrix(mat,
                              target_height = target_height,
                              target_width = ncol(mat),
                              summary_func = summary_func,
                              n_core = n_core)
+    } else {
+        smallMat <- mat
+    }
 
     BiocGenerics::image(
         t(smallMat)[, seq(from = nrow(smallMat), to = 1, by = -1), drop = FALSE],

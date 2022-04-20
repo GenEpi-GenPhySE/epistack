@@ -1,4 +1,9 @@
-epistack v1.1.2 (in dev)
+epistack v1.1.3 (2021-12-08)
++ changes in epistack.R Rscript CLI
++ plotAverageProfile() now support 95% confidence interval 
+(parameter `error_type`).
+
+epistack v1.1.2 (2021-11-27)
 + addition of an Rscript script in inst/
 + new `main` parameter in plotEpistack()
 + plotBinning() `Bins` label in horizontal orientation

@@ -14,8 +14,9 @@
 #'  by default: \code{colorRampPalette(c("magenta", "black", "green"))}
 #' @param alpha_for_se the transparency (alpha) value for
 #' the error band.
-#' @param error_type, can be either \code{sd} (standard deviation)
-#' or \code{sem} (standard error of the mean). Default: \code{sem}.
+#' @param error_type, can be either \code{"sd"} (standard deviation),
+#' \code{"sem"} (standard error of the mean),
+#' or \code{"ci95"} (95% confidence interval). Default: \code{"sd"}.
 #' @param reversed_z_order should the z-order of the curves be reversed
 #' (i.e. first or last bin on top?)
 #' @param ylim a vector of two numbers corresponding
@@ -37,7 +38,7 @@ plotAverageProfile <- function(
     x_labels = c("Before", "Anchor", "After"),
     palette = colorRampPalette(c("magenta", "black", "green")),
     alpha_for_se = 0.25,
-    error_type = c("sd", "sem"),
+    error_type = c("sd", "sem", "ci95"),
     reversed_z_order = FALSE,
     ylim = NULL,
     pattern = NULL
@@ -80,10 +81,18 @@ plotAverageProfile <- function(
                     function(x) apply(x, 2,
                                       function(y) stats::sd(y, na.rm = TRUE)))
     mySes <- lapply(seq_along(myMeans),
+                    # TODO : debugging
+                    # weird there should be a smarter way to do that
                     function(i) ifelse(myMeans[[i]] == 0, 0,
                                        mySds[[i]]/sqrt(nrow(myMats[[i]]))))
+    myCis <- lapply(seq_along(myMeans),
+                    function(i) mySes[[i]] * 1.96) # magic number for 95% CI
 
-    myErr <- if (error_type == "sem") {mySes} else {mySds}
+    myErr <- switch (error_type,
+        "sd" = mySds,
+        "sem" = mySes,
+        "ci95" = myCis
+    )
 
     ymax <- max(
         vapply(

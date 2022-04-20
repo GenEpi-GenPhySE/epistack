@@ -41,8 +41,9 @@
 #' @param low_mar a vector of numerical values
 #'  corresponding to the margins of the bottom figures.
 #'  c(bottom, left, top, right)
-#' @param error_type, can be either \code{sd} (standard deviation)
-#' or \code{sem} (standard error of the mean). Default: \code{sem}.
+#' @param error_type, error_type, can be either \code{"sd"} (standard deviation),
+#' \code{"sem"} (standard error of the mean),
+#' or \code{"ci95"} (95% confidence interval). Default: \code{"sd"}.
 #' @param patterns only if \code{rse} is of class GRanges.
 #' A character vector of column prefixes
 #' (can be regular expressions) that should match columns of \code{rse}.
@@ -132,7 +133,7 @@ plotEpistack <- function(
     bin_palette = colorRampPalette(c("magenta", "black", "green")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
-    error_type = c("sd", "sem"),
+    error_type = c("sd", "sem", "ci95"),
     patterns = NULL,
     ...
 ) {
