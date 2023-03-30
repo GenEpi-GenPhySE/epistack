@@ -205,7 +205,7 @@ from the
 "Basics of ChIP-seq data analysis" 
 by Aleksandra Pekowska and Simon Anders.
 Data can be found in this github repository: 
-[https://github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles](github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles)
+[github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles](https://github.com/Bioconductor/CSAMA2016/tree/master/lab-5-chipseq/EpigeneticsCSAMA/inst/bedfiles)
 
 There is no need to download the data as it can be remotely parsed.
 The data consists of two H3K27ac ChIP-seq replicates, an input control,
@@ -337,8 +337,7 @@ plotEpistack(
     x_labels = xlabs,
     zlim = c(0, 4), ylim = c(0, 4), 
     metric_col = "mean_scores", metric_title = "Peak score",
-    metric_label = "log10(score)",
-    metric_transfunc = function(x) log10(x)
+    metric_label = "score"
 )
 ```
 
@@ -357,8 +356,7 @@ plotEpistack(
     titles = c("Rep1", "Rep2" , "Input"),
     x_labels = xlabs,
     zlim = c(0, 4), ylim = c(0, 4), 
-    metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
-    metric_transfunc = function(x) log10(x),
+    metric_col = "mean_scores", metric_title = "Peak score", metric_label = "score",
     bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1")),
     npix_height = 300
 )
@@ -380,8 +378,7 @@ plotEpistack(
     titles = c("Rep1", "Rep2" , "Input"),
     x_labels = xlabs,
     zlim = c(0, 4), ylim = c(0, 4), 
-    metric_col = "mean_scores", metric_title = "Peak score", metric_label = "log10(score)",
-    metric_transfunc = function(x) log10(x),
+    metric_col = "mean_scores", metric_title = "Peak score", metric_label = "score",
     bin_palette = colorRampPalette(c("darkorchid1", "dodgerblue", "firebrick1")),
     npix_height = 300
 )

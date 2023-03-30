@@ -1,3 +1,7 @@
+epistack v1.5.1 (2022-03-30)
++ vignette improvements (thanks to Isabelle Stevant)
++ documentation improvments: multiple zlims are possible if provided as a list
+
 epistack v1.1.3 (2021-12-08)
 + changes in epistack.R Rscript CLI
 + plotAverageProfile() now support 95% confidence interval 
