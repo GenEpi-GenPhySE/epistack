@@ -1,6 +1,6 @@
 Package: epistack
 Title: Heatmaps of Stack Profiles from Epigenetic Signals
-Version: 1.1.3
+Version: 1.5.1
 Authors@R: 
     c(
     person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "aut"),
@@ -26,7 +26,7 @@ Imports:
     stats,
     methods
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Depends: 
     R (>= 4.1)
 Suggests: 
