@@ -11,7 +11,9 @@
 #' (for backward compatibility, \code{patterns} will be required).
 #' @param assays specify the name(s) and order of assay(s) to plot. A vector of
 #' names that should match \code{assayNames(rse)}.
-#' @param tints a vector of colors to tint the heatmaps.
+#' @param tints a vector of colors to tint the heatmaps. Can alos be a
+#' function returning \code{n} colors, or a list of such palette
+#' functions.
 #' @param titles titles of each heatmap. Defaults to \code{assays}.
 #' @param legends legend names for the epistacks.
 #' @param main Main title for the figure.
@@ -27,8 +29,8 @@
 #' @param metric_transfunc a function to transform value of \code{metric_col}
 #' before plotting. Useful to apply log10 transformation
 #' (i.e. with `trans_func = function(x) log10(x+1)`).
-#' @param bin_palette a palette of color,
-#' (i.e. a function of parameter n that should retrun n colors), used to color
+#' @param bin_palette  A vector of colors, or a function that returns
+#' a palette of \code{n} colors. Used to color
 #' average profiles per bin in the bottom plots.
 #' @param npix_height The matrix height is reduced to this number of rows
 #' before plotting.
@@ -130,7 +132,7 @@ plotEpistack <- function(
     zlim = c(0, 1), ylim = NULL,
     metric_col = "exp", metric_title = "Metric", metric_label = "metric",
     metric_transfunc = function(x) x,
-    bin_palette = colorRampPalette(c("magenta", "black", "green")),
+    bin_palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
     error_type = c("sd", "sem", "ci95"),
@@ -219,6 +221,9 @@ plotEpistack <- function(
     if(length(titles) == 1 && length(assays) > 1) {
         titles = rep(titles, length(assays))
     }
+    if(is.function(tints)) {
+        tints <- list(tints)
+    }
     if(length(tints) == 1 && length(assays) > 1) {
         tints = rep(tints, length(assays))
     }
@@ -228,16 +233,21 @@ plotEpistack <- function(
 
     for (i in seq_along(assays)) {
         graphics::par(mar = high_mar)
+        if(is.character(tints[[i]])) {
+            col_pal <- colorRampPalette(c("white", tints[i], "black"))
+        } else {
+            col_pal <- tints[[i]]
+        }
         plotStackProfile(
             rse, assay = assays[i],
-            palette = colorRampPalette(c("white", tints[i], "black")),
+            palette = col_pal,
             zlim = zlim[[i]], target_height = npix_height, n_core = n_core,
             x_labels = x_labels, title = titles[i]
         )
         graphics::par(mar = low_mar)
         plotStackProfileLegend(
             zlim = zlim[[i]],
-            palette = colorRampPalette(c("white", tints[i], "black")),
+            palette = col_pal,
             title = legends[i]
         )
         graphics::par(mar = low_mar)

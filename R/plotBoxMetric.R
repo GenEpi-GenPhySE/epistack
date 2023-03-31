@@ -13,7 +13,9 @@
 #' (i.e. with \code{trans_func = function(x) log10(x+1)}).
 #' @param ylim limit of the y axis; format: \code{ylim = c(min, max)}
 #' @param ylab y-axis title
-#' @param palette a function that returns a palette of \code{n} colors.
+#' @param palette A vector of colors, or a function that returns
+#' a palette of \code{n} colors.
+#'
 #'
 #' @importFrom stats setNames
 #'
@@ -34,8 +36,12 @@ plotBoxMetric <- function(
     metric = "expr", title = "Metric",
     trans_func = function(x) x,
     ylim = NULL, ylab = "metric",
-    palette = colorRampPalette(c("magenta", "black", "green"))
+    palette = colorRampPalette(c("#DF536B", "black", "#61D04F"))
 ){
+    if(is.character(palette)) {
+        palette <- colorRampPalette(palette)
+    }
+
     if (methods::is(rse, "RangedSummarizedExperiment")) {
         gr <- SummarizedExperiment::rowRanges(rse)
     } else  {

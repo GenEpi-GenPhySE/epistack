@@ -10,8 +10,8 @@
 #' @param assay specify the name of the assay to plot,
 #' that should match one of \code{assayNames(rse)}.
 #' @param x_labels x-axis labels.
-#' @param palette a color palette function,
-#'  by default: \code{colorRampPalette(c("magenta", "black", "green"))}
+#' @param palette A vector of colors, or a function that returns
+#' a palette of \code{n} colors.
 #' @param alpha_for_se the transparency (alpha) value for
 #' the error band.
 #' @param error_type, can be either \code{"sd"} (standard deviation),
@@ -36,13 +36,16 @@ plotAverageProfile <- function(
     rse,
     assay = NULL,
     x_labels = c("Before", "Anchor", "After"),
-    palette = colorRampPalette(c("magenta", "black", "green")),
+    palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
     alpha_for_se = 0.25,
     error_type = c("sd", "sem", "ci95"),
     reversed_z_order = FALSE,
     ylim = NULL,
     pattern = NULL
 ) {
+    if(is.character(palette)) {
+        palette <- colorRampPalette(palette)
+    }
 
     if (methods::is(rse, "GRanges")) {
         if (is.null(pattern)) {

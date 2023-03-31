@@ -1,4 +1,12 @@
 epistack v1.5.1 (2022-03-30)
++ changing the default bin colors
++ `bin_palette` in `plotEpistack()`, `plotBoxMetric()`, 
+and `plotAverageProfile()`,  and `palette` in `plotBinning()` can now be 
+vectors of colors instead of palette functions
++ `tints` now accept palette functions and list of palette functions,
+in addition to colors.
+
+epistack v1.5.1 (2022-03-30)
 + vignette improvements (thanks to Isabelle Stevant)
 + documentation improvments: multiple zlims are possible if provided as a list
 

@@ -1,6 +1,6 @@
 Package: epistack
 Title: Heatmaps of Stack Profiles from Epigenetic Signals
-Version: 1.5.1
+Version: 1.5.2
 Authors@R: 
     c(
     person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "aut"),
@@ -43,3 +43,4 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 biocViews: RNASeq, Preprocessing, ChIPSeq, GeneExpression
+URL: https://github.com/GenEpi-GenPhySE/epistack
