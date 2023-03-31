@@ -47,10 +47,10 @@ names that should match \code{assayNames(rse)}.}
 \item{x_labels}{a character vector of length 3 used as x-axis labels.}
 
 \item{zlim}{the minimum and maximum z values the heatmap.
-Format: \code{zlim = c (min, max)}}
+Format: \code{zlim = c(min, max)}. \code{zlim} can also be specified of as a list of pairs of limits, on for each assay.}
 
-\item{ylim}{limits of the y axis for bottom plots.
-Format: \code{ylim = c (min, max)}}
+\item{ylim}{limits of the y axis for bottom plots. \code{ylim} can also be specified of as a list of pairs of limits, on for each assay.
+Format: \code{ylim = c(min, max)}}
 
 \item{metric_col}{a character, name of a column in \code{gr}
 such as expression value, peak height, pvalue, fold change, etc.}
