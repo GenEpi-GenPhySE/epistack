@@ -10,7 +10,7 @@ plotStackProfile(
   x_labels = c("Before", "Anchor", "After"),
   title = "",
   zlim = NULL,
-  palette = function(n) hcl.colors(n, rev = TRUE),
+  palette = function(n) grDevices::hcl.colors(n, rev = TRUE),
   target_height = 650,
   summary_func = function(x) mean(x, na.rm = TRUE),
   n_core = 1,
