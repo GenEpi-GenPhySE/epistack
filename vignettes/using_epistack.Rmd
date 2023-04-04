@@ -162,7 +162,7 @@ plotStackProfile(
   stackepi,
   assay = "DNAme",
   x_labels = c("-2.5kb", "TSS", "+2.5kb"),
-  palette = viridisLite::viridis,
+  palette = hcl.colors,
   zlim = c(0, 1)
 )
 ```
@@ -182,12 +182,12 @@ plotAverageProfile(
 plotStackProfile(
   stackepi, assay = "DNAme",
   x_labels = c("-2.5kb", "TSS", "+2.5kb"), zlim = c(0, 1),
-  palette = viridisLite::viridis
+  palette = hcl.colors
 )
 
 plotStackProfileLegend(
   zlim = c(0, 1),
-  palette = viridisLite::viridis
+  palette = hcl.colors
 )
 
 par(old_par)
@@ -474,7 +474,7 @@ The `epidata` GRanges object is now ready to plot:
 ```{r example2_plotting}
 plotEpistack(
     epidata,
-    tints = c("tomato", "springgreen"),
+    tints = c("dodgerblue", "orange"),
     zlim = list(c(0, 1), c(0, 25)), ylim = list(c(0, 1), c(0, 50)),
     x_labels = c("-5kb", "TSS", "+5kb"),
     metric_col = "expr", metric_title = "Gene expression",

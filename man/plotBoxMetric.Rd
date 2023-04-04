@@ -11,7 +11,7 @@ plotBoxMetric(
   trans_func = function(x) x,
   ylim = NULL,
   ylab = "metric",
-  palette = colorRampPalette(c("magenta", "black", "green"))
+  palette = colorRampPalette(c("#DF536B", "black", "#61D04F"))
 )
 }
 \arguments{
@@ -30,7 +30,8 @@ Useful to apply log10 transformation
 
 \item{ylab}{y-axis title}
 
-\item{palette}{a function that returns a palette of \code{n} colors.}
+\item{palette}{A vector of colors, or a function that returns
+a palette of \code{n} colors.}
 }
 \value{
 Display a plot.

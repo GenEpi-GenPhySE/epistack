@@ -8,8 +8,8 @@
 #' a GRanges object or any object such as \code{rse$bin} exists.
 #' @param target_height an integer, the approximate height (in pixels)
 #'  of the final plot. Used to avoid overplotting artefacts.
-#' @param palette a function taking a number as a first argument,
-#' and returning a vector of colors.
+#' @param palette A vector of colors, or a function that returns
+#' a palette of \code{n} colors.
 #'
 #' @importFrom grDevices rainbow
 #' @importFrom methods is
@@ -30,8 +30,12 @@
 plotBinning <- function(
     rse,
     target_height = 650,
-    palette = colorRampPalette(c("magenta", "black", "green"))
+    palette = colorRampPalette(c("#DF536B", "black", "#61D04F"))
 ) {
+    if(is.character(palette)) {
+        palette <- colorRampPalette(palette)
+    }
+
     if (methods::is(rse, "RangedSummarizedExperiment")) {
         bins <- as.numeric(factor(SummarizedExperiment::rowRanges(rse)$bin))
     } else {

@@ -8,7 +8,7 @@ plotAverageProfile(
   rse,
   assay = NULL,
   x_labels = c("Before", "Anchor", "After"),
-  palette = colorRampPalette(c("magenta", "black", "green")),
+  palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
   alpha_for_se = 0.25,
   error_type = c("sd", "sem", "ci95"),
   reversed_z_order = FALSE,
@@ -26,8 +26,8 @@ that should match one of \code{assayNames(rse)}.}
 
 \item{x_labels}{x-axis labels.}
 
-\item{palette}{a color palette function,
-by default: \code{colorRampPalette(c("magenta", "black", "green"))}}
+\item{palette}{A vector of colors, or a function that returns
+a palette of \code{n} colors.}
 
 \item{alpha_for_se}{the transparency (alpha) value for
 the error band.}
