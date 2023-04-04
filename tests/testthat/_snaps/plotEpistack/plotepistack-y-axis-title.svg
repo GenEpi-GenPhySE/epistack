@@ -34026,6 +34026,7 @@
 <line x1='710.96' y1='432.24' x2='710.96' y2='436.99' style='stroke-width: 0.75;' />
 <text x='383.83' y='444.60' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='710.96' y='444.60' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='547.40' y='444.60' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='36.54px' lengthAdjust='spacingAndGlyphs'>DNA meth</text>
 </g>
 <defs>
   <clipPath id='cpMzgwLjUwfDcxNC4zMHw0NTguODV8NTUyLjI0'>
@@ -34053,6 +34054,7 @@
 <line x1='380.50' y1='462.31' x2='375.74' y2='462.31' style='stroke-width: 0.75;' />
 <text transform='translate(373.84,548.78) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text transform='translate(373.84,462.31) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text transform='translate(373.84,505.55) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='36.54px' lengthAdjust='spacingAndGlyphs'>DNA meth</text>
 </g>
 <g clip-path='url(#cpMzgwLjUwfDcxNC4zMHw0NTguODV8NTUyLjI0)'>
 <polygon points='392.86,489.18 399.04,488.92 405.22,488.49 411.40,487.69 417.59,488.39 423.77,488.68 429.95,488.05 436.13,488.08 442.31,487.58 448.49,486.80 454.67,486.28 460.86,486.69 467.04,486.67 473.22,486.31 479.40,486.76 485.58,486.89 491.76,486.20 497.95,486.23 504.13,486.83 510.31,487.76 516.49,488.07 522.67,487.33 528.85,486.34 535.03,486.00 541.22,486.72 547.40,486.90 553.58,486.92 559.76,486.34 565.94,486.78 572.12,486.69 578.30,485.32 584.49,485.38 590.67,486.42 596.85,487.56 603.03,487.04 609.21,486.96 615.39,487.07 621.58,485.91 627.76,485.49 633.94,485.85 640.12,485.65 646.30,484.80 652.48,485.02 658.66,485.37 664.85,485.86 671.03,485.42 677.21,485.46 683.39,486.30 689.57,486.08 695.75,485.57 701.93,486.44 701.93,491.46 695.75,490.51 689.57,490.98 683.39,491.27 677.21,490.19 671.03,490.12 664.85,490.63 658.66,490.19 652.48,490.08 646.30,489.82 640.12,490.77 633.94,491.17 627.76,490.80 621.58,491.02 615.39,492.50 609.21,492.60 603.03,492.73 596.85,493.27 590.67,491.96 584.49,490.83 578.30,490.65 572.12,492.46 565.94,492.52 559.76,491.83 553.58,492.77 547.40,492.94 541.22,492.50 535.03,491.67 528.85,491.89 522.67,492.77 516.49,493.63 510.31,493.48 504.13,492.57 497.95,491.74 491.76,491.42 485.58,492.20 479.40,492.16 473.22,491.33 467.04,491.63 460.86,491.57 454.67,491.37 448.49,491.95 442.31,493.06 436.13,493.74 429.95,493.37 423.77,494.03 417.59,493.68 411.40,492.69 405.22,493.53 399.04,494.24 392.86,494.69 ' style='stroke-width: 0.75; stroke: none; fill: #61D04F; fill-opacity: 0.25;' />

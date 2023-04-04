@@ -23,7 +23,8 @@ plotEpistack(
   n_core = 1,
   high_mar = c(2.5, 0.6, 4, 0.6),
   low_mar = c(2.5, 0.6, 0.3, 0.6),
-  error_type = c("sd", "sem", "ci95"),
+  error_type = c("ci95", "sd", "sem"),
+  reversed_z_order = FALSE,
   patterns = NULL,
   ...
 )
@@ -86,7 +87,10 @@ c(bottom, left, top, right)}
 
 \item{error_type, }{error_type, can be either \code{"sd"} (standard deviation),
 \code{"sem"} (standard error of the mean),
-or \code{"ci95"} (95\% confidence interval). Default: \code{"sd"}.}
+or \code{"ci95"} (95\% confidence interval). Default: \code{"ci95"}.}
+
+\item{reversed_z_order}{For the bottom panels: should the z-order of
+the curves be reversed (i.e. first or last bin on top)?}
 
 \item{patterns}{only if \code{rse} is of class GRanges.
 A character vector of column prefixes
