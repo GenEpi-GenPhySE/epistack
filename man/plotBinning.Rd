@@ -7,7 +7,7 @@
 plotBinning(
   rse,
   target_height = 650,
-  palette = colorRampPalette(c("magenta", "black", "green"))
+  palette = colorRampPalette(c("#DF536B", "black", "#61D04F"))
 )
 }
 \arguments{
@@ -19,8 +19,8 @@ a GRanges object or any object such as \code{rse$bin} exists.}
 \item{target_height}{an integer, the approximate height (in pixels)
 of the final plot. Used to avoid overplotting artefacts.}
 
-\item{palette}{a function taking a number as a first argument,
-and returning a vector of colors.}
+\item{palette}{A vector of colors, or a function that returns
+a palette of \code{n} colors.}
 }
 \value{
 Display a plot.

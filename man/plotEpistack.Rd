@@ -18,7 +18,7 @@ plotEpistack(
   metric_title = "Metric",
   metric_label = "metric",
   metric_transfunc = function(x) x,
-  bin_palette = colorRampPalette(c("magenta", "black", "green")),
+  bin_palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
   npix_height = 650,
   n_core = 1,
   high_mar = c(2.5, 0.6, 4, 0.6),
@@ -36,7 +36,9 @@ GRanges object
 \item{assays}{specify the name(s) and order of assay(s) to plot. A vector of
 names that should match \code{assayNames(rse)}.}
 
-\item{tints}{a vector of colors to tint the heatmaps.}
+\item{tints}{a vector of colors to tint the heatmaps. Can alos be a
+function returning \code{n} colors, or a list of such palette
+functions.}
 
 \item{titles}{titles of each heatmap. Defaults to \code{assays}.}
 
@@ -63,8 +65,8 @@ such as expression value, peak height, pvalue, fold change, etc.}
 before plotting. Useful to apply log10 transformation
 (i.e. with \code{trans_func = function(x) log10(x+1)}).}
 
-\item{bin_palette}{a palette of color,
-(i.e. a function of parameter n that should retrun n colors), used to color
+\item{bin_palette}{A vector of colors, or a function that returns
+a palette of \code{n} colors. Used to color
 average profiles per bin in the bottom plots.}
 
 \item{npix_height}{The matrix height is reduced to this number of rows

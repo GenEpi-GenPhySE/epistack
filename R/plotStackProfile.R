@@ -54,10 +54,10 @@
 #' @return Display a plot.
 #'
 #' @importFrom S4Vectors mcols
-#' @importFrom viridisLite viridis
 #' @importFrom BiocGenerics image
 #' @importFrom graphics axis
 #' @importFrom graphics mtext
+#' @importFrom grDevices hcl.colors
 #'
 #' @examples
 #' data("stackepi")
@@ -73,7 +73,7 @@ plotStackProfile <- function(
     x_labels = c("Before", "Anchor", "After"),
     title = "",
     zlim = NULL,
-    palette = function(n) viridisLite::viridis(n, direction = -1),
+    palette = function(n) grDevices::hcl.colors(n, rev = TRUE),
     target_height = 650,
     summary_func = function(x) mean(x, na.rm = TRUE),
     n_core = 1,
