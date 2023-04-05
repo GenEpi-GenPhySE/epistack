@@ -1,0 +1,12 @@
+citHeader("To cite {epistack} in publications use:")
+
+citEntry(
+  entry    = "Misc",
+  title    = "epistack: An R package to visualise stack profiles of epigenomic signals",
+  author   = c(person("SACI", "Safia"), person("DEVAILLY", "Guillaume", email = "gdevailly@hotmail.com")),
+  journal  = "HAL",
+  year     = 2021,
+  number   = "03401251",
+  url      = "https://hal.inrae.fr/hal-03401251",
+  textVersion = paste()
+)
