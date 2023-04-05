@@ -485,6 +485,12 @@ plotEpistack(
 )
 ```
 
+# Citation
+To cite {epistack}, please refers to its [HAL entry](https://hal.inrae.fr/hal-03401251):
+
+*Safia Saci, Guillaume Devailly. epistack: An R package 
+to visualise stack profiles of epigenomic signals. 2021, ⟨hal-03401251v2⟩*
+
 # `sessionInfo()`
 
 ```{r sessionInfo}
