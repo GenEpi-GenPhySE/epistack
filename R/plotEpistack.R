@@ -45,7 +45,9 @@
 #'  c(bottom, left, top, right)
 #' @param error_type, error_type, can be either \code{"sd"} (standard deviation),
 #' \code{"sem"} (standard error of the mean),
-#' or \code{"ci95"} (95% confidence interval). Default: \code{"sd"}.
+#' or \code{"ci95"} (95% confidence interval). Default: \code{"ci95"}.
+#' @param reversed_z_order For the bottom panels: should the z-order of
+#' the curves be reversed (i.e. first or last bin on top)?
 #' @param patterns only if \code{rse} is of class GRanges.
 #' A character vector of column prefixes
 #' (can be regular expressions) that should match columns of \code{rse}.
@@ -135,7 +137,8 @@ plotEpistack <- function(
     bin_palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
-    error_type = c("sd", "sem", "ci95"),
+    error_type = c("ci95", "sd", "sem"),
+    reversed_z_order = FALSE,
     patterns = NULL,
     ...
 ) {
@@ -257,7 +260,9 @@ plotEpistack <- function(
             ylim = ylim[[i]],
             palette = bin_palette,
             x_labels = x_labels,
-            error_type = error_type
+            error_type = error_type,
+            reversed_z_order = reversed_z_order,
+            y_title = legends[i]
         )
     }
 
