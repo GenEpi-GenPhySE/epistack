@@ -1,3 +1,6 @@
+# epistack 1.5.4 (2022-04-05)
++ CITATION added
+
 # epistack 1.5.3 (2022-04-04)
 + plotAverageProfile's reversed_z_order is now exposed in plotEpistack
 + 95% confidence interval is now the default in plotEpistack
