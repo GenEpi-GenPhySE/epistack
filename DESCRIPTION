@@ -1,6 +1,6 @@
 Package: epistack
 Title: Heatmaps of Stack Profiles from Epigenetic Signals
-Version: 1.5.2
+Version: 1.5.3
 Authors@R: 
     c(
     person("SACI", "Safia", email = "safiasaci1995@gmail.com", role = "aut"),

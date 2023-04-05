@@ -13,6 +13,7 @@ plotAverageProfile(
   error_type = c("sd", "sem", "ci95"),
   reversed_z_order = FALSE,
   ylim = NULL,
+  y_title = NULL,
   pattern = NULL
 )
 }
@@ -40,7 +41,9 @@ or \code{"ci95"} (95\% confidence interval). Default: \code{"sd"}.}
 (i.e. first or last bin on top?)}
 
 \item{ylim}{a vector of two numbers corresponding
-to the y-limits of the plot}
+to the y-limits of the plot.}
+
+\item{y_title}{the y-axis title.}
 
 \item{pattern}{only if \code{rse} is of class GRanges.
 A single character that should match

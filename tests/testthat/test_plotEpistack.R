@@ -22,6 +22,24 @@ plot_epistack_bin <- function() plotEpistack(
     main = "with bins"
 )
 
+plot_epistack_bin_rz <- function() plotEpistack(
+    addBins(stackepi),
+    metric_col = "exp",
+    ylim = c(0, 1),
+    metric_transfunc = function(x) log10(x+1),
+    main = "with bins",
+    reversed_z_order = TRUE
+)
+
+plot_epistack_yt <- function() plotEpistack(
+    addBins(stackepi),
+    metric_col = "exp",
+    ylim = c(0, 1),
+    metric_transfunc = function(x) log10(x+1),
+    main = "with bins",
+    legends = "DNA meth"
+)
+
 data("stackepi_gr")
 plot_epistack_gr <- function() plotEpistack(
     stackepi_gr,
@@ -46,6 +64,15 @@ test_that("epistack main title", {
 
 test_that("epistack bins", {
     vdiffr::expect_doppelganger("plotEpistack with bins", plot_epistack_bin)
+})
+
+test_that("epistack reversed-z", {
+    vdiffr::expect_doppelganger("plotEpistack reversed z order",
+                                plot_epistack_bin_rz)
+})
+
+test_that("epistack legends", {
+    vdiffr::expect_doppelganger("plotEpistack y-axis title", plot_epistack_yt)
 })
 
 test_that("epistack backward comp GRanges", {

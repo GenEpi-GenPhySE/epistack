@@ -1,3 +1,9 @@
+# epistack 1.5.3 (2022-04-04)
++ plotAverageProfile's reversed_z_order is now exposed in plotEpistack
++ 95% confidence interval is now the default in plotEpistack
++ plotEpistck's legends are now also displayed as y-axis title in
+plotAverageProfile plots
+
 # epistack 1.5.2 (2022-04-03)
 + changing the default bin colors
 + `bin_palette` in `plotEpistack()`, `plotBoxMetric()`, 

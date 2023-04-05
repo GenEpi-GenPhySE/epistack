@@ -20,7 +20,8 @@
 #' @param reversed_z_order should the z-order of the curves be reversed
 #' (i.e. first or last bin on top?)
 #' @param ylim a vector of two numbers corresponding
-#'  to the y-limits of the plot
+#'  to the y-limits of the plot.
+#' @param y_title the y-axis title.
 #' @param pattern only if \code{rse} is of class GRanges.
 #' A single character that should match
 #' metadata of \code{rse} (can be a regular expression).
@@ -41,6 +42,7 @@ plotAverageProfile <- function(
     error_type = c("sd", "sem", "ci95"),
     reversed_z_order = FALSE,
     ylim = NULL,
+    y_title = NULL,
     pattern = NULL
 ) {
     if(is.character(palette)) {
@@ -116,12 +118,20 @@ plotAverageProfile <- function(
         ylim <- c(0, ymax)
     }
 
-    plot(NA, xlim = range(xind), ylim = ylim, axes = FALSE, xlab = NA, ylab = NA)
+    plot(
+        NA, xlim = range(xind), ylim = ylim, axes = FALSE, xlab = NA, ylab = NA
+    )
     axis(1, at = xind[1], labels = x_labels[1], hadj = 0)
-    axis(1, at =  xind[(length(xind)+1)/2], labels = x_labels[2], hadj = 0.5)
+    axis(1, at = xind[(length(xind)+1)/2], labels = x_labels[2], hadj = 0.5)
     axis(1, at = xind[length(xind)], labels = x_labels[3], hadj = 1)
-    axis(1, at = c(xind[1], xind[(length(xind)+1)/2], xind[length(xind)]), labels = NA)
+    axis(
+        1, at = c(xind[1], xind[(length(xind)+1)/2], xind[length(xind)]),
+        labels = NA
+    )
     axis(2, at = ylim)
+    if(!is.null(y_title)) {
+        axis(2, at = mean(ylim), labels = y_title, tick = FALSE)
+    }
 
     iter <- rev(seq_along(myMats))
     if (reversed_z_order) {
