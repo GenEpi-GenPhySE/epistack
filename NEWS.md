@@ -1,3 +1,7 @@
+# epistack 1.7.1 (2022-07-21)
++ left-most panel in `plotEpistack()` is a bit wider
++ fixed a code typo in vignette
+
 # epistack 1.5.4 (2022-04-05)
 + CITATION added
 
