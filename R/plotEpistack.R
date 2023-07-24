@@ -175,12 +175,12 @@ plotEpistack <- function(
                          nrow  = 3)
     layout_heights <- c(1, 0.14, 0.3)
     if (bin_present) {
-        layout_widths <- c(0.3, 0.08, rep(0.35, n_assays))
+        layout_widths <- c(0.35, 0.08, rep(0.35, n_assays))
         # boxmetric extend below plotbin
         layout_mat[3, 2] <- 3
         layout_mat[layout_mat > 6] <-  layout_mat[layout_mat > 6] - 1
     } else {
-        layout_widths <- c(0.3, rep(0.35, n_assays))
+        layout_widths <- c(0.35, rep(0.35, n_assays))
     }
 
     graphics::layout(layout_mat,
