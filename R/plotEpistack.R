@@ -26,6 +26,7 @@
 #' such as expression value, peak height, pvalue, fold change, etc.
 #' @param metric_title title to be display on the leftmost plots.
 #' @param metric_label label of the leftmost plots.
+#' @param metric_ylab y axis label of the top left plot.
 #' @param metric_transfunc a function to transform value of \code{metric_col}
 #' before plotting. Useful to apply log10 transformation
 #' (i.e. with `trans_func = function(x) log10(x+1)`).
@@ -48,6 +49,12 @@
 #' or \code{"ci95"} (95% confidence interval). Default: \code{"ci95"}.
 #' @param reversed_z_order For the bottom panels: should the z-order of
 #' the curves be reversed (i.e. first or last bin on top)?
+#' @param rel_widths A named vector of three elements of relative panel widths:
+#' `score` is the left-most panel, `bin` is the optionnal binning panels, and
+#' `assays` are the panels of the stacked-matrices.
+#' Default to `c(score = .35, bin = .08, assays = .35)`
+#' @param rel_heights A vector of three elements of relative panel heights.
+#' Default to `c(1, .14, .3)`
 #' @param patterns only if \code{rse} is of class GRanges.
 #' A character vector of column prefixes
 #' (can be regular expressions) that should match columns of \code{rse}.
@@ -133,12 +140,15 @@ plotEpistack <- function(
     x_labels = c("Before", "Anchor", "After"),
     zlim = c(0, 1), ylim = NULL,
     metric_col = "exp", metric_title = "Metric", metric_label = "metric",
+    metric_ylab = NULL,
     metric_transfunc = function(x) x,
     bin_palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
     npix_height = 650, n_core = 1,
     high_mar = c(2.5, 0.6, 4, 0.6), low_mar = c(2.5, 0.6, 0.3, 0.6),
     error_type = c("ci95", "sd", "sem"),
     reversed_z_order = FALSE,
+    rel_widths = c(score = .35, bin = .08, assays = .35),
+    rel_heights = c(1, .14, .3),
     patterns = NULL,
     ...
 ) {
@@ -173,15 +183,24 @@ plotEpistack <- function(
 
     layout_mat <- matrix(seq_len(3 + bin_present * 3 + n_assays * 3),
                          nrow  = 3)
-    layout_heights <- c(1, 0.14, 0.3)
+    layout_heights <- rel_heights
     if (bin_present) {
-        layout_widths <- c(0.35, 0.08, rep(0.35, n_assays))
+        layout_widths <- c(
+            rel_widths[["score"]], rel_widths[["bin"]],
+            rep(rel_widths[["assays"]], n_assays)
+        )
         # boxmetric extend below plotbin
-        layout_mat[3, 2] <- 3
-        layout_mat[layout_mat > 6] <-  layout_mat[layout_mat > 6] - 1
+        layout_mat[2, 2] <- 2
+        layout_mat[3, 2] <- 2
+        layout_mat[layout_mat > 6] <-  layout_mat[layout_mat > 6] - 2
     } else {
-        layout_widths <- c(0.35, rep(0.35, n_assays))
+        layout_widths <- c(
+            rel_widths[["score"]], rep(rel_widths[["assays"]], n_assays)
+        )
     }
+    # box metric also extend higher
+    layout_mat[3, 1] <- 2
+    layout_mat[layout_mat > 2] <-  layout_mat[layout_mat > 2] - 1
 
     graphics::layout(layout_mat,
                      heights = layout_heights, widths = layout_widths)
@@ -195,11 +214,9 @@ plotEpistack <- function(
         S4Vectors::mcols(rse)[[metric_col]],
         title = metric_title,
         trans_func = metric_transfunc,
-        xlab = metric_label
+        xlab = metric_label, ylab = metric_ylab
     )
-    graphics::par(mar = low_mar)
-    graphics::plot.new()
-    graphics::par(mar = low_mar + c(0, 4, 0, 0))
+    graphics::par(mar = low_mar + c(0, 4, 3, 0))
     plotBoxMetric(
         rse, trans_func = metric_transfunc,
         palette = bin_palette,
@@ -212,7 +229,6 @@ plotEpistack <- function(
         graphics::par(mar = high_mar)
         plotBinning(rse, target_height = npix_height, palette = bin_palette)
         graphics::par(mar = low_mar)
-        graphics::plot.new()
     }
 
     if(!is.list(zlim)) {

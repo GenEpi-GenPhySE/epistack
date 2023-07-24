@@ -17,6 +17,7 @@ plotEpistack(
   metric_col = "exp",
   metric_title = "Metric",
   metric_label = "metric",
+  metric_ylab = NULL,
   metric_transfunc = function(x) x,
   bin_palette = colorRampPalette(c("#DF536B", "black", "#61D04F")),
   npix_height = 650,
@@ -25,6 +26,8 @@ plotEpistack(
   low_mar = c(2.5, 0.6, 0.3, 0.6),
   error_type = c("ci95", "sd", "sem"),
   reversed_z_order = FALSE,
+  rel_widths = c(score = 0.35, bin = 0.08, assays = 0.35),
+  rel_heights = c(1, 0.14, 0.3),
   patterns = NULL,
   ...
 )
@@ -62,6 +65,8 @@ such as expression value, peak height, pvalue, fold change, etc.}
 
 \item{metric_label}{label of the leftmost plots.}
 
+\item{metric_ylab}{y axis label of the top left plot.}
+
 \item{metric_transfunc}{a function to transform value of \code{metric_col}
 before plotting. Useful to apply log10 transformation
 (i.e. with \code{trans_func = function(x) log10(x+1)}).}
@@ -91,6 +96,14 @@ or \code{"ci95"} (95\% confidence interval). Default: \code{"ci95"}.}
 
 \item{reversed_z_order}{For the bottom panels: should the z-order of
 the curves be reversed (i.e. first or last bin on top)?}
+
+\item{rel_widths}{A named vector of three elements of relative panel widths:
+\code{score} is the left-most panel, \code{bin} is the optionnal binning panels, and
+\code{assays} are the panels of the stacked-matrices.
+Default to \code{c(score = .35, bin = .08, assays = .35)}}
+
+\item{rel_heights}{A vector of three elements of relative panel heights.
+Default to \code{c(1, .14, .3)}}
 
 \item{patterns}{only if \code{rse} is of class GRanges.
 A character vector of column prefixes
