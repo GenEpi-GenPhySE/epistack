@@ -311,7 +311,7 @@ We then add the peak coordinates and each matrix to a
 
 ```{r ready_to_plot}
 merged_peaks <- SummarizedExperiment(
-    rowData = merged_peaks,
+    rowRanges = merged_peaks,
     assays = coverage_matrices
 )
 ```
@@ -462,7 +462,7 @@ h3k4me3stack <- normalizeToMatrix(
 )
 
 epidata <- SummarizedExperiment(
-    rowData = epidata,
+    rowRanges = epidata,
     assays = list(DNAme = methstack, H3K4me3 = h3k4me3stack)
 )
 ```

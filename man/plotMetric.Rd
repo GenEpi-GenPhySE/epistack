@@ -9,7 +9,8 @@ plotMetric(
   trans_func = function(x) x,
   title = "Metric",
   ylim = NULL,
-  xlab = NULL
+  xlab = NULL,
+  ylab = NULL
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ Useful to apply log10 transformation
 \item{ylim}{limit of the y axis; format: \code{ylim = c(min, max)}}
 
 \item{xlab}{x-axis title}
+
+\item{ylab}{y-axis title}
 }
 \value{
 Display a plot.
