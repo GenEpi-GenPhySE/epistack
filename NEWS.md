@@ -1,4 +1,10 @@
 # epistack 1.7.1 (2022-07-21)
++ New parameters in `plotEpistack()`: `rel_widths` and `rel_heights`, 
+to adjust the relative widths and heights of the panels.
++ In `plotEpistack()`, the boxMetric panel is now a bit higher.
++ `plotMetric()` now have a `ylab` parameter, exposed in `plotEpistack()`
+
+# epistack 1.7.1 (2022-07-21)
 + left-most panel in `plotEpistack()` is a bit wider
 + fixed a code typo in vignette
 

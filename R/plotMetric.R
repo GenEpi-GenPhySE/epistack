@@ -10,6 +10,7 @@
 #' @param title Title of the plot.
 #' @param ylim limit of the y axis; format: \code{ylim = c(min, max)}
 #' @param xlab x-axis title
+#' @param ylab y-axis title
 #'
 #' @export
 #'
@@ -23,7 +24,8 @@
 #' plotMetric(SummarizedExperiment::rowRanges(stackepi)$exp)
 #'
 plotMetric <- function(
-    x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL
+    x, trans_func = function(x) x, title = "Metric", ylim = NULL, xlab = NULL,
+    ylab = NULL
 ){
     plot(
         x = rev(trans_func(x)),
@@ -36,6 +38,6 @@ plotMetric <- function(
     graphics::box()
     graphics::axis(1)
     graphics::axis(2, at = c(1, length(x)))
-    graphics::title(xlab = xlab)
+    graphics::title(xlab = xlab, ylab = ylab)
     mtext(side = 3, title , line = 0.5, cex = 0.8 * graphics::par()$cex.main)
 }
